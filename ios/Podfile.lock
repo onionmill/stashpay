@@ -1,5 +1,11 @@
 PODS:
   - boost (1.83.0)
+  - breez_sdk_liquid (0.2.0):
+    - BreezSDKLiquid (= 0.2.0)
+    - React-Core
+  - breez_sdk_liquidFFI (0.2.0)
+  - BreezSDKLiquid (0.2.0):
+    - breez_sdk_liquidFFI (= 0.2.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.74.4)
   - fmt (9.1.0)
@@ -1169,6 +1175,7 @@ PODS:
 
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - "breez_sdk_liquid (from `../node_modules/@breeztech/react-native-breez-sdk-liquid`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
@@ -1227,11 +1234,15 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - breez_sdk_liquidFFI
+    - BreezSDKLiquid
     - SocketRocket
 
 EXTERNAL SOURCES:
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
+  breez_sdk_liquid:
+    :path: "../node_modules/@breeztech/react-native-breez-sdk-liquid"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -1342,6 +1353,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
+  breez_sdk_liquid: c38ae668542f1a12b33bdf2ec0021417fee7192a
+  breez_sdk_liquidFFI: d8ff5aff8a23da79c5853a12f9eb7d9e13b0d14e
+  BreezSDKLiquid: 4aa820327bf5471378e9e04e5c8d1df83021057d
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 4c674c2d53de79c145d6a723910543d7b57ed74c
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
@@ -1395,8 +1409,8 @@ SPEC CHECKSUMS:
   React-utils: e8b0eac797c81c574b24f6515fec4015599b643c
   ReactCommon: eebffb37a90138c6db6eb8b2d952e7e5c6bc083c
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 6259f968a4fdf516d76a4432dead624d71aa0fb1
+  Yoga: 0efb3e1bd40ba59b009f01badea863281101de78
 
 PODFILE CHECKSUM: 753743ce80481035dbf34dbcdb091946a81e4c07
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2

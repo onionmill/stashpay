@@ -1653,6 +1653,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@breeztech/react-native-breez-sdk-liquid@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.2.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: fed465aaa1372e2b7ef6ba3f2c93f5fd1d42c15ce4fb4826247e4d2fddd26a789a5a9d1e4e563ad27e75ac4f19e6c4ee12d3acac3ca9ee92876c011184498c64
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.2.0, @eslint-community/eslint-utils@npm:^4.4.0":
   version: 4.4.0
   resolution: "@eslint-community/eslint-utils@npm:4.4.0"
@@ -8670,6 +8680,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@breeztech/react-native-breez-sdk-liquid": 0.2.0
     "@react-native/babel-preset": 0.74.86
     "@react-native/eslint-config": 0.74.86
     "@react-native/metro-config": 0.74.86
