@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@breeztech/react-native-breez-sdk-liquid": "0.2.0",
+    "@react-native-community/clipboard": "^1.5.1",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
