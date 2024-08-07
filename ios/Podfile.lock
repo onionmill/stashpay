@@ -1192,7 +1192,7 @@ PODS:
     - React-utils (= 0.74.4)
   - RNCAsyncStorage (1.24.0):
     - React-Core
-  - RNCClipboard (1.5.1):
+  - RNCClipboard (1.14.1):
     - React-Core
   - RNGestureHandler (2.18.1):
     - DoubleConversion
@@ -1329,7 +1329,7 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
-  - "RNCClipboard (from `../node_modules/@react-native-community/clipboard`)"
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - "RNICloudStore (from `../node_modules/@photon-sdk/react-native-icloudstore`)"
@@ -1467,7 +1467,7 @@ EXTERNAL SOURCES:
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
-    :path: "../node_modules/@react-native-community/clipboard"
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
@@ -1548,7 +1548,7 @@ SPEC CHECKSUMS:
   React-utils: e8b0eac797c81c574b24f6515fec4015599b643c
   ReactCommon: eebffb37a90138c6db6eb8b2d952e7e5c6bc083c
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
-  RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
+  RNCClipboard: 0a720adef5ec193aa0e3de24c3977222c7e52a37
   RNGestureHandler: efed690b8493a00b99654043daeb1335276ac4a2
   RNGoogleSignin: 08dc4ba7eac2096c7fecfe109f0950fa4683c803
   RNICloudStore: 39b85428b446131675e96e807b6641052c5a9a27
