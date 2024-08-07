@@ -25,7 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import './src';
+import './src/action/liquid-wallet';
 
 type SectionProps = PropsWithChildren<{
   title: string;
