@@ -26,6 +26,7 @@ const pillStyles = StyleSheet.create({
 
 export const PillButton = ({onPress, disabled, children, style}) => (
   <TouchableOpacity
+    // eslint-disable-next-line react-native/no-inline-styles
     style={[{opacity: disabled ? 0.5 : 1}, pillStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
