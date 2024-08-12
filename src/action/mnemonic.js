@@ -8,7 +8,7 @@ async function randomBytes(size) {
       if (err) {
         reject(err);
       } else {
-        resolve(null, Buffer.from(bytes, 'base64'));
+        resolve(Buffer.from(bytes, 'base64'));
       }
     });
   });
@@ -16,7 +16,7 @@ async function randomBytes(size) {
 
 export async function generateMnemonic() {
   const buf = await randomBytes(16);
-  return bip39.entropyToMnemonic(buf.toString('hex'));
+  return bip39.entropyToMnemonic(buf);
 }
 
 export function validateMnemonic(secret) {
