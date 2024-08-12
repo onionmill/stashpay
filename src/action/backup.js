@@ -1,9 +1,10 @@
-import {HDSegwitBech32Wallet, KeyBackup} from '@photon-sdk/photon-lib';
+import {KeyBackup} from '@photon-sdk/photon-lib';
 
 import store from '../store';
 import * as nav from './nav';
 import * as alert from './alert';
 import {saveToDisk, savePinToDisk} from './wallet';
+import {generateMnemonic} from './mnemonic';
 import {Platform} from 'react-native';
 
 const platform = Platform.OS === 'ios' ? 'iCloud' : 'Google Drive';
@@ -81,13 +82,11 @@ export async function validatePinVerify() {
 
 async function _generateWalletAndBackup(pin) {
   // generate new wallet
-  const wallet = new HDSegwitBech32Wallet();
-  await wallet.generate();
-  const mnemonic = await wallet.getSecret();
+  const mnemonic = await generateMnemonic();
   // cloud backup of encrypted seed
   const data = {mnemonic};
   await KeyBackup.createBackup({data, pin});
-  await saveToDisk(wallet, pin);
+  await saveToDisk(mnemonic, pin);
 }
 
 //
@@ -177,11 +176,5 @@ async function _verifyPinAndRestore() {
   const {pin} = store.backup;
   // fetch encryption key and decrypt cloud backup
   const {mnemonic} = await KeyBackup.restoreBackup({pin});
-  // restore wallet from seed
-  const wallet = new HDSegwitBech32Wallet();
-  wallet.setSecret(mnemonic);
-  if (!wallet.validateMnemonic()) {
-    throw Error('Cannot validate mnemonic');
-  }
-  await saveToDisk(wallet, pin);
+  await saveToDisk(mnemonic, pin);
 }

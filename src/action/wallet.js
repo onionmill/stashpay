@@ -1,68 +1,48 @@
 import {DevSettings} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {WalletStore, ElectrumClient} from '@photon-sdk/photon-lib';
+import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
 import * as nav from './nav';
 import * as alert from './alert';
+import * as keychain from './keychain';
+import {validateMnemonic} from './mnemonic';
 import {nap} from '../util';
 
-export const walletStore = new WalletStore();
 const PIN_KEY = 'photon.pin';
+const MNEMONIC_KEY = 'photon.mnemonic';
 
 //
 // Init and startup
 //
 
 export async function savePinToDisk(pin) {
-  await walletStore.setItem(PIN_KEY, pin);
+  await keychain.setItem(PIN_KEY, pin);
 }
 
-export async function saveToDisk(wallet, pin) {
+export async function saveToDisk(mnemonic, pin) {
+  if (!validateMnemonic(mnemonic)) {
+    throw Error('Cannot validate mnemonic');
+  }
   await savePinToDisk(pin);
-  walletStore.wallets.push(wallet);
-  await walletStore.saveToDisk();
+  await keychain.setItem(MNEMONIC_KEY, mnemonic);
   store.walletReady = true;
 }
 
 export async function loadFromDisk() {
   try {
-    await walletStore.loadFromDisk();
-    store.walletReady = !!getWallet();
+    const mnemonic = await keychain.getItem(MNEMONIC_KEY);
+    store.walletReady = validateMnemonic(mnemonic);
     return store.walletReady;
   } catch (err) {
     console.error(err);
   }
 }
 
-export function getWallet() {
-  const multisig = getMultisigWallet();
-  if (multisig) {
-    return multisig;
-  }
-  const [wallet] = walletStore.getWallets();
-  return wallet;
-}
-
-export function getMultisigWallet() {
-  const wallets = walletStore.getWallets();
-  return wallets.length === 2 ? wallets[1] : null;
-}
-
 export async function checkPin() {
   try {
     const {pin} = store.backup;
-    const storedPin = await walletStore.getItem(PIN_KEY);
-    // migration to local PIN storage ...
-    if (!storedPin) {
-      return alert.confirm({
-        title: 'Heads up',
-        message:
-          'No PIN stored in local keychain. Wipe app storage and restart?',
-        onOk: () => _wipeAndRestart(),
-      });
-    }
-    // ... migration end
+    const storedPin = await keychain.getItem(PIN_KEY);
     if (storedPin === pin) {
       nav.reset('Main');
     } else {
@@ -75,8 +55,10 @@ export async function checkPin() {
 
 export async function initElectrumClient() {
   try {
-    await ElectrumClient.connectMain(store.config.electrum);
-    await ElectrumClient.waitTillConnected();
+    const mnemonic = await keychain.getItem(MNEMONIC_KEY);
+    const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
+    await liquid.connect({mnemonic, config});
+    console.log('liquid wallet connected');
     store.electrumConnected = true;
   } catch (err) {
     console.error(err);
@@ -86,10 +68,6 @@ export async function initElectrumClient() {
 //
 // Wallet usage apis
 //
-
-export function loadXpub() {
-  store.xpub = getWallet().getXpub();
-}
 
 export function loadBalance() {
   store.balance = walletStore.getBalance() || null;
@@ -101,8 +79,15 @@ export function loadTransactions() {
 
 export async function fetchBalance() {
   try {
-    await walletStore.fetchWalletBalances();
-    store.balance = walletStore.getBalance();
+    const info = await liquid.getInfo();
+    if (!info) {
+      store.balance = null;
+      return;
+    }
+    console.log(`Wallet balance: ${info.balanceSat}`);
+    console.log(`Wallet pending send balance: ${info.pendingSendSat}`);
+    console.log(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
+    store.balance = info.balanceSat + info.pendingReceiveSat || null;
   } catch (err) {
     console.error(err);
   }
@@ -149,7 +134,26 @@ export async function fetchNextAddress() {
   while (!store.electrumConnected) {
     await nap(100);
   }
-  store.nextAddress = await getWallet().getAddressAsync();
+
+  // Set the amount you wish the payer to send, which should be within the above limits
+  const prepareRes = await liquid.prepareReceivePayment({
+    payerAmountSat: 1_000,
+  });
+
+  // If the fees are acceptable, continue to create the Receive Payment
+  const receiveFeesSat = prepareRes.feesSat;
+  console.log(`Receive fees, in sats: ${receiveFeesSat}`);
+
+  const optionalDescription = '<description>';
+  const res = await liquid.receivePayment({
+    prepareRes,
+    description: optionalDescription,
+  });
+
+  const invoice = res.invoice;
+  console.log(`Invoice: ${invoice}`);
+
+  store.nextAddress = invoice;
 }
 
 //
