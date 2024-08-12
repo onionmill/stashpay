@@ -3,7 +3,6 @@
  */
 
 import * as RNKeychain from 'react-native-keychain';
-import { isString } from './verify';
 
 const VERSION = '1';
 const USER = 'photon.user';
@@ -41,4 +40,8 @@ export async function getItem(key) {
   } else {
     return null;
   }
+}
+
+function isString(o) {
+  return typeof o === 'string' || o instanceof String;
 }
