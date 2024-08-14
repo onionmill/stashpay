@@ -46,10 +46,7 @@ const Address = () => (
   <View>
     <View style={styles.codeWrapper}>
       <QRCode size={260}>{store.nextAddress}</QRCode>
-      <Text
-        style={styles.addressText}
-        adjustsFontSizeToFit={true}
-        numberOfLines={1}>
+      <Text style={styles.addressText} numberOfLines={1}>
         {store.nextAddress}
       </Text>
     </View>
