@@ -74,11 +74,7 @@ export async function validateAmount() {
       message: 'Checking...',
     });
     await createTransaction();
-    if (walletLib.getMultisigWallet()) {
-      nav.goTo('SendPsbt');
-    } else {
-      nav.goTo('SendConfirm');
-    }
+    nav.goTo('SendConfirm');
   } catch (err) {
     nav.goTo('SendAmount');
     alert.error({err});
