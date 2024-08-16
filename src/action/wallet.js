@@ -117,7 +117,7 @@ export async function update() {
   }
   await fetchBalance();
   // await fetchTransactions();
-  await saveCache();
+  // await saveCache();
   store.balanceRefreshing = false;
 }
 

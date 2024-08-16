@@ -30,13 +30,12 @@ when(
 when(
   () => store.walletReady,
   async () => {
-    await wallet.initElectrumClient();
-    await wallet.fetchBalance();
     // wallet.loadBalance();
     // wallet.loadTransactions();
-    // await Promise.all([
-    //   wallet.update(),
-    //   userId.fetchUserIds(),
-    // ]);
+    await Promise.all([
+      wallet.initElectrumClient(),
+      wallet.update(),
+      userId.fetchUserIds(),
+    ]);
   },
 );
