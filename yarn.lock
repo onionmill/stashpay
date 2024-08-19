@@ -1653,13 +1653,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@breeztech/react-native-breez-sdk-liquid@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.2.0"
+"@breeztech/react-native-breez-sdk-liquid@npm:0.2.1":
+  version: 0.2.1
+  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.2.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: fed465aaa1372e2b7ef6ba3f2c93f5fd1d42c15ce4fb4826247e4d2fddd26a789a5a9d1e4e563ad27e75ac4f19e6c4ee12d3acac3ca9ee92876c011184498c64
+  checksum: 06dfee165500a493612d3ea2a257ea533aa75f74dd4d1a7ecc70a990352ac58d3e82416bf09589bf7b736004b2e4931287c2c69b08f99ba421ff072520888a88
   languageName: node
   linkType: hard
 
@@ -10407,7 +10407,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
-    "@breeztech/react-native-breez-sdk-liquid": 0.2.0
+    "@breeztech/react-native-breez-sdk-liquid": 0.2.1
     "@photon-sdk/photon-lib": ^0.11.0
     "@photon-sdk/react-native-icloudstore": ^1.0.0
     "@photon-sdk/react-native-tcp": ^6.3.0

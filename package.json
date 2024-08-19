@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@breeztech/react-native-breez-sdk-liquid": "0.2.0",
+    "@breeztech/react-native-breez-sdk-liquid": "0.2.1",
     "@photon-sdk/photon-lib": "^0.11.0",
     "@photon-sdk/react-native-icloudstore": "^1.0.0",
     "@photon-sdk/react-native-tcp": "^6.3.0",
