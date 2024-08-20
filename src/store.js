@@ -7,7 +7,8 @@ const store = observable({
   navReady: false,
   backupExists: null,
   walletReady: false,
-  electrumConnected: false,
+  liquidConnected: false,
+  liquidListenerId: null,
   xpub: null,
   balance: null,
   balanceRefreshing: false,
@@ -40,11 +41,6 @@ const store = observable({
 
   // Persistent data
   config: {
-    electrum: {
-      host: 'electrum1.bluewallet.io',
-      tcp: null,
-      ssl: '443',
-    },
     keyServer: 'https://keys-dev.photonsdk.com',
   },
 });

@@ -53,13 +53,22 @@ export async function checkPin() {
   }
 }
 
-export async function initElectrumClient() {
+export async function initLiquidClient() {
   try {
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
-    console.log('liquid wallet connected');
-    store.electrumConnected = true;
+    console.log('Liquid wallet connected');
+    const onEvent = e => {
+      console.log(`Received event: ${e.type}`);
+      update();
+    };
+    store.liquidListenerId = await liquid.addEventListener(onEvent);
+    // const onLogEntry = (l: LogEntry) => {
+    //   console.log(`Received log [${l.level}]: ${l.line}`);
+    // };
+    // const subscription = await liquid.setLogger(onLogEntry);
+    store.liquidConnected = true;
   } catch (err) {
     console.error(err);
   }
@@ -68,14 +77,6 @@ export async function initElectrumClient() {
 //
 // Wallet usage apis
 //
-
-export function loadBalance() {
-  store.balance = walletStore.getBalance() || null;
-}
-
-export function loadTransactions() {
-  store.transactions = walletStore.getTransactions();
-}
 
 export async function fetchBalance() {
   try {
@@ -95,16 +96,7 @@ export async function fetchBalance() {
 
 export async function fetchTransactions() {
   try {
-    await walletStore.fetchWalletTransactions();
-    store.transactions = walletStore.getTransactions();
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export async function saveCache() {
-  try {
-    await walletStore.saveToDisk();
+    store.transactions = await liquid.listPayments({});
   } catch (err) {
     console.error(err);
   }
@@ -112,12 +104,11 @@ export async function saveCache() {
 
 export async function update() {
   store.balanceRefreshing = true;
-  while (!store.walletReady || !store.electrumConnected) {
+  while (!store.walletReady || !store.liquidConnected) {
     await nap(100);
   }
   await fetchBalance();
   // await fetchTransactions();
-  // await saveCache();
   store.balanceRefreshing = false;
 }
 
@@ -131,7 +122,7 @@ export function copyAddress() {
 
 export async function fetchNextAddress() {
   store.nextAddress = null;
-  while (!store.electrumConnected) {
+  while (!store.liquidConnected) {
     await nap(100);
   }
 
@@ -170,7 +161,7 @@ export async function logout() {
 
 export async function _wipeAndRestart() {
   try {
-    await _stopElectrumClient();
+    await _stopLiquidClient();
     await _wipeCache();
     DevSettings.reload();
   } catch (err) {
@@ -178,13 +169,13 @@ export async function _wipeAndRestart() {
   }
 }
 
-async function _stopElectrumClient() {
-  await ElectrumClient.forceDisconnect();
-  store.electrumConnected = false;
+async function _stopLiquidClient() {
+  await liquid.removeEventListener(store.liquidListenerId);
+  store.liquidConnected = false;
 }
 
 async function _wipeCache() {
-  const newStore = new WalletStore();
-  await newStore.saveToDisk();
+  await keychain.setItem(MNEMONIC_KEY, null);
+  await keychain.setItem(PIN_KEY, null);
   store.walletReady = false;
 }
