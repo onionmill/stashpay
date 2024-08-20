@@ -1,17 +1,12 @@
 import Clipboard from '@react-native-clipboard/clipboard';
-import RNShare from 'react-native-share';
-import DocumentPicker from 'react-native-document-picker';
-import RNFS from 'react-native-fs';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
 import * as nav from './nav';
 import * as alert from './alert';
-import * as walletLib from './wallet';
 
 export async function initSendAddress() {
   store.send.value = null;
-  store.send.address = null;
   store.send.invoice = null;
   store.send.feesSat = null;
   store.send.description = null;
@@ -48,9 +43,9 @@ async function prepareBolt11Payment(invoice) {
   });
   console.log(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
   store.send.value = invoice.amountMsat / 1000;
-  store.send.description = invoice.description;
-  store.send.feesSat = prepareSendResponse.feesSat;
   store.send.invoice = prepareSendResponse.invoice;
+  store.send.feesSat = prepareSendResponse.feesSat;
+  store.send.description = invoice.description;
 }
 
 export async function pasteAddress() {
@@ -71,10 +66,20 @@ export async function validateAmount() {
     nav.goTo('SendWait', {
       message: 'Checking...',
     });
-    await createTransaction();
+    // await createTransaction();
     nav.goTo('SendConfirm');
   } catch (err) {
     nav.goTo('SendAmount');
+    alert.error({err});
+  }
+}
+
+export async function validateSend() {
+  try {
+    nav.goTo('SendSuccess');
+    await sendPayment();
+  } catch (err) {
+    nav.goTo('SendConfirm');
     alert.error({err});
   }
 }
@@ -88,70 +93,4 @@ async function sendPayment() {
   } catch (err) {
     alert.error({err});
   }
-}
-
-export async function createTransaction() {
-  let {value, feeRate, address} = store.send;
-  value = value ? parseInt(value, 10) : undefined;
-  feeRate = parseInt(feeRate, 10);
-  const wallet = walletLib.getWallet();
-  await wallet.fetchUtxo();
-  const utxo = wallet.getUtxo();
-  const target = [{value, address}];
-  const changeTo = await wallet.getAddressAsync();
-  store.send.newTx = wallet.createTransaction(utxo, target, feeRate, changeTo);
-}
-
-export async function exportPsbt() {
-  try {
-    await _sharePsbtFile();
-  } catch (err) {
-    alert.error({err});
-  }
-}
-
-async function _sharePsbtFile() {
-  const psbtBase64 = store.send.newTx.psbt.toBase64();
-  const filePath = `${RNFS.DocumentDirectoryPath}/${Date.now()}.psbt`;
-  await RNFS.writeFile(filePath, psbtBase64, 'base64');
-  await RNShare.open({
-    url: `file://${filePath}`,
-    type: 'application/octet-stream',
-    saveToFiles: true,
-  });
-  await RNFS.unlink(filePath);
-}
-
-export async function importSignedPbst() {
-  try {
-    await _importPbstFile();
-    nav.goTo('SendConfirm');
-  } catch (err) {
-    alert.error({err});
-  }
-}
-
-async function _importPbstFile() {
-  const res = await DocumentPicker.pick({
-    type: [DocumentPicker.types.allFiles],
-  });
-  const psbtBase64 = await RNFS.readFile(res.uri, 'base64');
-  const wallet = walletLib.getWallet();
-  store.send.newTx.tx = wallet.combinePsbt(store.send.newTx.psbt, psbtBase64);
-}
-
-export async function validateSend() {
-  try {
-    nav.goTo('SendSuccess');
-    await sendPayment();
-  } catch (err) {
-    nav.goTo('SendConfirm');
-    alert.error({err});
-  }
-}
-
-export async function broadcastTransaction() {
-  const {newTx} = store.send;
-  const wallet = walletLib.getWallet();
-  await wallet.broadcastTx(newTx.tx.toHex());
 }

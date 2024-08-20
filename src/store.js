@@ -33,8 +33,6 @@ const store = observable({
   send: {
     value: null,
     feeRate: '2',
-    address: null,
-    newTx: {},
     invoice: null,
     feesSat: null,
     description: null,
