@@ -35,6 +35,9 @@ const store = observable({
     feeRate: '2',
     address: null,
     newTx: {},
+    invoice: null,
+    feesSat: null,
+    description: null,
   },
 
   // Persistent data

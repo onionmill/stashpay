@@ -2,62 +2,60 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import RNShare from 'react-native-share';
 import DocumentPicker from 'react-native-document-picker';
 import RNFS from 'react-native-fs';
-import {ElectrumClient} from '@photon-sdk/photon-lib';
-import urlParse from 'url-parse';
+import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
-import {nap, btcToSat} from '../util';
 import * as nav from './nav';
 import * as alert from './alert';
 import * as walletLib from './wallet';
 
-const BLOCK_TARGET = 48; // 8 hours
-
 export async function initSendAddress() {
   store.send.value = null;
   store.send.address = null;
-  await fetchFeeRate();
-}
-
-export async function fetchFeeRate() {
-  try {
-    while (!store.electrumConnected) {
-      await nap(100);
-    }
-    const satPerByte = await ElectrumClient.estimateFee(BLOCK_TARGET);
-    store.send.feeRate = String(satPerByte);
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export function isAddress(str) {
-  return /^[a-zA-Z0-9]{26,90}$/.test(str);
+  store.send.invoice = null;
+  store.send.feesSat = null;
+  store.send.description = null;
 }
 
 export async function readQRCode(uri) {
-  if (store.send.address) {
+  if (store.send.invoice) {
     return;
   }
-  const {
-    pathname: address,
-    query: {amount},
-  } = urlParse(uri, true);
-  setAmount(amount ? String(btcToSat(amount)) : null);
-  validateAddress(address);
+  store.send.invoice = uri;
+  await parseUri(uri);
+}
+
+async function parseUri(uri) {
+  try {
+    console.log(`Uri to parse: ${uri}`);
+    const input = await liquid.parse(uri);
+    console.log(`Parsed payment data: ${JSON.stringify(input)}`);
+    if (input.type === liquid.InputTypeVariant.BOLT11) {
+      await prepareBolt11Payment(input.invoice);
+    } else {
+      return alert.error({message: 'Unknown QR code!'});
+    }
+    // nav.goTo('SendConfirm');
+    await sendPayment();
+  } catch (err) {
+    alert.error({err});
+  }
+}
+
+async function prepareBolt11Payment(invoice) {
+  const prepareSendResponse = await liquid.prepareSendPayment({
+    invoice: invoice.bolt11,
+  });
+  console.log(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
+  store.send.value = invoice.amountMsat / 1000;
+  store.send.description = invoice.description;
+  store.send.feesSat = prepareSendResponse.feesSat;
+  store.send.invoice = prepareSendResponse.invoice;
 }
 
 export async function pasteAddress() {
-  const address = await Clipboard.getString();
-  validateAddress(address);
-}
-
-export function validateAddress(address) {
-  if (!isAddress(address)) {
-    return alert.error({message: 'Invalid address!'});
-  }
-  store.send.address = address;
-  nav.goTo('SendAmount');
+  const uri = await Clipboard.getString();
+  await parseUri(uri);
 }
 
 export function setAmount(value) {
@@ -77,6 +75,17 @@ export async function validateAmount() {
     nav.goTo('SendConfirm');
   } catch (err) {
     nav.goTo('SendAmount');
+    alert.error({err});
+  }
+}
+
+async function sendPayment() {
+  const {invoice, feesSat} = store.send;
+  try {
+    const sendResponse = await liquid.sendPayment({invoice, feesSat});
+    console.log(`Send response: ${JSON.stringify(sendResponse)}`);
+    return sendResponse.payment;
+  } catch (err) {
     alert.error({err});
   }
 }
@@ -134,7 +143,7 @@ async function _importPbstFile() {
 export async function validateSend() {
   try {
     nav.goTo('SendSuccess');
-    await broadcastTransaction();
+    await sendPayment();
   } catch (err) {
     nav.goTo('SendConfirm');
     alert.error({err});
