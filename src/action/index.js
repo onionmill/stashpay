@@ -14,7 +14,7 @@ when(
     backup.init();
     const hasWallet = await wallet.loadFromDisk();
     if (hasWallet) {
-      nav.reset('PinCheck');
+      nav.reset('Main');
       return;
     }
     await backup.authenticate();
