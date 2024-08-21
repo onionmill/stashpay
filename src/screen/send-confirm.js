@@ -51,12 +51,12 @@ const SendConfirmScreen = () => (
       <Text style={styles.fee} adjustsFontSizeToFit={true} numberOfLines={1}>
         {store.sendFeeLabel} sats
       </Text>
-      <Text style={styles.label}>To:</Text>
+      <Text style={styles.label}>Note:</Text>
       <Text
         style={styles.addressText}
         adjustsFontSizeToFit={true}
         numberOfLines={1}>
-        {store.send.newTx.outputs[0].address}
+        {store.send.description}
       </Text>
     </View>
     <PillButton style={styles.nextBtn} onPress={() => send.validateSend()}>

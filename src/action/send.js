@@ -30,8 +30,7 @@ async function parseUri(uri) {
     } else {
       return alert.error({message: 'Unknown QR code!'});
     }
-    // nav.goTo('SendConfirm');
-    await sendPayment();
+    nav.goTo('SendStack', {screen: 'SendConfirm'});
   } catch (err) {
     alert.error({err});
   }

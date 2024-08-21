@@ -4,10 +4,10 @@ import {formatNumber} from '../util';
 const ComputedSend = store => {
   extendObservable(store, {
     get sendValueLabel() {
-      return formatNumber(store.send.newTx.outputs[0].value);
+      return formatNumber(store.send.value);
     },
     get sendFeeLabel() {
-      return formatNumber(store.send.newTx.fee);
+      return formatNumber(store.send.feesSat);
     },
   });
 };

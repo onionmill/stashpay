@@ -89,7 +89,7 @@ const SendStackScreen = () => (
           <Button title="Amount" onPress={() => nav.goTo('SendAmount')} />
         ),
         headerRight: () => (
-          <Button title="Cancel" onPress={() => nav.goTo('Wallet')} />
+          <Button title="Cancel" onPress={() => nav.goTo('Send')} />
         ),
       }}
     />
@@ -265,7 +265,7 @@ const App = () => (
         options={{title: 'Photon'}}
       />
       <RootStack.Screen
-        name="SendAmount"
+        name="SendStack"
         component={SendStackScreen}
         options={{headerShown: false}}
       />
