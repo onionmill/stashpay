@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -29,14 +29,14 @@ import EmailPinScreen from './screen/email-pin';
 import EmailVerifyScreen from './screen/email-verify';
 import WaitScreen from './screen/wait';
 
-const BackupStack = createStackNavigator();
-const SendStack = createStackNavigator();
-const PinChangeStack = createStackNavigator();
-const PinCheckStack = createStackNavigator();
-const RestoreStack = createStackNavigator();
-const EmailSetStack = createStackNavigator();
+const BackupStack = createNativeStackNavigator();
+const SendStack = createNativeStackNavigator();
+const PinChangeStack = createNativeStackNavigator();
+const PinCheckStack = createNativeStackNavigator();
+const RestoreStack = createNativeStackNavigator();
+const EmailSetStack = createNativeStackNavigator();
 const MainStack = createBottomTabNavigator();
-const RootStack = createStackNavigator();
+const RootStack = createNativeStackNavigator();
 
 const BackupStackScreen = () => (
   <BackupStack.Navigator>
@@ -66,7 +66,7 @@ const SendStackScreen = () => (
       options={{
         title: 'Amount',
         headerLeft: () => (
-          <HeaderBackButton label="Address" onPress={() => nav.goBack()} />
+          <Button title="Address" onPress={() => nav.goBack()} />
         ),
       }}
     />
@@ -76,7 +76,7 @@ const SendStackScreen = () => (
       options={{
         title: 'Sign PSBT',
         headerLeft: () => (
-          <HeaderBackButton label="Amount" onPress={() => nav.goBack()} />
+          <Button title="Amount" onPress={() => nav.goBack()} />
         ),
       }}
     />
@@ -86,10 +86,7 @@ const SendStackScreen = () => (
       options={{
         title: 'Confirm',
         headerLeft: () => (
-          <HeaderBackButton
-            label="Amount"
-            onPress={() => nav.goTo('SendAmount')}
-          />
+          <Button title="Amount" onPress={() => nav.goTo('SendAmount')} />
         ),
         headerRight: () => (
           <Button title="Cancel" onPress={() => nav.goTo('Wallet')} />
@@ -117,7 +114,7 @@ const PinChangeStackScreen = () => (
       options={{
         title: 'Enter Current PIN',
         headerLeft: () => (
-          <HeaderBackButton label="Settings" onPress={() => nav.goBack()} />
+          <Button title="Settings" onPress={() => nav.goBack()} />
         ),
       }}
     />
@@ -167,10 +164,7 @@ const RestoreStackScreen = () => (
       options={{
         title: 'Verify PIN Reset',
         headerLeft: () => (
-          <HeaderBackButton
-            label="Restore"
-            onPress={() => nav.goTo('RestorePin')}
-          />
+          <Button title="Restore" onPress={() => nav.goTo('RestorePin')} />
         ),
       }}
     />
@@ -195,7 +189,7 @@ const EmailSetStackScreen = () => (
       options={{
         title: 'Set Email',
         headerLeft: () => (
-          <HeaderBackButton label="Settings" onPress={() => nav.goBack()} />
+          <Button title="Settings" onPress={() => nav.goBack()} />
         ),
       }}
     />
