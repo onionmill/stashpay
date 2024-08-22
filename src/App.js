@@ -274,7 +274,7 @@ const App = () => (
         options={{headerShown: false}}
       />
       <RootStack.Screen
-        name="PinChange"
+        name="PinChangeStack"
         component={PinChangeStackScreen}
         options={{headerShown: false}}
       />

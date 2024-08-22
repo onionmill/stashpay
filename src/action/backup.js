@@ -97,7 +97,7 @@ export function initPinChange() {
   store.backup.pin = '';
   store.backup.newPin = '';
   store.backup.pinVerify = '';
-  nav.goTo('PinChange');
+  nav.goTo('PinChangeStack');
 }
 
 export async function validatePinChange() {
