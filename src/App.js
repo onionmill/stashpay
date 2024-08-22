@@ -254,7 +254,7 @@ const App = () => (
         options={{headerShown: false}}
       />
       <RootStack.Screen
-        name="PinCheck"
+        name="PinCheckStack"
         component={PinCheckStackScreen}
         options={{headerShown: false}}
       />
