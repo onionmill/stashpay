@@ -211,24 +211,23 @@ const EmailSetStackScreen = () => (
   </EmailSetStack.Navigator>
 );
 
-const MainTabBarNavigator = ({route}) => ({
-  tabBarIcon: ({focused, color, size}) => {
-    let iconName;
-    if (route.name === 'Wallet') {
-      iconName = 'list';
-    } else if (route.name === 'Send') {
-      iconName = 'send';
-    } else if (route.name === 'Receive') {
-      iconName = 'download';
-    } else if (route.name === 'Settings') {
-      iconName = 'settings';
-    }
-    return <Feather name={iconName} size={size} color={color} />;
-  },
-});
-
 const MainStackScreen = () => (
-  <MainStack.Navigator screenOptions={MainTabBarNavigator}>
+  <MainStack.Navigator
+    screenOptions={({route}) => ({
+      tabBarIcon: ({focused, color, size}) => {
+        let iconName;
+        if (route.name === 'Wallet') {
+          iconName = 'list';
+        } else if (route.name === 'Send') {
+          iconName = 'send';
+        } else if (route.name === 'Receive') {
+          iconName = 'download';
+        } else if (route.name === 'Settings') {
+          iconName = 'settings';
+        }
+        return <Feather name={iconName} size={size} color={color} />;
+      },
+    })}>
     <MainStack.Screen name="Wallet" component={WalletScreen} />
     <MainStack.Screen name="Receive" component={ReceiveScreen} />
     <MainStack.Screen name="Send" component={SendAddressScreen} />
