@@ -269,7 +269,7 @@ const App = () => (
         options={{headerShown: false}}
       />
       <RootStack.Screen
-        name="EmailSet"
+        name="EmailSetStack"
         component={EmailSetStackScreen}
         options={{headerShown: false}}
       />

@@ -19,7 +19,7 @@ export async function fetchUserIds() {
 
 export function initEmailSet() {
   store.userId.email = '';
-  nav.goTo('EmailSet');
+  nav.goTo('EmailSetStack');
 }
 
 export function setEmail(email) {
