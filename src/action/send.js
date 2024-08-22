@@ -75,8 +75,11 @@ export async function validateAmount() {
 
 export async function validateSend() {
   try {
-    nav.goTo('SendSuccess');
+    nav.goTo('SendWait', {
+      message: 'Sending...',
+    });
     await sendPayment();
+    nav.goTo('SendSuccess');
   } catch (err) {
     nav.goTo('SendConfirm');
     alert.error({err});
