@@ -6,6 +6,7 @@ const store = observable({
   // app state
   navReady: false,
   backupExists: null,
+  mnemonic: null,
   walletReady: false,
   liquidConnected: false,
   liquidListenerId: null,
@@ -17,6 +18,9 @@ const store = observable({
   cosigners: [],
 
   // screens
+  restore: {
+    mnemonic: '',
+  },
   backup: {
     pin: '',
     newPin: '',

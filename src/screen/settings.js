@@ -4,8 +4,6 @@ import {observer} from 'mobx-react';
 
 import store from '../store';
 import * as wallet from '../action/wallet';
-import * as backup from '../action/backup';
-import * as userId from '../action/user-id';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -21,14 +19,16 @@ const styles = StyleSheet.create({
 const SettingsScreen = () => (
   <View style={styles.wrapper}>
     <View style={styles.btnWrapper}>
-      <Text>{store.settings.email}</Text>
       <Button
-        title="Set Recovery Email"
-        onPress={() => userId.initEmailSet()}
+        title="Backup/Export Wallet"
+        onPress={() => wallet.initSeedBackup()}
       />
     </View>
     <View style={styles.btnWrapper}>
-      <Button title="Change PIN" onPress={() => backup.initPinChange()} />
+      <Button
+        title="Restore/Import Wallet"
+        onPress={() => wallet.initSeedRestore()}
+      />
     </View>
     <View style={styles.btnWrapper}>
       <Button title="Logout" onPress={() => wallet.logout()} />

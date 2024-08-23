@@ -24,6 +24,8 @@ import SendPsbtScreen from './screen/send-psbt';
 import SendConfirmScreen from './screen/send-confirm';
 import SendSuccessScreen from './screen/send-success';
 import SettingsScreen from './screen/settings';
+import SeedBackupScreen from './screen/seed-backup';
+import SeedRestoreScreen from './screen/seed-restore';
 import EmailSetScreen from './screen/email-set';
 import EmailPinScreen from './screen/email-pin';
 import EmailVerifyScreen from './screen/email-verify';
@@ -35,6 +37,7 @@ const PinChangeStack = createNativeStackNavigator();
 const PinCheckStack = createNativeStackNavigator();
 const RestoreStack = createNativeStackNavigator();
 const EmailSetStack = createNativeStackNavigator();
+const SeedRestoreStack = createNativeStackNavigator();
 const MainStack = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
 
@@ -211,6 +214,21 @@ const EmailSetStackScreen = () => (
   </EmailSetStack.Navigator>
 );
 
+const SeedRestoreStackScreen = () => (
+  <SeedRestoreStack.Navigator>
+    <SeedRestoreStack.Screen
+      name="SeedRestore"
+      component={SeedRestoreScreen}
+      options={{
+        title: 'Restore',
+        headerLeft: () => (
+          <Button title="Settings" onPress={() => nav.goBack()} />
+        ),
+      }}
+    />
+  </SeedRestoreStack.Navigator>
+);
+
 const MainStackScreen = () => (
   <MainStack.Navigator
     screenOptions={({route}) => ({
@@ -262,6 +280,16 @@ const App = () => (
         name="Main"
         component={MainStackScreen}
         options={{title: 'Photon'}}
+      />
+      <RootStack.Screen
+        name="SeedBackup"
+        component={SeedBackupScreen}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
+        name="SeedRestoreStack"
+        component={SeedRestoreStackScreen}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="SendStack"

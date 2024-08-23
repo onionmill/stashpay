@@ -6,51 +6,40 @@ import store from '../store';
 import * as nav from './nav';
 import * as alert from './alert';
 import * as keychain from './keychain';
-import {validateMnemonic} from './mnemonic';
+import {generateMnemonic, validateMnemonic} from './mnemonic';
 import {nap} from '../util';
 
-const PIN_KEY = 'photon.pin';
 const MNEMONIC_KEY = 'photon.mnemonic';
 
 //
 // Init and startup
 //
 
-export async function savePinToDisk(pin) {
-  await keychain.setItem(PIN_KEY, pin);
-}
-
-export async function saveToDisk(mnemonic, pin) {
-  if (!validateMnemonic(mnemonic)) {
-    throw Error('Cannot validate mnemonic');
-  }
-  await savePinToDisk(pin);
-  await keychain.setItem(MNEMONIC_KEY, mnemonic);
-  store.walletReady = true;
-}
-
-export async function loadFromDisk() {
+export async function init() {
   try {
-    const mnemonic = await keychain.getItem(MNEMONIC_KEY);
-    store.walletReady = validateMnemonic(mnemonic);
-    return store.walletReady;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export async function checkPin() {
-  try {
-    const {pin} = store.backup;
-    const storedPin = await keychain.getItem(PIN_KEY);
-    if (storedPin === pin) {
-      nav.reset('Main');
-    } else {
-      alert.error({message: 'Invalid PIN'});
+    const hasWallet = await _getSeedFromKeychain();
+    if (!hasWallet) {
+      await _generateSeedAndSaveToKeychain();
     }
   } catch (err) {
-    console.error(err);
+    alert.error({err});
   }
+}
+
+async function _getSeedFromKeychain() {
+  const mnemonic = await keychain.getItem(MNEMONIC_KEY);
+  store.walletReady = validateMnemonic(mnemonic);
+  store.mnemonic = mnemonic;
+  return store.walletReady;
+}
+
+async function _generateSeedAndSaveToKeychain() {
+  const mnemonic = await generateMnemonic();
+  if (!validateMnemonic(mnemonic)) {
+    throw Error('Generated invalid seed!');
+  }
+  await keychain.setItem(MNEMONIC_KEY, mnemonic);
+  await _getSeedFromKeychain();
 }
 
 export async function initLiquidClient() {
@@ -148,6 +137,35 @@ export async function fetchNextAddress() {
 }
 
 //
+// Seed backup and restore
+//
+
+export function initSeedBackup() {
+  nav.goTo('SeedBackup');
+}
+
+export function initSeedRestore() {
+  nav.goTo('SeedRestoreStack');
+}
+
+export function setMnemonic(mnemonic) {
+  store.restore.mnemonic = mnemonic;
+}
+
+export async function importMnemonic() {
+  try {
+    const mnemonic = store.restore.mnemonic.trim();
+    if (!validateMnemonic(mnemonic)) {
+      throw Error('Invalid seed words');
+    }
+    await keychain.setItem(MNEMONIC_KEY, mnemonic);
+    DevSettings.reload();
+  } catch (err) {
+    alert.error({err});
+  }
+}
+
+//
 // Logout and cleanup
 //
 
@@ -175,7 +193,6 @@ async function _stopLiquidClient() {
 }
 
 async function _wipeCache() {
-  await keychain.setItem(MNEMONIC_KEY, null);
-  await keychain.setItem(PIN_KEY, null);
   store.walletReady = false;
+  await _generateSeedAndSaveToKeychain();
 }
