@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, Button, View, Text} from 'react-native';
+import {StyleSheet, Button, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import store from '../store';
 import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
