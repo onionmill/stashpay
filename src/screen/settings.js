@@ -18,16 +18,10 @@ const styles = StyleSheet.create({
 const SettingsScreen = () => (
   <View style={styles.wrapper}>
     <View style={styles.btnWrapper}>
-      <Button
-        title="Backup/Export Wallet"
-        onPress={() => wallet.initSeedBackup()}
-      />
+      <Button title="Backup Wallet" onPress={() => wallet.initSeedBackup()} />
     </View>
     <View style={styles.btnWrapper}>
-      <Button
-        title="Restore/Import Wallet"
-        onPress={() => wallet.initSeedRestore()}
-      />
+      <Button title="Recover Wallet" onPress={() => wallet.initSeedRestore()} />
     </View>
     <View style={styles.btnWrapper}>
       <Button title="Logout" onPress={() => wallet.logout()} />
