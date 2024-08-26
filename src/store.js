@@ -5,35 +5,18 @@ import ComputedWallet from './computed/wallet';
 const store = observable({
   // app state
   navReady: false,
-  backupExists: null,
   mnemonic: null,
   walletReady: false,
   liquidConnected: false,
   liquidListenerId: null,
-  xpub: null,
   balance: null,
   balanceRefreshing: false,
   transactions: [],
   nextAddress: null,
-  cosigners: [],
 
   // screens
   restore: {
     mnemonic: '',
-  },
-  backup: {
-    pin: '',
-    newPin: '',
-    pinVerify: '',
-  },
-  userId: {
-    email: '',
-    code: '',
-    pin: '',
-    delay: null,
-  },
-  settings: {
-    email: null,
   },
   send: {
     value: null,
@@ -44,9 +27,7 @@ const store = observable({
   },
 
   // Persistent data
-  config: {
-    keyServer: 'https://keys-dev.photonsdk.com',
-  },
+  config: {},
 });
 
 ComputedSend(store);
