@@ -11,6 +11,7 @@ import * as nav from './action/nav';
 import SplashScreen from './screen/splash';
 import WalletScreen from './screen/wallet';
 import ReceiveScreen from './screen/receive';
+import ReceiveAmountScreen from './screen/receive-amount';
 import SendAddressScreen from './screen/send-address';
 import SendAmountScreen from './screen/send-amount';
 import SendConfirmScreen from './screen/send-confirm';
@@ -20,10 +21,24 @@ import SeedBackupScreen from './screen/seed-backup';
 import SeedRestoreScreen from './screen/seed-restore';
 import WaitScreen from './screen/wait';
 
+const ReceiveStack = createNativeStackNavigator();
 const SendStack = createNativeStackNavigator();
 const SeedRestoreStack = createNativeStackNavigator();
 const MainStack = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
+
+const ReceiveStackScreen = () => (
+  <ReceiveStack.Navigator>
+    <ReceiveStack.Screen
+      name="ReceiveAmount"
+      component={ReceiveAmountScreen}
+      options={{
+        title: 'Amount',
+        headerLeft: () => <Button title="Back" onPress={() => nav.goBack()} />,
+      }}
+    />
+  </ReceiveStack.Navigator>
+);
 
 const SendStackScreen = () => (
   <SendStack.Navigator>
@@ -81,7 +96,15 @@ const MainStackScreen = () => (
       },
     })}>
     <MainStack.Screen name="Wallet" component={WalletScreen} />
-    <MainStack.Screen name="Receive" component={ReceiveScreen} />
+    <MainStack.Screen
+      name="Receive"
+      component={ReceiveScreen}
+      options={{
+        headerRight: () => (
+          <Button title="Amount" onPress={() => nav.goTo('ReceiveStack')} />
+        ),
+      }}
+    />
     <MainStack.Screen name="Send" component={SendAddressScreen} />
     <MainStack.Screen name="Settings" component={SettingsScreen} />
   </MainStack.Navigator>
@@ -110,11 +133,18 @@ const App = () => (
         component={SeedRestoreScreen}
         options={{title: 'Recovery', headerBackTitle: 'Cancel'}}
       />
-      <RootStack.Screen
-        name="SendStack"
-        component={SendStackScreen}
-        options={{headerShown: false}}
-      />
+      <RootStack.Group screenOptions={{presentation: 'modal'}}>
+        <RootStack.Screen
+          name="ReceiveStack"
+          component={ReceiveStackScreen}
+          options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name="SendStack"
+          component={SendStackScreen}
+          options={{headerShown: false}}
+        />
+      </RootStack.Group>
     </RootStack.Navigator>
   </NavigationContainer>
 );

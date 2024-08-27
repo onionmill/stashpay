@@ -9,7 +9,7 @@ import {LargeSpinner} from '../component/spinner';
 import {font} from '../component/style';
 
 import store from '../store';
-import * as wallet from '../action/wallet';
+import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  addressText: {
+  feeText: {
     marginTop: 20,
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
 
 const ReceiveScreen = ({navigation}) => {
   React.useEffect(
-    () => navigation.addListener('focus', () => wallet.fetchNextAddress()),
+    () => navigation.addListener('focus', () => receive.fetchInvoice()),
     [navigation],
   );
   return (
     <View style={styles.wrapper}>
-      {store.nextAddress ? <Address /> : <LargeSpinner />}
+      {store.receive.invoice ? <Address /> : <LargeSpinner />}
     </View>
   );
 };
@@ -45,12 +45,12 @@ const ReceiveScreen = ({navigation}) => {
 const Address = () => (
   <View>
     <View style={styles.codeWrapper}>
-      <QRCode size={260}>{store.nextAddress}</QRCode>
-      <Text style={styles.addressText} numberOfLines={1}>
-        {store.nextAddress}
+      <QRCode size={260}>{store.receive.invoice}</QRCode>
+      <Text style={styles.feeText} numberOfLines={1}>
+        Fee to receive: {store.receive.feesSat} sats
       </Text>
     </View>
-    <PillButton onPress={() => wallet.copyAddress()}>Copy Address</PillButton>
+    <PillButton onPress={() => receive.copyInvoice()}>Copy Invoice</PillButton>
   </View>
 );
 

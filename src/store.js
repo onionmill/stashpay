@@ -12,11 +12,16 @@ const store = observable({
   balance: null,
   balanceRefreshing: false,
   transactions: [],
-  nextAddress: null,
 
   // screens
   restore: {
     mnemonic: '',
+  },
+  receive: {
+    value: null,
+    invoice: null,
+    feesSat: null,
+    description: null,
   },
   send: {
     value: null,

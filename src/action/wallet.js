@@ -102,41 +102,6 @@ export async function update() {
 }
 
 //
-// Receive address handling
-//
-
-export function copyAddress() {
-  Clipboard.setString(store.nextAddress);
-}
-
-export async function fetchNextAddress() {
-  store.nextAddress = null;
-  while (!store.liquidConnected) {
-    await nap(100);
-  }
-
-  // Set the amount you wish the payer to send, which should be within the above limits
-  const prepareRes = await liquid.prepareReceivePayment({
-    payerAmountSat: 1_000,
-  });
-
-  // If the fees are acceptable, continue to create the Receive Payment
-  const receiveFeesSat = prepareRes.feesSat;
-  console.log(`Receive fees, in sats: ${receiveFeesSat}`);
-
-  const optionalDescription = '<description>';
-  const res = await liquid.receivePayment({
-    prepareRes,
-    description: optionalDescription,
-  });
-
-  const invoice = res.invoice;
-  console.log(`Invoice: ${invoice}`);
-
-  store.nextAddress = invoice;
-}
-
-//
 // Seed backup and restore
 //
 
