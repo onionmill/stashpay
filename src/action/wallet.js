@@ -145,6 +145,7 @@ export function initSeedBackup() {
 }
 
 export function initSeedRestore() {
+  store.restore.mnemonic = '';
   nav.goTo('SeedRestoreStack');
 }
 

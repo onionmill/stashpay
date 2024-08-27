@@ -14,6 +14,7 @@ import * as wallet from '../action/wallet';
 const styles = StyleSheet.create({
   input: {
     marginTop: 20,
+    height: 150,
   },
   btnWrapper: {
     marginTop: 30,
@@ -29,6 +30,7 @@ const SeedRestoreScreen = () => (
         placeholder="seed words"
         textContentType="password"
         autoFocus
+        multiline
         style={styles.input}
         value={store.restore.mnemonic}
         onChangeText={mnemonic => wallet.setMnemonic(mnemonic)}
