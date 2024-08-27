@@ -140,6 +140,10 @@ export async function fetchNextAddress() {
 // Seed backup and restore
 //
 
+export function copyMnemonic() {
+  Clipboard.setString(store.mnemonic);
+}
+
 export function initSeedBackup() {
   nav.goTo('SeedBackup');
 }

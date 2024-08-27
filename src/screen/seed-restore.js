@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
 const SeedRestoreScreen = () => (
   <Background>
     <MainContent>
-      <H1Text>Restore Wallet</H1Text>
+      <H1Text>Recover Wallet</H1Text>
       <TextInput
-        placeholder="seed words"
+        placeholder="recovery phrase"
         textContentType="password"
         autoFocus
         multiline
@@ -37,7 +37,9 @@ const SeedRestoreScreen = () => (
       />
       <Spacer />
       <View style={styles.btnWrapper}>
-        <PillButton onPress={() => wallet.importMnemonic()}>Import</PillButton>
+        <PillButton onPress={() => wallet.importMnemonic()}>
+          Import Wallet
+        </PillButton>
       </View>
     </MainContent>
   </Background>

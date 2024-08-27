@@ -8,7 +8,7 @@ import {MainContent, Spacer} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
-import * as nav from '../action/nav';
+import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
   seed: {
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
 const SeedBackupScreen = () => (
   <Background>
     <MainContent>
-      <H1Text>Backup Wallet</H1Text>
-      <Text selectable style={styles.seed}>
-        {store.mnemonic}
-      </Text>
+      <H1Text>Recovery Phrase</H1Text>
+      <Text style={styles.seed}>{store.mnemonic}</Text>
       <Spacer />
       <View style={styles.btnWrapper}>
-        <PillButton onPress={() => nav.goBack()}>I wrote it down</PillButton>
+        <PillButton onPress={() => wallet.copyMnemonic()}>
+          Copy to Clipboard
+        </PillButton>
       </View>
     </MainContent>
   </Background>

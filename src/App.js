@@ -63,21 +63,6 @@ const SendStackScreen = () => (
   </SendStack.Navigator>
 );
 
-const SeedRestoreStackScreen = () => (
-  <SeedRestoreStack.Navigator>
-    <SeedRestoreStack.Screen
-      name="SeedRestore"
-      component={SeedRestoreScreen}
-      options={{
-        title: 'Restore',
-        headerLeft: () => (
-          <Button title="Settings" onPress={() => nav.goBack()} />
-        ),
-      }}
-    />
-  </SeedRestoreStack.Navigator>
-);
-
 const MainStackScreen = () => (
   <MainStack.Navigator
     screenOptions={({route}) => ({
@@ -113,17 +98,17 @@ const App = () => (
       <RootStack.Screen
         name="Main"
         component={MainStackScreen}
-        options={{title: 'Photon'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="SeedBackup"
         component={SeedBackupScreen}
-        options={{headerShown: false}}
+        options={{title: 'Backup', headerBackTitle: 'Back'}}
       />
       <RootStack.Screen
         name="SeedRestoreStack"
-        component={SeedRestoreStackScreen}
-        options={{headerShown: false}}
+        component={SeedRestoreScreen}
+        options={{title: 'Recovery', headerBackTitle: 'Cancel'}}
       />
       <RootStack.Screen
         name="SendStack"
