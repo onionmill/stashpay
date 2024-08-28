@@ -1653,13 +1653,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@breeztech/react-native-breez-sdk-liquid@npm:0.2.1":
-  version: 0.2.1
-  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.2.1"
+"@breeztech/react-native-breez-sdk-liquid@npm:0.2.2-dev13":
+  version: 0.2.2-dev13
+  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.2.2-dev13"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 06dfee165500a493612d3ea2a257ea533aa75f74dd4d1a7ecc70a990352ac58d3e82416bf09589bf7b736004b2e4931287c2c69b08f99ba421ff072520888a88
+  checksum: 7d3f7034b092b89d1abbde62452a9d1dd0d4acb26f09463a6c8148367e18c00dc92455fbdff3aa6ec227cc262fd04c622d9b069b9c9994904b538a4f1e2638b9
   languageName: node
   linkType: hard
 
@@ -9811,7 +9811,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
-    "@breeztech/react-native-breez-sdk-liquid": 0.2.1
+    "@breeztech/react-native-breez-sdk-liquid": 0.2.2-dev13
     "@react-native-clipboard/clipboard": ^1.14.1
     "@react-native/babel-preset": 0.74.86
     "@react-native/eslint-config": 0.74.86

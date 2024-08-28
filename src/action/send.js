@@ -7,7 +7,7 @@ import * as alert from './alert';
 
 export async function initSendAddress() {
   store.send.value = null;
-  store.send.invoice = null;
+  store.send.destination = null;
   store.send.feesSat = null;
   store.send.description = null;
 }
@@ -37,12 +37,14 @@ async function parseUri(uri) {
 }
 
 async function prepareBolt11Payment(invoice) {
+  const amountSat = invoice.amountMsat / 1000;
   const prepareSendResponse = await liquid.prepareSendPayment({
-    invoice: invoice.bolt11,
+    destination: invoice.bolt11,
+    amountSat,
   });
   console.log(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
-  store.send.value = invoice.amountMsat / 1000;
-  store.send.invoice = prepareSendResponse.invoice;
+  store.send.value = amountSat;
+  store.send.destination = JSON.stringify(prepareSendResponse.destination);
   store.send.feesSat = prepareSendResponse.feesSat;
   store.send.description = invoice.description;
 }
@@ -87,9 +89,12 @@ export async function validateSend() {
 }
 
 async function sendPayment() {
-  const {invoice, feesSat} = store.send;
   try {
-    const sendResponse = await liquid.sendPayment({invoice, feesSat});
+    const prepareResponse = {
+      destination: JSON.parse(store.send.destination),
+      feesSat: store.send.feesSat,
+    };
+    const sendResponse = await liquid.sendPayment({prepareResponse});
     console.log(`Send response: ${JSON.stringify(sendResponse)}`);
     return sendResponse.payment;
   } catch (err) {

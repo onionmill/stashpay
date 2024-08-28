@@ -18,13 +18,15 @@ export async function fetchInvoice() {
     while (!store.liquidConnected) {
       await nap(100);
     }
-    const payerAmountSat = value ? Number(value) : RECEIVE_MIN;
-    const prepareRes = await liquid.prepareReceivePayment({payerAmountSat});
-    store.receive.feesSat = prepareRes.feesSat;
+    const prepareResponse = await liquid.prepareReceivePayment({
+      payerAmountSat: value ? Number(value) : RECEIVE_MIN,
+      paymentMethod: 'lightning',
+    });
+    store.receive.feesSat = prepareResponse.feesSat;
     console.log(`Receive fees, in sats: ${store.receive.feesSat}`);
 
-    const res = await liquid.receivePayment({prepareRes, description});
-    store.receive.invoice = res.invoice;
+    const res = await liquid.receivePayment({prepareResponse, description});
+    store.receive.invoice = res.destination;
     console.log(`Invoice: ${store.receive.invoice}`);
   } catch (err) {
     alert.error({err});
