@@ -35,6 +35,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>Scan QR Codes for Payment</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
