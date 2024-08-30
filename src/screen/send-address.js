@@ -26,7 +26,7 @@ const SendAddressScreen = ({navigation}) => {
         style={StyleSheet.absoluteFill}
         onQRCodeScanned={({data}) => send.readQRCode(data)}
       />
-      <PillButton onPress={() => send.pasteAddress()}>Paste Address</PillButton>
+      <PillButton onPress={() => send.pasteInvoice()}>Paste Invoice</PillButton>
     </View>
   );
 };

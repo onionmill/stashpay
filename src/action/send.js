@@ -49,7 +49,7 @@ async function prepareBolt11Payment(invoice) {
   store.send.description = invoice.description;
 }
 
-export async function pasteAddress() {
+export async function pasteInvoice() {
   const uri = await Clipboard.getString();
   await parseUri(uri);
 }
