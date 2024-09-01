@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@breeztech/react-native-breez-sdk-liquid": "0.2.2-dev13",
+    "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-native-clipboard/clipboard": "^1.14.1",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
