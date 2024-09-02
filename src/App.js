@@ -58,10 +58,7 @@ const SendStackScreen = () => (
       options={{
         title: 'Confirm',
         headerLeft: () => (
-          <Button title="Amount" onPress={() => nav.goTo('SendAmount')} />
-        ),
-        headerRight: () => (
-          <Button title="Cancel" onPress={() => nav.goTo('Send')} />
+          <Button title="Cancel" onPress={() => nav.goBack()} />
         ),
       }}
     />
