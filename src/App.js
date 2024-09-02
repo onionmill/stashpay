@@ -32,10 +32,7 @@ const ReceiveStackScreen = () => (
     <ReceiveStack.Screen
       name="ReceiveAmount"
       component={ReceiveAmountScreen}
-      options={{
-        title: 'Amount',
-        headerLeft: () => <Button title="Back" onPress={() => nav.goBack()} />,
-      }}
+      options={{headerShown: false}}
     />
   </ReceiveStack.Navigator>
 );
@@ -130,18 +127,16 @@ const App = () => (
         component={SeedRestoreScreen}
         options={{title: 'Recovery', headerBackTitle: 'Cancel'}}
       />
-      <RootStack.Group screenOptions={{presentation: 'modal'}}>
-        <RootStack.Screen
-          name="ReceiveStack"
-          component={ReceiveStackScreen}
-          options={{headerShown: false}}
-        />
-        <RootStack.Screen
-          name="SendStack"
-          component={SendStackScreen}
-          options={{headerShown: false}}
-        />
-      </RootStack.Group>
+      <RootStack.Screen
+        name="ReceiveStack"
+        component={ReceiveStackScreen}
+        options={{title: 'Amount', headerBackTitle: 'Back'}}
+      />
+      <RootStack.Screen
+        name="SendStack"
+        component={SendStackScreen}
+        options={{headerShown: false}}
+      />
     </RootStack.Navigator>
   </NavigationContainer>
 );
