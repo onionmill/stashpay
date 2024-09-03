@@ -11,6 +11,7 @@ import {generateMnemonic, validateMnemonic} from './mnemonic';
 import {nap} from '../util';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
+const INFO_KEY = 'info';
 
 //
 // Init and startup
@@ -42,7 +43,7 @@ async function _generateSeedAndSaveToKeychain() {
     throw Error('Generated invalid seed!');
   }
   await keychain.setItem(MNEMONIC_KEY, mnemonic);
-  await storage.removeItem('info');
+  await storage.removeItem(INFO_KEY);
   await _getSeedFromKeychain();
 }
 
@@ -72,7 +73,7 @@ export async function initLiquidClient() {
 //
 
 async function _loadBalance() {
-  const info = await storage.getItem('info');
+  const info = await storage.getItem(INFO_KEY);
   console.log(`Cached info: ${JSON.stringify(info)}`);
   if (!info) {
     store.balance = null;
@@ -91,7 +92,7 @@ export async function fetchBalance() {
     console.log(`Wallet balance: ${info.balanceSat}`);
     console.log(`Wallet pending send balance: ${info.pendingSendSat}`);
     console.log(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
-    await storage.setItem('info', info);
+    await storage.setItem(INFO_KEY, info);
     console.log(`Storing info: ${JSON.stringify(info)}`);
     store.balance = info.balanceSat + info.pendingReceiveSat || null;
   } catch (err) {
@@ -145,7 +146,7 @@ export async function importMnemonic() {
       throw Error('Invalid seed words');
     }
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
-    await storage.removeItem('info');
+    await storage.removeItem(INFO_KEY);
     DevSettings.reload();
   } catch (err) {
     alert.error({err});
