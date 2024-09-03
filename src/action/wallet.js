@@ -127,7 +127,7 @@ export function copyMnemonic() {
 }
 
 export function initSeedBackup() {
-  nav.goTo('SeedBackup');
+  nav.goTo('SeedBackupStack');
 }
 
 export function initSeedRestore() {

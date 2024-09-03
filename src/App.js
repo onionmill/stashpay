@@ -17,13 +17,14 @@ import SendAmountScreen from './screen/send-amount';
 import SendConfirmScreen from './screen/send-confirm';
 import SendSuccessScreen from './screen/send-success';
 import SettingsScreen from './screen/settings';
+import SeedBackupInfoScreen from './screen/seed-backup-info';
 import SeedBackupScreen from './screen/seed-backup';
 import SeedRestoreScreen from './screen/seed-restore';
 import WaitScreen from './screen/wait';
 
 const ReceiveStack = createNativeStackNavigator();
 const SendStack = createNativeStackNavigator();
-const SeedRestoreStack = createNativeStackNavigator();
+const SeedBackupStack = createNativeStackNavigator();
 const MainStack = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
 
@@ -72,6 +73,21 @@ const SendStackScreen = () => (
   </SendStack.Navigator>
 );
 
+const SeedBackupStackScreen = () => (
+  <SeedBackupStack.Navigator>
+    <SeedBackupStack.Screen
+      name="SeedBackupInfo"
+      component={SeedBackupInfoScreen}
+      options={{headerShown: false}}
+    />
+    <SeedBackupStack.Screen
+      name="SeedBackup"
+      component={SeedBackupScreen}
+      options={{headerShown: false}}
+    />
+  </SeedBackupStack.Navigator>
+);
+
 const MainStackScreen = () => (
   <MainStack.Navigator
     screenOptions={({route}) => ({
@@ -118,8 +134,8 @@ const App = () => (
         options={{headerShown: false}}
       />
       <RootStack.Screen
-        name="SeedBackup"
-        component={SeedBackupScreen}
+        name="SeedBackupStack"
+        component={SeedBackupStackScreen}
         options={{title: 'Backup', headerBackTitle: 'Back'}}
       />
       <RootStack.Screen
