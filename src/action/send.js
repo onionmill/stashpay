@@ -13,10 +13,10 @@ export async function initSendAddress() {
 }
 
 export async function readQRCode(uri) {
-  if (store.send.invoice) {
+  if (store.send.destination) {
     return;
   }
-  store.send.invoice = uri;
+  store.send.destination = uri;
   await parseUri(uri);
 }
 
