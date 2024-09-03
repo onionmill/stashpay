@@ -124,6 +124,11 @@ export async function update() {
 
 export function copyMnemonic() {
   Clipboard.setString(store.mnemonic);
+  alert.confirm({
+    title: 'Careful now!',
+    message: 'Paste the recovery phrase into your password manager. Then press OK to empty the clipbaord.',
+    onOk: () => Clipboard.setString(''),
+  });
 }
 
 export function initSeedBackup() {
@@ -147,6 +152,7 @@ export async function importMnemonic() {
     }
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
     await storage.removeItem(INFO_KEY);
+    Clipboard.setString('');
     DevSettings.reload();
   } catch (err) {
     alert.error({err});
