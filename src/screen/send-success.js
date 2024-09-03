@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 const SendSuccessScreen = () => (
   <View style={styles.wrapper}>
     <View style={styles.textWrapper}>
-      <Text style={styles.label}>Transaction sent!</Text>
+      <Text style={styles.label}>Payment sent!</Text>
     </View>
     <PillButton onPress={() => nav.reset('Main')}>Done</PillButton>
   </View>
