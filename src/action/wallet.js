@@ -92,6 +92,14 @@ export async function fetchBalance() {
     console.log(`Wallet balance: ${info.balanceSat}`);
     console.log(`Wallet pending send balance: ${info.pendingSendSat}`);
     console.log(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
+    if (info.pendingReceiveSat) {
+      const oldInfo = await storage.getItem(INFO_KEY);
+      if (!oldInfo || !oldInfo.pendingReceiveSat) {
+        nav.goTo('ReceiveSuccess',{
+          value: info.pendingReceiveSat,
+        });
+      }
+    }
     await storage.setItem(INFO_KEY, info);
     console.log(`Storing info: ${JSON.stringify(info)}`);
     store.balance = info.balanceSat + info.pendingReceiveSat || null;

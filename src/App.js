@@ -12,6 +12,7 @@ import SplashScreen from './screen/splash';
 import WalletScreen from './screen/wallet';
 import ReceiveScreen from './screen/receive';
 import ReceiveAmountScreen from './screen/receive-amount';
+import ReceiveSuccessScreen from './screen/receive-success';
 import SendAddressScreen from './screen/send-address';
 import SendAmountScreen from './screen/send-amount';
 import SendConfirmScreen from './screen/send-confirm';
@@ -153,6 +154,13 @@ const App = () => (
         component={SendStackScreen}
         options={{headerShown: false}}
       />
+      <RootStack.Group screenOptions={{presentation: 'modal'}}>
+        <RootStack.Screen
+          name="ReceiveSuccess"
+          component={ReceiveSuccessScreen}
+          options={{headerShown: false}}
+        />
+      </RootStack.Group>
     </RootStack.Navigator>
   </NavigationContainer>
 );
