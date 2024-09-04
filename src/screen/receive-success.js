@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  label: {
+  value: {
     fontSize: font.sizeXXL,
     lineHeight: font.lineHeightXXL,
   },
-  value: {
+  label: {
     marginTop: 20,
     fontSize: font.sizeXXL,
     lineHeight: font.lineHeightXXL,
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
 const ReceiveSuccessScreen = ({route}) => (
   <View style={styles.wrapper}>
     <View style={styles.textWrapper}>
+      <Text style={styles.value}>{route.params.valueLabel} sats</Text>
       <Text style={styles.label}>Payment received!</Text>
-      <Text style={styles.value}>{route.params.value} sats</Text>
     </View>
     <PillButton onPress={() => nav.reset('Main')}>Done</PillButton>
   </View>

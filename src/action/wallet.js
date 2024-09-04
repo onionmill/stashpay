@@ -8,7 +8,7 @@ import * as alert from './alert';
 import * as keychain from './keychain';
 import * as storage from './local-storage';
 import {generateMnemonic, validateMnemonic} from './mnemonic';
-import {nap} from '../util';
+import {nap, formatNumber} from '../util';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
 const INFO_KEY = 'info';
@@ -96,7 +96,7 @@ export async function fetchBalance() {
       const oldInfo = await storage.getItem(INFO_KEY);
       if (!oldInfo || !oldInfo.pendingReceiveSat) {
         nav.goTo('ReceiveSuccess',{
-          value: info.pendingReceiveSat,
+          valueLabel: formatNumber(info.pendingReceiveSat),
         });
       }
     }
