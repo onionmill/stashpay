@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
 const SettingsScreen = () => (
   <View style={styles.wrapper}>
     <View style={styles.btnWrapper}>
-      <Button title="Backup Wallet" onPress={() => wallet.initSeedBackup()} />
+      <Button title="Backup wallet" onPress={() => wallet.initSeedBackup()} />
     </View>
     <View style={styles.btnWrapper}>
-      <Button title="Recover Wallet" onPress={() => wallet.initSeedRestore()} />
+      <Button title="Recover wallet" onPress={() => wallet.initSeedRestore()} />
     </View>
     <View style={styles.btnWrapper}>
-      <Button title="Logout" onPress={() => wallet.logout()} />
+      <Button title="Reset wallet" onPress={() => wallet.logout()} />
     </View>
   </View>
 );
