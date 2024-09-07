@@ -24,7 +24,7 @@ const SettingsScreen = () => (
       <Button title="Recover wallet" onPress={() => wallet.initSeedRestore()} />
     </View>
     <View style={styles.btnWrapper}>
-      <Button title="Reset wallet" onPress={() => wallet.logout()} />
+      <Button title="Logout" onPress={() => wallet.logout()} />
     </View>
   </View>
 );

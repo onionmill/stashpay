@@ -173,8 +173,8 @@ export async function importMnemonic() {
 
 export async function logout() {
   alert.confirm({
-    title: 'Logout',
-    message: 'Wipe app storage and restart?',
+    title: 'Warning',
+    message: 'This will delete the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds. Press OK to continue.',
     onOk: () => _wipeAndRestart(),
   });
 }
