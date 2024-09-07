@@ -2,15 +2,14 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {MainContent} from '../component/layout';
 import {ArrowUpButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
-import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
   wrapper: {
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 25,
@@ -24,13 +23,10 @@ const styles = StyleSheet.create({
 });
 
 const WalletScreen = () => (
-  <MainContent
-    style={styles.wrapper}
-    refreshing={store.balanceRefreshing}
-    onRefresh={() => wallet.update()}>
+  <View style={styles.wrapper}>
     <Balance />
     <ArrowUpButton style={styles.listBtn} onPress={() => nav.goTo('PaymentList')} />
-  </MainContent>
+  </View>
 );
 
 const balanceStyles = StyleSheet.create({
