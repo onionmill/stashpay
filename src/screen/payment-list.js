@@ -5,13 +5,14 @@ import {observer} from 'mobx-react';
 import {color, font} from '../component/style';
 
 import store from '../store';
+import {formatDate, formatNumber} from '../util';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   item: {
-    padding: 10,
+    padding: 7,
     marginVertical: 8,
     marginHorizontal: 16,
     borderRadius: 8,
@@ -22,15 +23,25 @@ const styles = StyleSheet.create({
   text: {
     fontSize: font.sizeM,
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 3,
+  },
 });
 
 const Item = ({item}) => (
   <View style={styles.item}>
-    <Text style={styles.text}>Type: {item.paymentType}</Text>
-    <Text style={styles.text}>Amount: {item.paymentType === 'send' ? '-' : ''}{item.amountSat} sats</Text>
-    <Text style={styles.text}>Fee: {item.feesSat} sats</Text>
-    <Text style={styles.text}>Status: {item.status}</Text>
-    <Text style={styles.text}>Time: {new Date(item.timestamp * 1000).toLocaleString()}</Text>
+    <View style={styles.row}>
+      <Text style={[{color: item.paymentType === 'send' ? 'red' : 'green'}, styles.text]}>
+        {item.paymentType === 'send' ? '-' : '+'}{formatNumber(item.amountSat)} sats
+      </Text>
+      <Text style={styles.text}>{formatDate(item.timestamp)}</Text>
+    </View>
+    <View style={styles.row}>
+      <Text style={styles.text}>Fee: {formatNumber(item.feesSat)} sats</Text>
+      <Text style={styles.text}>{item.status}</Text>
+    </View>
   </View>
 );
 

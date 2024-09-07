@@ -16,3 +16,13 @@ export const formatNumber = val => {
 export const btcToSat = val => {
   return Math.round(Number(val) * 100000000);
 };
+
+export const formatDate = timestamp => {
+  const options = {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute:'numeric',
+  };
+  return new Date(timestamp * 1000).toLocaleString(undefined, options);
+};
