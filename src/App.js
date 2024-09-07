@@ -13,6 +13,7 @@ import WalletScreen from './screen/wallet';
 import ReceiveScreen from './screen/receive';
 import ReceiveAmountScreen from './screen/receive-amount';
 import ReceiveSuccessScreen from './screen/receive-success';
+import PaymentListScreen from './screen/payment-list';
 import SendAddressScreen from './screen/send-address';
 import SendAmountScreen from './screen/send-amount';
 import SendConfirmScreen from './screen/send-confirm';
@@ -159,6 +160,16 @@ const App = () => (
           name="ReceiveSuccess"
           component={ReceiveSuccessScreen}
           options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name="PaymentList"
+          component={PaymentListScreen}
+          options={{
+            title: 'Payments',
+            headerLeft: () => (
+              <Button title="Back" onPress={() => nav.goBack()} />
+            ),
+          }}
         />
       </RootStack.Group>
     </RootStack.Navigator>

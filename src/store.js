@@ -11,7 +11,7 @@ const store = observable({
   liquidListenerId: null,
   balance: null,
   balanceRefreshing: false,
-  transactions: [],
+  payments: [],
 
   // screens
   restore: {

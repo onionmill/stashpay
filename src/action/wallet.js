@@ -12,6 +12,7 @@ import {nap, formatNumber} from '../util';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
 const INFO_KEY = 'info';
+const PAYMENTS_KEY = 'payments';
 
 //
 // Init and startup
@@ -22,6 +23,7 @@ export async function init() {
     const hasWallet = await _getSeedFromKeychain();
     if (hasWallet) {
       await _loadBalance();
+      await _loadPayments();
     } else {
       await _generateSeedAndSaveToKeychain();
     }
@@ -44,6 +46,7 @@ async function _generateSeedAndSaveToKeychain() {
   }
   await keychain.setItem(MNEMONIC_KEY, mnemonic);
   await storage.removeItem(INFO_KEY);
+  await storage.removeItem(PAYMENTS_KEY);
   await _getSeedFromKeychain();
 }
 
@@ -108,9 +111,26 @@ export async function fetchBalance() {
   }
 }
 
-export async function fetchTransactions() {
+export async function _loadPayments() {
   try {
-    store.transactions = await liquid.listPayments({});
+    const payments = await storage.getItem(PAYMENTS_KEY);
+    console.log(`Cached payments: ${payments && payments.length}`);
+    if (!payments) {
+      return;
+    }
+    store.payments = payments;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function fetchPayments() {
+  try {
+    const payments = await liquid.listPayments({});
+    await storage.setItem(PAYMENTS_KEY, payments);
+    console.log(`Storing payments: ${payments.length}`);
+    store.payments = payments;
+    // console.log(JSON.stringify(payments, null, '  '))
   } catch (err) {
     console.error(err);
   }
@@ -122,7 +142,7 @@ export async function update() {
     await nap(100);
   }
   await fetchBalance();
-  // await fetchTransactions();
+  await fetchPayments();
   store.balanceRefreshing = false;
 }
 
@@ -168,6 +188,7 @@ export async function _importMnemonicAndRestart() {
     }
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
     await storage.removeItem(INFO_KEY);
+    await storage.removeItem(PAYMENTS_KEY);
     Clipboard.setString('');
     DevSettings.reload();
   } catch (err) {
