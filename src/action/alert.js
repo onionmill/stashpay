@@ -11,6 +11,22 @@ export function error({title, message, err}) {
   }
 }
 
+export function warn({title, message, onOk}) {
+  Alert.alert(
+    title,
+    message,
+    [
+      {
+        text: 'OK',
+        onPress: () => onOk(),
+      },
+    ],
+    {
+      cancelable: false,
+    },
+  );
+}
+
 export function confirm({title, message, onOk}) {
   Alert.alert(
     title,

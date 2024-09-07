@@ -132,7 +132,7 @@ export async function update() {
 
 export function copyMnemonic() {
   Clipboard.setString(store.mnemonic);
-  alert.confirm({
+  alert.warn({
     title: 'Careful now!',
     message: 'Paste the recovery phrase into your password manager. Then press OK to empty the clipboard.',
     onOk: () => Clipboard.setString(''),
