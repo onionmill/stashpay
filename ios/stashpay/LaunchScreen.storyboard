@@ -17,8 +17,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="Rah-CO-nRR">
-                                <rect key="frame" x="17" y="96" width="340" height="340"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="90" width="375" height="375"/>
+                                <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
