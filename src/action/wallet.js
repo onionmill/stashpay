@@ -153,6 +153,14 @@ export function setMnemonic(mnemonic) {
 }
 
 export async function importMnemonic() {
+  alert.confirm({
+    title: 'Warning',
+    message: 'This will overwrite the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds. Press OK to continue.',
+    onOk: () => _importMnemonicAndRestart(),
+  });
+}
+
+export async function _importMnemonicAndRestart() {
   try {
     const mnemonic = store.restore.mnemonic.trim();
     if (!validateMnemonic(mnemonic)) {
