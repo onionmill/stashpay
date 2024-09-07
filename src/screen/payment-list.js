@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 const Item = ({item}) => (
   <View style={styles.item}>
     <Text style={styles.text}>Type: {item.paymentType}</Text>
-    <Text style={styles.text}>Amount: {item.paymentType === 'send' ? '- ' : ''}{item.amountSat} sats</Text>
+    <Text style={styles.text}>Amount: {item.paymentType === 'send' ? '-' : ''}{item.amountSat} sats</Text>
     <Text style={styles.text}>Fee: {item.feesSat} sats</Text>
     <Text style={styles.text}>Status: {item.status}</Text>
     <Text style={styles.text}>Time: {new Date(item.timestamp * 1000).toLocaleString()}</Text>
