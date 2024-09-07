@@ -9,6 +9,7 @@ import {LargeSpinner} from '../component/spinner';
 import {font} from '../component/style';
 
 import store from '../store';
+import {formatNumber} from '../util';
 import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
@@ -47,7 +48,7 @@ const Address = () => (
     <View style={styles.codeWrapper}>
       <QRCode size={260}>{store.receive.invoice}</QRCode>
       <Text style={styles.feeText} numberOfLines={1}>
-        Fee to receive: {store.receive.feesSat} sats
+        Fee to receive: {formatNumber(store.receive.feesSat)} sats
       </Text>
     </View>
     <PillButton onPress={() => receive.copyInvoice()}>Copy Invoice</PillButton>
