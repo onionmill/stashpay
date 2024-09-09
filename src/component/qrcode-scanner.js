@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {RNCamera} from 'react-native-camera';
+// import {RNCamera} from 'react-native-camera';
 import {color} from './style';
 
 //
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 export const QRCodeScanner = ({onQRCodeScanned, style}) => (
   <View style={[styles.wrapper, style]}>
-    <RNCamera
+{/*    <RNCamera
       captureAudio={false}
       androidCameraPermissionOptions={{
         title: 'Permission to use camera',
@@ -31,7 +31,7 @@ export const QRCodeScanner = ({onQRCodeScanned, style}) => (
       onBarCodeRead={onQRCodeScanned}
       barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
       style={styles.scanner}
-    />
+    />*/}
     <Corners />
   </View>
 );
