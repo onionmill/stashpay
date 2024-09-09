@@ -24,7 +24,7 @@ const SendAddressScreen = ({navigation}) => {
     <View style={styles.wrapper}>
       <QRCodeScanner
         style={StyleSheet.absoluteFill}
-        onQRCodeScanned={({data}) => send.readQRCode(data)}
+        onCodeScanned={(data) => send.readQRCode(data)}
       />
       <PillButton onPress={() => send.pasteInvoice()}>Paste Invoice</PillButton>
     </View>

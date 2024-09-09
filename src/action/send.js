@@ -12,12 +12,12 @@ export async function initSendAddress() {
   store.send.description = null;
 }
 
-export async function readQRCode(uri) {
-  if (store.send.destination) {
+export async function readQRCode(data) {
+  if (store.send.destination || !data && !data.length) {
     return;
   }
-  store.send.destination = uri;
-  await parseUri(uri);
+  store.send.destination = data[0].value;
+  await parseUri(data[0].value);
 }
 
 async function parseUri(uri) {

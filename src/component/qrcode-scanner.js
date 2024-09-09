@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-// import {RNCamera} from 'react-native-camera';
+import {Camera, useCameraDevice, useCameraPermission, useCodeScanner} from 'react-native-vision-camera';
 import {color} from './style';
 
 //
@@ -18,23 +18,29 @@ const styles = StyleSheet.create({
   },
 });
 
-export const QRCodeScanner = ({onQRCodeScanned, style}) => (
-  <View style={[styles.wrapper, style]}>
-{/*    <RNCamera
-      captureAudio={false}
-      androidCameraPermissionOptions={{
-        title: 'Permission to use camera',
-        message: 'Allow Photon to use the camera',
-        buttonPositive: 'OK',
-        buttonNegative: 'Cancel',
-      }}
-      onBarCodeRead={onQRCodeScanned}
-      barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
-      style={styles.scanner}
-    />*/}
-    <Corners />
-  </View>
-);
+export const QRCodeScanner = ({onCodeScanned, style}) => {
+  const device = useCameraDevice('back');
+  const { hasPermission, requestPermission } = useCameraPermission();
+  const codeScanner = useCodeScanner({codeTypes: ['qr'], onCodeScanned});
+  if (!hasPermission) {
+    requestPermission();
+    return <View style={[styles.wrapper, style]} />;
+  }
+  if (device == null) {
+    return <View style={[styles.wrapper, style]} />;
+  }
+  return (
+    <View style={[styles.wrapper, style]}>
+      <Camera
+        style={styles.scanner}
+        codeScanner={codeScanner}
+        device={device}
+        isActive={true}
+      />
+      <Corners />
+    </View>
+  );
+};
 
 //
 // Corners
