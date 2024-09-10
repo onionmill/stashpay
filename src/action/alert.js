@@ -11,13 +11,13 @@ export function error({title, message, err}) {
   }
 }
 
-export function warn({title, message, onOk}) {
+export function warn({title, message, onOk, okText}) {
   Alert.alert(
     title,
     message,
     [
       {
-        text: 'OK',
+        text: okText || 'OK',
         onPress: () => onOk(),
       },
     ],
@@ -27,7 +27,7 @@ export function warn({title, message, onOk}) {
   );
 }
 
-export function confirm({title, message, onOk}) {
+export function confirm({title, message, onOk, okText, destructive}) {
   Alert.alert(
     title,
     message,
@@ -37,7 +37,8 @@ export function confirm({title, message, onOk}) {
         style: 'cancel',
       },
       {
-        text: 'OK',
+        text: okText || 'OK',
+        style: destructive ? 'destructive' : 'default',
         onPress: () => onOk(),
       },
     ],

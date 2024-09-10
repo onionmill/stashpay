@@ -154,8 +154,9 @@ export function copyMnemonic() {
   Clipboard.setString(store.mnemonic);
   alert.warn({
     title: 'Careful now!',
-    message: 'Paste the recovery phrase into your password manager. Then press OK to empty the clipboard.',
+    message: 'Paste the recovery phrase into your password manager. Then come back to this app and press to empty the clipboard.',
     onOk: () => Clipboard.setString(''),
+    okText: 'Empty Clipboard',
   });
 }
 
@@ -175,8 +176,10 @@ export function setMnemonic(mnemonic) {
 export async function importMnemonic() {
   alert.confirm({
     title: 'Warning',
-    message: 'This will overwrite the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds. Press OK to continue.',
+    message: 'This will overwrite the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds.',
     onOk: () => _importMnemonicAndRestart(),
+    okText: 'Import',
+    destructive: true,
   });
 }
 
@@ -203,8 +206,10 @@ export async function _importMnemonicAndRestart() {
 export async function logout() {
   alert.confirm({
     title: 'Warning',
-    message: 'This will delete the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds. Press OK to continue.',
+    message: 'This will delete the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds.',
     onOk: () => _wipeAndRestart(),
+    okText: 'Logout',
+    destructive: true,
   });
 }
 
