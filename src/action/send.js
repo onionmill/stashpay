@@ -80,7 +80,7 @@ export async function validateSend() {
     nav.goTo('SendWait', {
       message: 'Sending...',
     });
-    await sendPayment();
+    await _sendPayment();
     nav.goTo('SendSuccess');
   } catch (err) {
     nav.goTo('SendConfirm');
@@ -88,16 +88,12 @@ export async function validateSend() {
   }
 }
 
-async function sendPayment() {
-  try {
-    const prepareResponse = {
-      destination: JSON.parse(store.send.destination),
-      feesSat: store.send.feesSat,
-    };
-    const sendResponse = await liquid.sendPayment({prepareResponse});
-    console.log(`Send response: ${JSON.stringify(sendResponse)}`);
-    return sendResponse.payment;
-  } catch (err) {
-    alert.error({err});
-  }
+async function _sendPayment() {
+  const prepareResponse = {
+    destination: JSON.parse(store.send.destination),
+    feesSat: store.send.feesSat,
+  };
+  const sendResponse = await liquid.sendPayment({prepareResponse});
+  console.log(`Send response: ${JSON.stringify(sendResponse)}`);
+  return sendResponse.payment;
 }
