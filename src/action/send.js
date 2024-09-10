@@ -12,12 +12,12 @@ export async function initSendAddress() {
   store.send.description = null;
 }
 
-export async function readQRCode(uri) {
-  if (store.send.destination) {
+export async function readQRCode(data) {
+  if (store.send.destination || !data && !data.length) {
     return;
   }
-  store.send.destination = uri;
-  await parseUri(uri);
+  store.send.destination = data[0].value;
+  await parseUri(data[0].value);
 }
 
 async function parseUri(uri) {
@@ -80,7 +80,7 @@ export async function validateSend() {
     nav.goTo('SendWait', {
       message: 'Sending...',
     });
-    await sendPayment();
+    await _sendPayment();
     nav.goTo('SendSuccess');
   } catch (err) {
     nav.goTo('SendConfirm');
@@ -88,16 +88,12 @@ export async function validateSend() {
   }
 }
 
-async function sendPayment() {
-  try {
-    const prepareResponse = {
-      destination: JSON.parse(store.send.destination),
-      feesSat: store.send.feesSat,
-    };
-    const sendResponse = await liquid.sendPayment({prepareResponse});
-    console.log(`Send response: ${JSON.stringify(sendResponse)}`);
-    return sendResponse.payment;
-  } catch (err) {
-    alert.error({err});
-  }
+async function _sendPayment() {
+  const prepareResponse = {
+    destination: JSON.parse(store.send.destination),
+    feesSat: store.send.feesSat,
+  };
+  const sendResponse = await liquid.sendPayment({prepareResponse});
+  console.log(`Send response: ${JSON.stringify(sendResponse)}`);
+  return sendResponse.payment;
 }
