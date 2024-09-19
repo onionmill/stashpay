@@ -225,6 +225,7 @@ export async function _wipeAndRestart() {
 
 async function _stopLiquidClient() {
   await liquid.removeEventListener(store.liquidListenerId);
+  await liquid.disconnect();
   store.liquidConnected = false;
 }
 
