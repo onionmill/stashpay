@@ -188,6 +188,7 @@ export async function _importMnemonicAndRestart() {
     if (!validateMnemonic(mnemonic)) {
       throw Error('Invalid seed words');
     }
+    await _stopLiquidClient();
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
     await _resetStorage();
     Clipboard.setString('');
