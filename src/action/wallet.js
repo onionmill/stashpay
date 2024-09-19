@@ -1,4 +1,3 @@
-import {DevSettings} from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
@@ -175,7 +174,7 @@ export function setMnemonic(mnemonic) {
 export async function importMnemonic() {
   alert.confirm({
     title: 'Warning',
-    message: 'This will overwrite the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds.',
+    message: 'This will overwrite the app storage. Make sure your wallet is backed up before or you will lose access to your funds.',
     onOk: () => _importMnemonicAndRestart(),
     okText: 'Import',
     destructive: true,
@@ -192,7 +191,9 @@ export async function _importMnemonicAndRestart() {
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
     await _resetStorage();
     Clipboard.setString('');
-    DevSettings.reload();
+    await init();
+    nav.reset('Main');
+    await initLiquidClient();
   } catch (err) {
     alert.error({err});
   }
@@ -205,7 +206,7 @@ export async function _importMnemonicAndRestart() {
 export async function logout() {
   alert.confirm({
     title: 'Warning',
-    message: 'This will delete the app storage and restart. Make sure your wallet is backed up before or you will lose access to your funds.',
+    message: 'This will delete the app storage. Make sure your wallet is backed up before or you will lose access to your funds.',
     onOk: () => _wipeAndRestart(),
     okText: 'Logout',
     destructive: true,
@@ -216,7 +217,9 @@ export async function _wipeAndRestart() {
   try {
     await _stopLiquidClient();
     await _wipeCache();
-    DevSettings.reload();
+    await init();
+    nav.reset('Main');
+    await initLiquidClient();
   } catch (err) {
     console.error(err);
   }
