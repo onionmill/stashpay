@@ -45,8 +45,7 @@ async function _generateSeedAndSaveToKeychain() {
     throw Error('Generated invalid seed!');
   }
   await keychain.setItem(MNEMONIC_KEY, mnemonic);
-  await storage.removeItem(INFO_KEY);
-  await storage.removeItem(PAYMENTS_KEY);
+  await _resetStorage();
   await _getSeedFromKeychain();
 }
 
@@ -190,8 +189,7 @@ export async function _importMnemonicAndRestart() {
       throw Error('Invalid seed words');
     }
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
-    await storage.removeItem(INFO_KEY);
-    await storage.removeItem(PAYMENTS_KEY);
+    await _resetStorage();
     Clipboard.setString('');
     DevSettings.reload();
   } catch (err) {
@@ -232,4 +230,12 @@ async function _stopLiquidClient() {
 async function _wipeCache() {
   store.walletReady = false;
   await _generateSeedAndSaveToKeychain();
+}
+
+async function _resetStorage() {
+  store.mnemonic = null;
+  store.balance = null;
+  store.payments = [];
+  await storage.removeItem(INFO_KEY);
+  await storage.removeItem(PAYMENTS_KEY);
 }
