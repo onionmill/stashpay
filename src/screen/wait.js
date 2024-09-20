@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 const WaitScreen = ({route}) => (
   <View style={styles.wrapper}>
     <LargeSpinner />
-    <Text style={styles.message}>{route.params.message}</Text>
+    <Text style={styles.message}>{route && route.params && route.params.message}</Text>
   </View>
 );
 

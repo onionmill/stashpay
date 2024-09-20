@@ -108,6 +108,7 @@ export async function fetchBalance() {
     await storage.setItem(INFO_KEY, info);
     console.log(`Storing info: ${JSON.stringify(info)}`);
     store.balance = info.balanceSat + info.pendingReceiveSat || null;
+    store.balanceFetched = true;
   } catch (err) {
     console.error(err);
   }
@@ -195,9 +196,7 @@ export async function _importMnemonicAndRestart() {
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
     await _resetStorage();
     Clipboard.setString('');
-    await init();
-    nav.reset('Main');
-    await initLiquidClient();
+    await _reloadWallet();
   } catch (err) {
     alert.error({err});
   }
@@ -210,7 +209,7 @@ export async function _importMnemonicAndRestart() {
 export async function logout() {
   alert.confirm({
     title: 'Warning',
-    message: 'This will delete the app storage. Make sure your wallet is backed up before or you will lose access to your funds.',
+    message: 'This will delete the app storage and generate a new wallet. Make sure your wallet is backed up before or you will lose access to your funds.',
     onOk: () => _wipeAndRestart(),
     okText: 'Logout',
     destructive: true,
@@ -221,17 +220,26 @@ export async function _wipeAndRestart() {
   try {
     await _stopLiquidClient();
     await _wipeCache();
-    await init();
-    nav.reset('Main');
-    await initLiquidClient();
+    await _reloadWallet();
   } catch (err) {
     console.error(err);
   }
 }
 
+async function _reloadWallet() {
+  nav.reset('Splash');
+  await init();
+  await initLiquidClient();
+  while (!store.balanceFetched) {
+    await nap(100);
+  }
+  nav.reset('Main');
+}
+
 async function _stopLiquidClient() {
   await liquid.removeEventListener(store.liquidListenerId);
   await liquid.disconnect();
+  store.liquidListenerId = null;
   store.liquidConnected = false;
 }
 
@@ -243,6 +251,7 @@ async function _wipeCache() {
 async function _resetStorage() {
   store.mnemonic = null;
   store.balance = null;
+  store.balanceFetched = false;
   store.payments = [];
   await storage.removeItem(INFO_KEY);
   await storage.removeItem(PAYMENTS_KEY);

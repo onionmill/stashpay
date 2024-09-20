@@ -127,7 +127,7 @@ const App = () => (
     <RootStack.Navigator screenOptions={{gestureEnabled: false}}>
       <RootStack.Screen
         name="Splash"
-        component={SplashScreen}
+        component={WaitScreen}
         options={{headerShown: false}}
       />
       <RootStack.Screen

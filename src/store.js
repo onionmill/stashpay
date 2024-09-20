@@ -11,6 +11,7 @@ const store = observable({
   liquidListenerId: null,
   balance: null,
   balanceRefreshing: false,
+  balanceFetched: false,
   payments: [],
 
   // screens
