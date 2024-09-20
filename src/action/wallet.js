@@ -50,6 +50,10 @@ async function _generateSeedAndSaveToKeychain() {
 
 export async function initLiquidClient() {
   try {
+    if (store.liquidConnected) {
+      return;
+    }
+    console.log('Liquid wallet connecting...');
     // const onLogEntry = (l: LogEntry) => {
     //   console.log(`Received log [${l.level}]: ${l.line}`);
     // };
@@ -57,7 +61,7 @@ export async function initLiquidClient() {
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
-    console.log('Liquid wallet connected');
+    console.log('Liquid wallet connected!');
     const onEvent = e => {
       console.log(`Received event: ${e.type}`);
       update();
