@@ -50,6 +50,10 @@ async function _generateSeedAndSaveToKeychain() {
 
 export async function initLiquidClient() {
   try {
+    // const onLogEntry = (l: LogEntry) => {
+    //   console.log(`Received log [${l.level}]: ${l.line}`);
+    // };
+    // const subscription = await liquid.setLogger(onLogEntry);
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
@@ -59,10 +63,6 @@ export async function initLiquidClient() {
       update();
     };
     store.liquidListenerId = await liquid.addEventListener(onEvent);
-    // const onLogEntry = (l: LogEntry) => {
-    //   console.log(`Received log [${l.level}]: ${l.line}`);
-    // };
-    // const subscription = await liquid.setLogger(onLogEntry);
     store.liquidConnected = true;
   } catch (err) {
     console.error(err);
