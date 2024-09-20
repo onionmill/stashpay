@@ -1,3 +1,4 @@
+import {action} from 'mobx';
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
@@ -17,7 +18,7 @@ const PAYMENTS_KEY = 'payments';
 // Init and startup
 //
 
-export async function init() {
+export const init = action(async () => {
   try {
     const hasWallet = await _getSeedFromKeychain();
     if (hasWallet) {
@@ -29,7 +30,7 @@ export async function init() {
   } catch (err) {
     alert.error({err});
   }
-}
+});
 
 async function _getSeedFromKeychain() {
   const mnemonic = await keychain.getItem(MNEMONIC_KEY);
@@ -48,7 +49,7 @@ async function _generateSeedAndSaveToKeychain() {
   await _getSeedFromKeychain();
 }
 
-export async function initLiquidClient() {
+export const initLiquidClient = action(async () => {
   try {
     if (store.liquidConnected) {
       return;
@@ -62,16 +63,16 @@ export async function initLiquidClient() {
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
     console.log('Liquid wallet connected!');
-    const onEvent = e => {
+    const onEvent = action(e => {
       console.log(`Received event: ${e.type}`);
       update();
-    };
+    });
     store.liquidListenerId = await liquid.addEventListener(onEvent);
     store.liquidConnected = true;
   } catch (err) {
     console.error(err);
   }
-}
+});
 
 //
 // Wallet usage apis
@@ -84,7 +85,7 @@ async function _loadBalance() {
     store.balance = null;
     return;
   }
-  store.balance = info.balanceSat + info.pendingReceiveSat || null;
+  _updateBalance(info);
 }
 
 export async function fetchBalance() {
@@ -107,12 +108,16 @@ export async function fetchBalance() {
     }
     await storage.setItem(INFO_KEY, info);
     console.log(`Storing info: ${JSON.stringify(info)}`);
-    store.balance = info.balanceSat + info.pendingReceiveSat || null;
+    _updateBalance(info);
     store.balanceFetched = true;
   } catch (err) {
     console.error(err);
   }
 }
+
+const _updateBalance = action(info => {
+    store.balance = info.balanceSat + info.pendingReceiveSat || null;
+});
 
 export async function _loadPayments() {
   try {
@@ -139,7 +144,7 @@ export async function fetchPayments() {
   }
 }
 
-export async function update() {
+export const update = action(async () => {
   store.balanceRefreshing = true;
   while (!store.walletReady || !store.liquidConnected) {
     await nap(100);
@@ -147,7 +152,7 @@ export async function update() {
   await fetchBalance();
   await fetchPayments();
   store.balanceRefreshing = false;
-}
+});
 
 //
 // Seed backup and restore
@@ -186,7 +191,7 @@ export async function importMnemonic() {
   });
 }
 
-export async function _importMnemonicAndRestart() {
+const _importMnemonicAndRestart = action(async () => {
   try {
     const mnemonic = store.restore.mnemonic.trim();
     if (!validateMnemonic(mnemonic)) {
@@ -200,7 +205,7 @@ export async function _importMnemonicAndRestart() {
   } catch (err) {
     alert.error({err});
   }
-}
+});
 
 //
 // Logout and cleanup
@@ -216,7 +221,7 @@ export async function logout() {
   });
 }
 
-export async function _wipeAndRestart() {
+const _wipeAndRestart = action(async () => {
   try {
     await _stopLiquidClient();
     await _wipeCache();
@@ -224,7 +229,7 @@ export async function _wipeAndRestart() {
   } catch (err) {
     console.error(err);
   }
-}
+});
 
 async function _reloadWallet() {
   nav.reset('Splash');
