@@ -109,7 +109,6 @@ export async function fetchBalance() {
     await storage.setItem(INFO_KEY, info);
     console.log(`Storing info: ${JSON.stringify(info)}`);
     _updateBalance(info);
-    store.balanceFetched = true;
   } catch (err) {
     console.error(err);
   }
@@ -117,6 +116,7 @@ export async function fetchBalance() {
 
 const _updateBalance = action(info => {
     store.balance = info.balanceSat + info.pendingReceiveSat || null;
+    store.balanceFetched = true;
 });
 
 export async function _loadPayments() {

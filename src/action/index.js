@@ -10,6 +10,12 @@ when(
   () => store.navReady,
   async () => {
     await wallet.init();
+  },
+);
+
+when(
+  () => store.balanceFetched,
+  () => {
     nav.reset('Main');
   },
 );
