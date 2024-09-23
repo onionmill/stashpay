@@ -34,7 +34,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Location request</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Scan QR Codes for Payment</string>
 	<key>UIAppFonts</key>
