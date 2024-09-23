@@ -9,6 +9,7 @@ import * as keychain from './keychain';
 import * as storage from './local-storage';
 import {generateMnemonic, validateMnemonic} from './mnemonic';
 import {nap, formatNumber} from '../util';
+import {appendLogFile} from './log';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
 const INFO_KEY = 'info';
@@ -55,10 +56,7 @@ export const initLiquidClient = action(async () => {
       return;
     }
     console.log('Liquid wallet connecting...');
-    // const onLogEntry = (l: LogEntry) => {
-    //   console.log(`Received log [${l.level}]: ${l.line}`);
-    // };
-    // const subscription = await liquid.setLogger(onLogEntry);
+    await liquid.setLogger(appendLogFile);
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
