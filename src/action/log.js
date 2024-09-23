@@ -10,7 +10,7 @@ export async function appendLogFile(logEntry) {
   if (!LOL_LEVEL.includes(logEntry.level)) {
     return;
   }
-  const line = `[${logEntry.level}]: ${logEntry.line}\n`;
+  const line = `${new Date().toISOString()} [${logEntry.level}]: ${logEntry.line}\n`;
   RNFS.appendFile(LOG_FILE_PATH, line, 'utf8');
 }
 
