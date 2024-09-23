@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet, Button, View} from 'react-native';
 import {observer} from 'mobx-react';
 
+import {color} from '../component/style';
+
 import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
@@ -24,7 +26,7 @@ const SettingsScreen = () => (
       <Button title="Recover wallet" onPress={() => wallet.initSeedRestore()} />
     </View>
     <View style={styles.btnWrapper}>
-      <Button title="Logout" color="#fa5035" onPress={() => wallet.logout()} />
+      <Button title="Logout" color={color.red} onPress={() => wallet.logout()} />
     </View>
   </View>
 );

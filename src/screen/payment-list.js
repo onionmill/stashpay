@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 const Item = ({item}) => (
   <View style={styles.item}>
     <View style={styles.row}>
-      <Text style={[{color: item.paymentType === 'send' ? 'red' : 'green'}, styles.text]}>
+      <Text style={[{color: item.paymentType === 'send' ? color.red : 'green'}, styles.text]}>
         {item.paymentType === 'send' ? '-' : '+'}{formatNumber(item.amountSat)} sats
       </Text>
       <Text style={styles.text}>{formatDate(item.timestamp)}</Text>
