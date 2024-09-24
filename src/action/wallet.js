@@ -68,7 +68,7 @@ export const initLiquidClient = action(async () => {
     store.liquidListenerId = await liquid.addEventListener(onEvent);
     store.liquidConnected = true;
   } catch (err) {
-    console.error(err);
+    log.error(err);
   }
 });
 
@@ -108,7 +108,7 @@ export async function fetchBalance() {
     console.log(`Storing info: ${JSON.stringify(info)}`);
     _updateBalance(info);
   } catch (err) {
-    console.error(err);
+    log.error(err);
   }
 }
 
@@ -126,7 +126,7 @@ export async function _loadPayments() {
     }
     store.payments = payments;
   } catch (err) {
-    console.error(err);
+    log.error(err);
   }
 }
 
@@ -138,7 +138,7 @@ export async function fetchPayments() {
     store.payments = payments;
     // console.log(JSON.stringify(payments, null, '  '))
   } catch (err) {
-    console.error(err);
+    log.error(err);
   }
 }
 
@@ -225,7 +225,7 @@ const _wipeAndRestart = action(async () => {
     await _wipeCache();
     await _reloadWallet();
   } catch (err) {
-    console.error(err);
+    log.error(err);
   }
 });
 
