@@ -55,14 +55,14 @@ export const initLiquidClient = action(async () => {
     if (store.liquidConnected) {
       return;
     }
-    console.log('Liquid wallet connecting...');
+    log.info('Liquid wallet connecting...');
     await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
-    console.log('Liquid wallet connected!');
+    log.info('Liquid wallet connected!');
     const onEvent = action(e => {
-      console.log(`Received event: ${e.type}`);
+      log.info(`Received event: ${e.type}`);
       update();
     });
     store.liquidListenerId = await liquid.addEventListener(onEvent);
@@ -78,7 +78,7 @@ export const initLiquidClient = action(async () => {
 
 async function _loadBalance() {
   const info = await storage.getItem(INFO_KEY);
-  console.log(`Cached info: ${JSON.stringify(info)}`);
+  log.info(`Cached info: ${JSON.stringify(info)}`);
   if (!info) {
     store.balance = null;
     return;
@@ -93,9 +93,9 @@ export async function fetchBalance() {
       store.balance = null;
       return;
     }
-    console.log(`Wallet balance: ${info.balanceSat}`);
-    console.log(`Wallet pending send balance: ${info.pendingSendSat}`);
-    console.log(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
+    log.info(`Wallet balance: ${info.balanceSat}`);
+    log.info(`Wallet pending send balance: ${info.pendingSendSat}`);
+    log.info(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
     if (info.pendingReceiveSat) {
       const oldInfo = await storage.getItem(INFO_KEY);
       if (!oldInfo || !oldInfo.pendingReceiveSat) {
@@ -105,7 +105,7 @@ export async function fetchBalance() {
       }
     }
     await storage.setItem(INFO_KEY, info);
-    console.log(`Storing info: ${JSON.stringify(info)}`);
+    log.info(`Storing info: ${JSON.stringify(info)}`);
     _updateBalance(info);
   } catch (err) {
     log.error(err);
@@ -120,7 +120,7 @@ const _updateBalance = action(info => {
 export async function _loadPayments() {
   try {
     const payments = await storage.getItem(PAYMENTS_KEY);
-    console.log(`Cached payments: ${payments && payments.length}`);
+    log.info(`Cached payments: ${payments && payments.length}`);
     if (!payments) {
       return;
     }
@@ -134,9 +134,8 @@ export async function fetchPayments() {
   try {
     const payments = await liquid.listPayments({});
     await storage.setItem(PAYMENTS_KEY, payments);
-    console.log(`Storing payments: ${payments.length}`);
+    log.info(`Storing payments: ${payments.length}`);
     store.payments = payments;
-    // console.log(JSON.stringify(payments, null, '  '))
   } catch (err) {
     log.error(err);
   }

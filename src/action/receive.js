@@ -2,6 +2,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
+import * as log from './log';
 import * as alert from './alert';
 import {nap} from '../util';
 
@@ -23,11 +24,11 @@ export async function fetchInvoice() {
       paymentMethod: 'lightning',
     });
     store.receive.feesSat = prepareResponse.feesSat;
-    console.log(`Receive fees, in sats: ${store.receive.feesSat}`);
+    log.info(`Receive fees, in sats: ${store.receive.feesSat}`);
 
     const res = await liquid.receivePayment({prepareResponse, description});
     store.receive.invoice = res.destination;
-    console.log(`Invoice: ${store.receive.invoice}`);
+    log.info(`Invoice: ${store.receive.invoice}`);
   } catch (err) {
     alert.error({err});
   }

@@ -3,6 +3,7 @@ import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
 import * as nav from './nav';
+import * as log from './log';
 import * as alert from './alert';
 
 export async function initSendAddress() {
@@ -22,9 +23,9 @@ export async function readQRCode(data) {
 
 async function parseUri(uri) {
   try {
-    console.log(`Uri to parse: ${uri}`);
+    log.info(`Uri to parse: ${uri}`);
     const input = await liquid.parse(uri);
-    console.log(`Parsed payment data: ${JSON.stringify(input)}`);
+    log.info(`Parsed payment data: ${JSON.stringify(input)}`);
     if (input.type === liquid.InputTypeVariant.BOLT11) {
       await prepareBolt11Payment(input.invoice);
     } else {
@@ -42,7 +43,7 @@ async function prepareBolt11Payment(invoice) {
     destination: invoice.bolt11,
     amountSat,
   });
-  console.log(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
+  log.info(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
   store.send.value = amountSat;
   store.send.destination = JSON.stringify(prepareSendResponse.destination);
   store.send.feesSat = prepareSendResponse.feesSat;
@@ -94,6 +95,6 @@ async function _sendPayment() {
     feesSat: store.send.feesSat,
   };
   const sendResponse = await liquid.sendPayment({prepareResponse});
-  console.log(`Send response: ${JSON.stringify(sendResponse)}`);
+  log.info(`Send response: ${JSON.stringify(sendResponse)}`);
   return sendResponse.payment;
 }
