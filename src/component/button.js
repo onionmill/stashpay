@@ -57,3 +57,37 @@ export const ArrowUpButton = ({onPress, disabled, children, style}) => (
     <Feather name={'chevron-up'} size={30} color={color.darkGrey} />
   </TouchableOpacity>
 );
+
+//
+// Glas Button
+//
+
+const glasStyles = StyleSheet.create({
+  touchable: {
+    height: 75,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    letterSpacing: 1,
+    fontSize: font.sizeL,
+    lineHeight: font.lineHeightL,
+  },
+});
+
+export const GlasButton = ({ onPress, disabled, children, style }) => (
+  <TouchableOpacity
+    style={[
+      { backgroundColor: disabled ? color.glasDark : color.lightGrey },
+      glasStyles.touchable,
+      style,
+    ]}
+    disabled={disabled}
+    onPress={onPress}
+  >
+    <Text style={[{ opacity: disabled ? 0.5 : 1 }, glasStyles.text]}>
+      {children}
+    </Text>
+  </TouchableOpacity>
+);

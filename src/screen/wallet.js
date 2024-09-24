@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
 import {font} from '../component/style';
-import {ArrowUpButton} from '../component/button';
+import {ArrowUpButton, GlasButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 const WalletScreen = () => (
   <View style={styles.wrapper}>
     <Balance />
+    <SendReceiveButton />
     <ArrowUpButton style={styles.listBtn} onPress={() => nav.goTo('PaymentList')} />
   </View>
 );
@@ -55,6 +56,38 @@ const Balance = () => (
       numberOfLines={1}>
       {store.balanceLabel}
     </Text>
+  </View>
+);
+
+//
+// Send Receive Button
+//
+
+const bigBtnStyles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+    marginTop: 40,
+  },
+  leftBtn: {
+    flex: 1,
+    borderTopLeftRadius: 21,
+    borderBottomLeftRadius: 21,
+  },
+  rightBtn: {
+    flex: 1,
+    borderTopRightRadius: 21,
+    borderBottomRightRadius: 21,
+  },
+});
+
+const SendReceiveButton = ({ goPay, goRequest }) => (
+  <View style={bigBtnStyles.wrapper}>
+    <GlasButton onPress={goRequest} style={bigBtnStyles.leftBtn}>
+      Receive
+    </GlasButton>
+    <GlasButton onPress={goPay} style={bigBtnStyles.rightBtn}>
+      Send
+    </GlasButton>
   </View>
 );
 

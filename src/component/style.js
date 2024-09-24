@@ -7,6 +7,9 @@ export const color = {
   blue: '#147efb',
   red: '#fa5035',
   green: '#008000',
+  glas: 'rgba(255,255,255,0.13)',
+  glasDark: 'rgba(255,255,255,0.08)',
+  glasDarker: 'rgba(255,255,255,0.04)',
 };
 
 export const font = {
