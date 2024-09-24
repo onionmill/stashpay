@@ -3,13 +3,13 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
+import * as log from './log';
 import * as nav from './nav';
 import * as alert from './alert';
 import * as keychain from './keychain';
 import * as storage from './local-storage';
 import {generateMnemonic, validateMnemonic} from './mnemonic';
 import {nap, formatNumber} from '../util';
-import {appendLogFile} from './log';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
 const INFO_KEY = 'info';
@@ -56,7 +56,7 @@ export const initLiquidClient = action(async () => {
       return;
     }
     console.log('Liquid wallet connecting...');
-    await liquid.setLogger(appendLogFile);
+    await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
