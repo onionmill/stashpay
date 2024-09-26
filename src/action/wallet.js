@@ -61,9 +61,9 @@ export const initLiquidClient = action(async () => {
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
-    const onEvent = action(e => {
+    const onEvent = action(async e => {
       log.info(`Received event: ${e.type}`);
-      update();
+      await update();
     });
     store.liquidListenerId = await liquid.addEventListener(onEvent);
     store.liquidConnected = true;
