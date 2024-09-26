@@ -32,7 +32,9 @@ const store = observable({
   },
 
   // Persistent data
-  config: {},
+  config: {
+    breezApiKey: '',
+  },
 });
 
 ComputedSend(store);
