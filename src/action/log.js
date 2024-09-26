@@ -1,7 +1,7 @@
 import RNFS from 'react-native-fs';
 import RNShare from 'react-native-share';
 
-const LOG_FILE_PATH = RNFS.DocumentDirectoryPath + '/wallet-log.log';
+const LOG_FILE_PATH = RNFS.DocumentDirectoryPath + '/wallet-log.txt';
 const LOG_FILE_LEVEL = ['ERROR', 'WARN', 'INFO', 'DEBUG']; // 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'
 const LOG_DISPAY_LEVEL = ['ERROR', 'WARN', 'INFO'];
 
