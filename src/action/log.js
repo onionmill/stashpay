@@ -51,6 +51,10 @@ export async function exportLogFile() {
   }
 }
 
+export async function deleteLogFile() {
+  await RNFS.unlink(LOG_FILE_PATH); // don't try/catch here, but in highest-up action
+}
+
 //
 // Helper functions
 //

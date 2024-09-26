@@ -257,4 +257,5 @@ async function _resetStorage() {
   store.payments = [];
   await storage.removeItem(INFO_KEY);
   await storage.removeItem(PAYMENTS_KEY);
+  await log.deleteLogFile();
 }
