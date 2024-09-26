@@ -59,12 +59,6 @@ export const initLiquidClient = action(async () => {
     await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
-    // Temporary fix of slow connect
-    // log.info(`Default config: ${JSON.stringify(config, null, '  ')}`);
-    config.liquidElectrumUrl = 'elements-mainnet.blockstream.info:50002';
-    config.bitcoinElectrumUrl = 'bitcoin-mainnet.blockstream.info:50002';
-    // log.info(`Updated config: ${JSON.stringify(config, null, '  ')}`);
-    // End temporary fix
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
     const onEvent = action(e => {
