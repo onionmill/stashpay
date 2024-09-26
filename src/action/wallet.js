@@ -96,14 +96,8 @@ export async function fetchBalance() {
     log.info(`Wallet balance: ${info.balanceSat}`);
     log.info(`Wallet pending send balance: ${info.pendingSendSat}`);
     log.info(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
-    if (info.pendingReceiveSat) {
-      const oldInfo = await storage.getItem(INFO_KEY);
-      if (!oldInfo || !oldInfo.pendingReceiveSat) {
-        nav.goTo('ReceiveSuccess',{
-          valueLabel: formatNumber(info.pendingReceiveSat),
-        });
-      }
-    }
+    const oldInfo = await storage.getItem(INFO_KEY);
+    _displayReceiveMessage(oldInfo, info);
     await storage.setItem(INFO_KEY, info);
     log.info(`Storing info: ${JSON.stringify(info)}`);
     _updateBalance(info);
@@ -112,8 +106,26 @@ export async function fetchBalance() {
   }
 }
 
+function _displayReceiveMessage(oldInfo, info) {
+  if (oldInfo && _totalBalance(oldInfo) < _totalBalance(info)) {
+    // handle direct liquid payment
+    nav.goTo('ReceiveSuccess',{
+      valueLabel: formatNumber(_totalBalance(info) - _totalBalance(oldInfo)),
+    });
+  } else if (info.pendingReceiveSat) {
+    // handle lightning/swap payment
+    if (!oldInfo || !oldInfo.pendingReceiveSat) {
+      nav.goTo('ReceiveSuccess',{
+        valueLabel: formatNumber(info.pendingReceiveSat),
+      });
+    }
+  }
+}
+
+const _totalBalance = info => info.balanceSat + info.pendingReceiveSat;
+
 const _updateBalance = action(info => {
-    store.balance = info.balanceSat + info.pendingReceiveSat || null;
+    store.balance = _totalBalance(info) || null;
     store.balanceFetched = true;
 });
 
