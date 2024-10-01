@@ -146,6 +146,7 @@ export async function _loadPayments() {
 export async function fetchPayments() {
   try {
     const payments = await liquid.listPayments({});
+    payments.sort((a,b) => b.timestamp - a.timestamp);
     await storage.setItem(PAYMENTS_KEY, payments);
     log.info(`Storing payments: ${payments.length}`);
     store.payments = payments;
