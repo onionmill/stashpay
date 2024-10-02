@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   btnWrapper: {
     marginTop: 10,
+    marginBottom: 30,
     height: 150,
   },
 });
