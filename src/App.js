@@ -48,7 +48,7 @@ const SendStackScreen = () => (
       options={{
         title: 'Amount',
         headerLeft: () => (
-          <Button title="Address" onPress={() => nav.goBack()} />
+          <Button title="Back" onPress={() => nav.goBack()} />
         ),
       }}
     />
@@ -58,7 +58,7 @@ const SendStackScreen = () => (
       options={{
         title: 'Confirm',
         headerLeft: () => (
-          <Button title="Cancel" onPress={() => nav.goBack()} />
+          <Button title="Back" onPress={() => nav.goBack()} />
         ),
       }}
     />
