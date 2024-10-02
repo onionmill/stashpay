@@ -38,7 +38,6 @@ async function parseUri() {
     } else {
       return alert.error({message: 'Unknown QR code!'});
     }
-    nav.goTo('SendStack', {screen: 'SendConfirm'});
   } catch (err) {
     alert.error({err});
   }
@@ -55,6 +54,7 @@ async function prepareBolt11Payment(invoice) {
   store.send.destination = JSON.stringify(prepareSendResponse.destination);
   store.send.feesSat = prepareSendResponse.feesSat;
   store.send.description = invoice.description;
+  nav.goTo('SendStack', {screen: 'SendConfirm'});
 }
 
 export async function pasteInvoice() {
