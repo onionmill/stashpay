@@ -48,14 +48,6 @@ const SendAmountScreen = () => (
         value={store.send.value}
         onChangeText={value => send.setAmount(value)}
       />
-      <Text style={styles.label}>Fee (sat / vbyte):</Text>
-      <TextInput
-        placeholder="0"
-        keyboardType="number-pad"
-        style={styles.input}
-        value={store.send.feeRate}
-        onChangeText={feeRate => send.setFeeRate(feeRate)}
-      />
     </View>
     <View style={styles.btnWrapper}>
       <PillButton onPress={() => send.validateAmount()}>Review</PillButton>

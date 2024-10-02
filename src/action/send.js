@@ -70,10 +70,6 @@ export function setAmount(value) {
   store.send.value = value;
 }
 
-export function setFeeRate(feeRate) {
-  store.send.feeRate = feeRate;
-}
-
 export async function validateAmount() {
   try {
     nav.goTo('SendWait', {
