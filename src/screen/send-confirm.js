@@ -49,7 +49,7 @@ const SendConfirmScreen = () => (
       </Text>
       <Text style={styles.label}>Fee:</Text>
       <Text style={styles.fee} adjustsFontSizeToFit={true} numberOfLines={1}>
-        {store.sendFeeLabel} sats
+        {store.sendFeeLabel}
       </Text>
       <Text style={styles.label}>Note:</Text>
       <Text
