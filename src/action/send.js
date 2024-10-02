@@ -15,6 +15,10 @@ export async function initSendAddress() {
   store.send.description = null;
 }
 
+//
+// URI Parsing and Preparating
+//
+
 export async function readQRCode(data) {
   if (store.send.rawUri || !data && !data.length) {
     return;
@@ -58,6 +62,10 @@ export async function pasteInvoice() {
   await parseUri();
 }
 
+//
+// Payment Amount
+//
+
 export function setAmount(value) {
   store.send.value = value;
 }
@@ -78,6 +86,10 @@ export async function validateAmount() {
     alert.error({err});
   }
 }
+
+//
+// Payment Sending
+//
 
 export async function validateSend() {
   try {
