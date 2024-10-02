@@ -35,6 +35,8 @@ async function parseUri() {
     log.info(`Parsed payment data: ${store.send.input}`);
     if (input.type === liquid.InputTypeVariant.BOLT11) {
       await prepareBolt11Payment(input.invoice);
+    } else if (input.type === liquid.InputTypeVariant.LN_URL_PAY) {
+      await prepareLnurlPayment();
     } else {
       return alert.error({message: 'Unknown QR code!'});
     }
@@ -57,6 +59,21 @@ async function prepareBolt11Payment(invoice) {
   nav.goTo('SendStack', {screen: 'SendConfirm'});
 }
 
+async function prepareLnurlPayment() {
+  const {data} = JSON.parse(store.send.input);
+  store.send.description = _parseLnurlMetadata(data.metadataStr);
+  nav.goTo('SendStack', {screen: 'SendAmount'});
+}
+
+function _parseLnurlMetadata(str) {
+  if (!typeof str === 'string') {
+    return null;
+  }
+  const arr = JSON.parse(str);
+  const tag = arr.find(d => d.length && d[0] === 'text/plain');
+  return tag && tag.length === 2 && tag[1] || null;
+}
+
 export async function pasteInvoice() {
   store.send.rawUri = await Clipboard.getString();
   await parseUri();
@@ -70,17 +87,8 @@ export function setAmount(value) {
   store.send.value = value;
 }
 
-export async function validateAmount() {
-  try {
-    nav.goTo('SendWait', {
-      message: 'Checking...',
-    });
-    // await createTransaction();
-    nav.goTo('SendConfirm');
-  } catch (err) {
-    nav.goTo('SendAmount');
-    alert.error({err});
-  }
+export function validateAmount() {
+  nav.goTo('SendConfirm');
 }
 
 //
@@ -101,6 +109,15 @@ export async function validateSend() {
 }
 
 async function _sendPayment() {
+  const {type} = JSON.parse(store.send.input);
+  if (type === liquid.InputTypeVariant.BOLT11) {
+    await _sendBolt11Payment();
+  } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
+    await _sendLnurlPayment();
+  }
+}
+
+async function _sendBolt11Payment() {
   const prepareResponse = {
     destination: JSON.parse(store.send.destination),
     feesSat: store.send.feesSat,
@@ -108,4 +125,16 @@ async function _sendPayment() {
   const sendResponse = await liquid.sendPayment({prepareResponse});
   log.info(`Send response: ${JSON.stringify(sendResponse)}`);
   return sendResponse.payment;
+}
+
+async function _sendLnurlPayment() {
+  const {data} = JSON.parse(store.send.input);
+  const amountMsat = Number(store.send.value) * 1000;
+  const validateSuccessActionUrl = true;
+  const lnUrlPayResult = await liquid.lnurlPay({
+    data,
+    amountMsat,
+    validateSuccessActionUrl,
+  });
+  log.info(`LnurlPay Result: ${JSON.stringify(lnUrlPayResult)}`);
 }
