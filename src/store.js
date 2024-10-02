@@ -25,6 +25,8 @@ const store = observable({
     description: null,
   },
   send: {
+    rawUri: null,
+    input: null,
     value: null,
     destination: null,
     feesSat: null,

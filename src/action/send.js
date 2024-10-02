@@ -7,6 +7,8 @@ import * as log from './log';
 import * as alert from './alert';
 
 export async function initSendAddress() {
+  store.send.rawUri = null;
+  store.send.input = null;
   store.send.value = null;
   store.send.destination = null;
   store.send.feesSat = null;
@@ -14,18 +16,19 @@ export async function initSendAddress() {
 }
 
 export async function readQRCode(data) {
-  if (store.send.destination || !data && !data.length) {
+  if (store.send.rawUri || !data && !data.length) {
     return;
   }
-  store.send.destination = data[0].value;
-  await parseUri(data[0].value);
+  store.send.rawUri = data[0].value;
+  await parseUri();
 }
 
-async function parseUri(uri) {
+async function parseUri() {
   try {
-    log.info(`Uri to parse: ${uri}`);
-    const input = await liquid.parse(uri);
-    log.info(`Parsed payment data: ${JSON.stringify(input)}`);
+    log.info(`Uri to parse: ${store.send.rawUri}`);
+    const input = await liquid.parse(store.send.rawUri);
+    store.send.input = JSON.stringify(input);
+    log.info(`Parsed payment data: ${store.send.input}`);
     if (input.type === liquid.InputTypeVariant.BOLT11) {
       await prepareBolt11Payment(input.invoice);
     } else {
@@ -51,8 +54,8 @@ async function prepareBolt11Payment(invoice) {
 }
 
 export async function pasteInvoice() {
-  const uri = await Clipboard.getString();
-  await parseUri(uri);
+  store.send.rawUri = await Clipboard.getString();
+  await parseUri();
 }
 
 export function setAmount(value) {
