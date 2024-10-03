@@ -3,6 +3,7 @@ import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
 import * as log from './log';
+import * as alert from './alert';
 import {nap} from '../util';
 
 const RECEIVE_MIN = 1000;
@@ -29,7 +30,7 @@ export async function fetchInvoice() {
     store.receive.invoice = res.destination;
     log.info(`Invoice: ${store.receive.invoice}`);
   } catch (err) {
-    log.error(err);
+    alert.error({err});
   }
 }
 
