@@ -14,6 +14,7 @@ import ReceiveAmountScreen from './screen/receive-amount';
 import ReceiveSuccessScreen from './screen/receive-success';
 import PaymentListScreen from './screen/payment-list';
 import SendScreen from './screen/send';
+import SendAddressScreen from './screen/send-address';
 import SendAmountScreen from './screen/send-amount';
 import SendConfirmScreen from './screen/send-confirm';
 import SendSuccessScreen from './screen/send-success';
@@ -41,6 +42,16 @@ const ReceiveStackScreen = () => (
 
 const SendStackScreen = () => (
   <SendStack.Navigator>
+    <SendStack.Screen
+      name="SendAddress"
+      component={SendAddressScreen}
+      options={{
+        title: '@Address',
+        headerLeft: () => (
+          <Button title="Back" onPress={() => nav.goBack()} />
+        ),
+      }}
+    />
     <SendStack.Screen
       name="SendAmount"
       component={SendAmountScreen}
@@ -116,7 +127,15 @@ const MainStackScreen = () => (
         ),
       }}
     />
-    <MainStack.Screen name="Send" component={SendScreen} />
+    <MainStack.Screen
+      name="Send"
+      component={SendScreen}
+      options={{
+        headerRight: () => (
+          <Button title="@Address" onPress={() => nav.goTo('SendStack')} />
+        ),
+      }}
+    />
     <MainStack.Screen name="Settings" component={SettingsScreen} />
   </MainStack.Navigator>
 );

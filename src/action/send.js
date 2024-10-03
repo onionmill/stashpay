@@ -19,6 +19,15 @@ export async function initSendAddress() {
 // URI Parsing and Preparating
 //
 
+export function setUri(rawUri) {
+  store.send.rawUri = rawUri;
+}
+
+export async function pasteInvoice() {
+  store.send.rawUri = await Clipboard.getString();
+  await parseUri();
+}
+
 export async function readQRCode(data) {
   if (store.send.rawUri || !data && !data.length) {
     return;
@@ -27,16 +36,16 @@ export async function readQRCode(data) {
   await parseUri();
 }
 
-async function parseUri() {
+export async function parseUri() {
   try {
     log.info(`Uri to parse: ${store.send.rawUri}`);
     const input = await liquid.parse(store.send.rawUri);
     store.send.input = JSON.stringify(input);
     log.info(`Parsed payment data: ${store.send.input}`);
     if (input.type === liquid.InputTypeVariant.BOLT11) {
-      await prepareBolt11Payment(input.invoice);
+      await _prepareBolt11Payment(input.invoice);
     } else if (input.type === liquid.InputTypeVariant.LN_URL_PAY) {
-      await prepareLnurlPayment();
+      await _prepareLnurlPayment();
     } else {
       return alert.error({message: 'Unknown QR code!'});
     }
@@ -45,7 +54,7 @@ async function parseUri() {
   }
 }
 
-async function prepareBolt11Payment(invoice) {
+async function _prepareBolt11Payment(invoice) {
   const amountSat = invoice.amountMsat / 1000;
   const prepareSendResponse = await liquid.prepareSendPayment({
     destination: invoice.bolt11,
@@ -59,7 +68,7 @@ async function prepareBolt11Payment(invoice) {
   nav.goTo('SendStack', {screen: 'SendConfirm'});
 }
 
-async function prepareLnurlPayment() {
+async function _prepareLnurlPayment() {
   const {data} = JSON.parse(store.send.input);
   store.send.description = _parseLnurlMetadata(data.metadataStr);
   nav.goTo('SendStack', {screen: 'SendAmount'});
@@ -72,11 +81,6 @@ function _parseLnurlMetadata(str) {
   const arr = JSON.parse(str);
   const tag = arr.find(d => d.length && d[0] === 'text/plain');
   return tag && tag.length === 2 && tag[1] || null;
-}
-
-export async function pasteInvoice() {
-  store.send.rawUri = await Clipboard.getString();
-  await parseUri();
 }
 
 //
