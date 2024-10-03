@@ -25,11 +25,14 @@ export async function fetchInvoice() {
     });
     store.receive.feesSat = prepareResponse.feesSat;
     log.info(`Receive fees, in sats: ${store.receive.feesSat}`);
-
     const res = await liquid.receivePayment({prepareResponse, description});
     store.receive.invoice = res.destination;
     log.info(`Invoice: ${store.receive.invoice}`);
   } catch (err) {
+    if (err.message.includes('Could not contact servers:')) {
+      log.error(err);
+      return;
+    }
     alert.error({err});
   }
 }
