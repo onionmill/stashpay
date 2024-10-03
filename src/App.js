@@ -8,13 +8,12 @@ import Feather from 'react-native-vector-icons/Feather';
 import './action';
 import * as nav from './action/nav';
 
-import SplashScreen from './screen/splash';
 import WalletScreen from './screen/wallet';
 import ReceiveScreen from './screen/receive';
 import ReceiveAmountScreen from './screen/receive-amount';
 import ReceiveSuccessScreen from './screen/receive-success';
 import PaymentListScreen from './screen/payment-list';
-import SendAddressScreen from './screen/send-address';
+import SendScreen from './screen/send';
 import SendAmountScreen from './screen/send-amount';
 import SendConfirmScreen from './screen/send-confirm';
 import SendSuccessScreen from './screen/send-success';
@@ -117,7 +116,7 @@ const MainStackScreen = () => (
         ),
       }}
     />
-    <MainStack.Screen name="Send" component={SendAddressScreen} />
+    <MainStack.Screen name="Send" component={SendScreen} />
     <MainStack.Screen name="Settings" component={SettingsScreen} />
   </MainStack.Navigator>
 );
