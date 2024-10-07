@@ -39,7 +39,7 @@ export async function readQRCode(data) {
 export async function parseUri() {
   try {
     log.info(`Uri to parse: ${store.send.rawUri}`);
-    const input = await liquid.parse(store.send.rawUri);
+    const input = await liquid.parse(_removeBip353Prefix(store.send.rawUri));
     store.send.input = JSON.stringify(input);
     log.info(`Parsed payment data: ${store.send.input}`);
     if (input.type === liquid.InputTypeVariant.BOLT11) {
@@ -52,6 +52,10 @@ export async function parseUri() {
   } catch (err) {
     alert.error({err});
   }
+}
+
+function _removeBip353Prefix(uri) {
+  return uri.replace(/^₿/g, '');
 }
 
 async function _prepareBolt11Payment(invoice) {
