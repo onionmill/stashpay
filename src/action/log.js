@@ -81,7 +81,11 @@ async function _appendLogFile(level, line) {
     return;
   }
   line = `${new Date().toISOString()} ${line}\n`;
-  await RNFS.appendFile(LOG_FILE_PATH, line, 'utf8');
+  try {
+    await RNFS.appendFile(LOG_FILE_PATH, line, 'utf8');
+  } catch (err) {
+    console.error(_formatLine('APP', 'ERROR', 'Appending log failed!'), err);
+  }
 }
 
 async function _exportLogFile() {
