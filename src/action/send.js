@@ -55,7 +55,7 @@ export async function parseUri() {
 }
 
 function _removeBip353Prefix(uri) {
-  return uri.replace(/^₿/g, '');
+  return uri && uri.replace(/^₿/g, '');
 }
 
 async function _prepareBolt11Payment(invoice) {
