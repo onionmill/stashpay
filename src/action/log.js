@@ -69,7 +69,7 @@ function _formatLine(src, level, message) {
   return `[${src}] [${level}]: ${message}`;
 }
 
-export function _displayLog(level, line) {
+function _displayLog(level, line) {
   if (!LOG_DISPAY_LEVEL.includes(level)) {
     return;
   }
