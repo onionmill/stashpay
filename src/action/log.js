@@ -52,7 +52,13 @@ export async function exportLogFile() {
 }
 
 export async function deleteLogFile() {
-  await RNFS.unlink(LOG_FILE_PATH); // don't try/catch here, but in highest-up action
+  try {
+    if (await RNFS.exists(LOG_FILE_PATH)) {
+      await RNFS.unlink(LOG_FILE_PATH);
+    }
+  } catch (err) {
+    console.error(_formatLine('APP', 'ERROR', 'Deleting log failed!'), err);
+  }
 }
 
 //
