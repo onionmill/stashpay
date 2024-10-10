@@ -45,9 +45,9 @@ export async function logSDK(logEntry) {
 
 export async function exportLogFile() {
   try {
-    await _exportLogFile();
+    await RNShare.open({url: `file://${LOG_FILE_PATH}`, type: 'text/plain'});
   } catch (err) {
-    warn(err.message);
+    console.log(_formatLine('APP', 'WARN', 'Exporting log failed!'), err);
   }
 }
 
@@ -86,11 +86,4 @@ async function _appendLogFile(level, line) {
   } catch (err) {
     console.error(_formatLine('APP', 'ERROR', 'Appending log failed!'), err);
   }
-}
-
-async function _exportLogFile() {
-  await RNShare.open({
-    url: `file://${LOG_FILE_PATH}`,
-    type: 'text/plain',
-  });
 }
