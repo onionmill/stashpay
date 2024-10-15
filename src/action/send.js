@@ -46,6 +46,8 @@ export async function parseUri() {
       await _prepareBolt11Payment(input.invoice);
     } else if (input.type === liquid.InputTypeVariant.LN_URL_PAY) {
       await _prepareLnurlPayment();
+    } else if (input.type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
+      await _parseOnchainData();
     } else {
       return alert.error({message: 'Unknown QR code!'});
     }
@@ -87,6 +89,13 @@ function _parseLnurlMetadata(str) {
   return tag && tag.length === 2 && tag[1] || null;
 }
 
+function _parseOnchainData() {
+  const {address} = JSON.parse(store.send.input);
+  store.send.value = address.amountSat ? String(address.amountSat) : null;
+  store.send.description = address.label;
+  nav.goTo('SendStack', {screen: 'SendAmount'});
+}
+
 //
 // Payment Amount
 //
@@ -95,7 +104,30 @@ export function setAmount(value) {
   store.send.value = value;
 }
 
-export function validateAmount() {
+export async function validateAmount() {
+  try {
+    const {type} = JSON.parse(store.send.input);
+    if (type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
+      await _prepareOnchainPayment();
+    } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
+      nav.goTo('SendConfirm');
+    }
+  } catch (err) {
+    nav.goTo('SendAmount');
+    alert.error({err});
+  }
+}
+
+async function _prepareOnchainPayment() {
+  const amountSat = Number(store.send.value);
+  const prepareResponse = await liquid.preparePayOnchain({
+    amount: {
+      type: liquid.PayOnchainAmountVariant.RECEIVER,
+      amountSat,
+    },
+  });
+  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.feesSat = prepareResponse.totalFeesSat;
   nav.goTo('SendConfirm');
 }
 
@@ -122,6 +154,8 @@ async function _sendPayment() {
     await _sendBolt11Payment();
   } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
     await _sendLnurlPayment();
+  } else if (type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
+    await _sendOnchainPayment();
   }
 }
 
@@ -145,4 +179,13 @@ async function _sendLnurlPayment() {
     validateSuccessActionUrl,
   });
   log.info(`LnurlPay Result: ${JSON.stringify(lnUrlPayResult)}`);
+}
+
+async function _sendOnchainPayment() {
+  const {address} = JSON.parse(store.send.input);
+  const payOnchainRes = await liquid.payOnchain({
+    address: address.address,
+    prepareResponse: JSON.parse(store.send.destination),
+  });
+  log.info(`PayOnchain Result: ${JSON.stringify(payOnchainRes)}`);
 }
