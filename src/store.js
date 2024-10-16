@@ -1,6 +1,7 @@
 import {observable} from 'mobx';
 import ComputedSend from './computed/send';
 import ComputedWallet from './computed/wallet';
+import ComputedReceive from './computed/receive';
 
 const store = observable({
   // app state
@@ -23,6 +24,9 @@ const store = observable({
     invoice: null,
     feesSat: null,
     description: null,
+    onChain: false,
+    minSatLn: null,
+    minSatBtc: null,
   },
   send: {
     rawUri: null,
@@ -41,5 +45,6 @@ const store = observable({
 
 ComputedSend(store);
 ComputedWallet(store);
+ComputedReceive(store);
 
 export default store;

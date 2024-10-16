@@ -7,6 +7,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import './action';
 import * as nav from './action/nav';
+import {toggleOnchain} from './action/receive';
 
 import WalletScreen from './screen/wallet';
 import ReceiveScreen from './screen/receive';
@@ -122,6 +123,9 @@ const MainStackScreen = () => (
       name="Receive"
       component={ReceiveScreen}
       options={{
+        headerLeft: () => (
+          <Button title="Chain/Ln" onPress={() => toggleOnchain()} />
+        ),
         headerRight: () => (
           <Button title="Amount" onPress={() => nav.goTo('ReceiveStack')} />
         ),

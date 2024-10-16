@@ -27,7 +27,7 @@ const ReceiveAmountScreen = () => (
     <MainContent>
       <H1Text>Amount (sats)</H1Text>
       <TextInput
-        placeholder="1000 minumum"
+        placeholder={store.receiveMinValueLabel}
         keyboardType="number-pad"
         autoFocus
         style={styles.input}

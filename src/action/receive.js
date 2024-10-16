@@ -6,22 +6,32 @@ import * as log from './log';
 import * as alert from './alert';
 import {nap} from '../util';
 
-const RECEIVE_MIN = 1000;
+export async function fetchLimits() {
+  const limitsLn = await liquid.fetchLightningLimits();
+  store.receive.minSatLn = limitsLn.receive.minSat;
+  const limitsBtc = await liquid.fetchOnchainLimits();
+  store.receive.minSatBtc = limitsBtc.receive.minSat;
+}
+
+export async function toggleOnchain() {
+  store.receive.onChain = !store.receive.onChain;
+  await fetchInvoice();
+}
 
 export function setAmount(value) {
   store.receive.value = value;
 }
 
 export async function fetchInvoice() {
-  const {value, description} = store.receive;
+  const {value, description, onChain, minSatLn, minSatBtc} = store.receive;
   try {
     store.receive.invoice = null;
     while (!store.liquidConnected) {
       await nap(100);
     }
     const prepareResponse = await liquid.prepareReceivePayment({
-      payerAmountSat: value ? Number(value) : RECEIVE_MIN,
-      paymentMethod: 'lightning',
+      payerAmountSat: value ? Number(value) : onChain ? minSatBtc : minSatLn,
+      paymentMethod: onChain ? liquid.PaymentMethod.BITCOIN_ADDRESS : liquid.PaymentMethod.LIGHTNING,
     });
     store.receive.feesSat = prepareResponse.feesSat;
     log.info(`Receive fees, in sats: ${store.receive.feesSat}`);
