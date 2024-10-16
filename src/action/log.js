@@ -2,8 +2,9 @@ import RNFS from 'react-native-fs';
 import RNShare from 'react-native-share';
 
 const LOG_FILE_PATH = RNFS.DocumentDirectoryPath + '/wallet-log.txt';
-const LOG_FILE_LEVEL = ['ERROR', 'WARN', 'INFO', 'DEBUG']; // 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'
-const LOG_DISPAY_LEVEL = ['ERROR', 'WARN', 'INFO'];
+const LOG_LEVEL_SDK = ['ERROR', 'WARN', 'INFO', 'DEBUG']; // 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'
+const LOG_LEVEL_FILE = ['ERROR', 'WARN', 'INFO', 'DEBUG'];
+const LOG_LEVEL_DISPLAY = ['ERROR', 'WARN', 'INFO'];
 
 //
 // Logging APIs
@@ -35,7 +36,7 @@ export async function error(err) {
 }
 
 export async function logSDK(logEntry) {
-  if (!LOG_FILE_LEVEL.includes(logEntry.level)) {
+  if (!LOG_LEVEL_SDK.includes(logEntry.level)) {
     return;
   }
   const line = _formatLine('SDK', logEntry.level, logEntry.line);
@@ -70,14 +71,14 @@ function _formatLine(src, level, message) {
 }
 
 function _displayLog(level, line) {
-  if (!LOG_DISPAY_LEVEL.includes(level)) {
+  if (!LOG_LEVEL_DISPLAY.includes(level)) {
     return;
   }
   console.log(line);
 }
 
 async function _appendLogFile(level, line) {
-  if (!LOG_FILE_LEVEL.includes(level)) {
+  if (!LOG_LEVEL_FILE.includes(level)) {
     return;
   }
   line = `${new Date().toISOString()} ${line}\n`;
