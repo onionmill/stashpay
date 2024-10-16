@@ -48,6 +48,8 @@ export async function parseUri() {
       await _prepareLnurlPayment();
     } else if (input.type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
       await _parseOnchainData();
+    } else if (input.type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
+      await _parseOnchainData();
     } else {
       return alert.error({message: 'Unknown QR code!'});
     }
@@ -109,6 +111,8 @@ export async function validateAmount() {
     const {type} = JSON.parse(store.send.input);
     if (type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
       await _prepareOnchainPayment();
+    } else if (type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
+      await _prepareLiquidPayment();
     } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
       nav.goTo('SendConfirm');
     }
@@ -128,6 +132,18 @@ async function _prepareOnchainPayment() {
   });
   store.send.destination = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.totalFeesSat;
+  nav.goTo('SendConfirm');
+}
+
+async function _prepareLiquidPayment() {
+  const amountSat = Number(store.send.value);
+  const {address} = JSON.parse(store.send.input);
+  const prepareResponse = await liquid.prepareSendPayment({
+    destination: address.address,
+    amountSat,
+  });
+  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendConfirm');
 }
 
@@ -156,6 +172,8 @@ async function _sendPayment() {
     await _sendLnurlPayment();
   } else if (type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
     await _sendOnchainPayment();
+  } else if (type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
+    await _sendLiquidPayment();
   }
 }
 
@@ -188,4 +206,12 @@ async function _sendOnchainPayment() {
     prepareResponse: JSON.parse(store.send.destination),
   });
   log.info(`PayOnchain Result: ${JSON.stringify(payOnchainRes)}`);
+}
+
+async function _sendLiquidPayment() {
+  const sendResponse = await liquid.sendPayment({
+    prepareResponse: JSON.parse(store.send.destination),
+  });
+  log.info(`Send response: ${JSON.stringify(sendResponse)}`);
+  return sendResponse.payment;
 }
