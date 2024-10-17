@@ -25,8 +25,8 @@ const store = observable({
     feesSat: null,
     description: null,
     onChain: false,
-    minSatLn: null,
-    minSatBtc: null,
+    minSatLn: 1000,
+    minSatBtc: 50000,
   },
   send: {
     rawUri: null,
