@@ -2,7 +2,7 @@
  * @format
  */
 
-import 'node-libs-react-native/globals';
+global.Buffer = require('buffer').Buffer;
 
 import 'react-native-gesture-handler';
 
