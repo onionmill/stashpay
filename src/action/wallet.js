@@ -58,8 +58,7 @@ export const initLiquidClient = action(async () => {
     log.info('Liquid wallet connecting...');
     await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
-    const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
-    config.breezApiKey = store.config.breezApiKey;
+    const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET, store.config.breezApiKey);
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
     const onEvent = action(async e => {
