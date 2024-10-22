@@ -45,7 +45,7 @@ export async function parseUri() {
     if (input.type === liquid.InputTypeVariant.BOLT11) {
       await _prepareBolt11Payment(input.invoice);
     } else if (input.type === liquid.InputTypeVariant.LN_URL_PAY) {
-      await _prepareLnurlPayment();
+      await _parseLnurlPayment();
     } else if (input.type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
       await _parseOnchainData();
     } else if (input.type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
@@ -76,7 +76,7 @@ async function _prepareBolt11Payment(invoice) {
   nav.goTo('SendStack', {screen: 'SendConfirm'});
 }
 
-async function _prepareLnurlPayment() {
+async function _parseLnurlPayment() {
   const {data} = JSON.parse(store.send.input);
   store.send.description = _parseLnurlMetadata(data.metadataStr);
   nav.goTo('SendStack', {screen: 'SendAmount'});
@@ -114,7 +114,7 @@ export async function validateAmount() {
     } else if (type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
       await _prepareLiquidPayment();
     } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
-      nav.goTo('SendConfirm');
+      await _prepareLnurlPayment();
     }
   } catch (err) {
     nav.goTo('SendAmount');
@@ -141,6 +141,19 @@ async function _prepareLiquidPayment() {
   const prepareResponse = await liquid.prepareSendPayment({
     destination: address.address,
     amountSat,
+  });
+  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.feesSat = prepareResponse.feesSat;
+  nav.goTo('SendConfirm');
+}
+
+async function _prepareLnurlPayment() {
+  const {data} = JSON.parse(store.send.input);
+  const amountMsat = Number(store.send.value) * 1000;
+  const prepareResponse = await liquid.prepareLnurlPay({
+    data,
+    amountMsat,
+    validateSuccessActionUrl: true,
   });
   store.send.destination = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
@@ -188,13 +201,8 @@ async function _sendBolt11Payment() {
 }
 
 async function _sendLnurlPayment() {
-  const {data} = JSON.parse(store.send.input);
-  const amountMsat = Number(store.send.value) * 1000;
-  const validateSuccessActionUrl = true;
   const lnUrlPayResult = await liquid.lnurlPay({
-    data,
-    amountMsat,
-    validateSuccessActionUrl,
+    prepareResponse: JSON.parse(store.send.destination),
   });
   log.info(`LnurlPay Result: ${JSON.stringify(lnUrlPayResult)}`);
 }
