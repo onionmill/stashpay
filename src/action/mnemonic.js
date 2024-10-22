@@ -8,6 +8,7 @@ async function randomBytes(size) {
       if (err) {
         reject(err);
       } else {
+        // eslint-disable-next-line no-undef
         resolve(Buffer.from(bytes, 'base64'));
       }
     });
