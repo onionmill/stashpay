@@ -16,8 +16,7 @@ const ComputedSend = store => {
       return formatNumber(store.send.value) + ' sats';
     },
     get sendFeeLabel() {
-      const {feesSat} = store.send;
-      return feesSat ? formatNumber(feesSat) + ' sats' : 'Unknown';
+      return formatNumber(store.send.feesSat) + ' sats';
     },
   });
 };
