@@ -39,7 +39,7 @@ const store = observable({
     minSatBtc: 50000,
   },
 
-  // Persistent data
+  // persistent data
   config: {
     breezApiKey: '',
   },
