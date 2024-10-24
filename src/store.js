@@ -41,7 +41,6 @@ const store = observable({
 
   // persistent data
   config: {
-    breezApiKey: '',
   },
 });
 
