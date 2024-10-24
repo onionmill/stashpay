@@ -51,7 +51,7 @@ const Address = () => (
         Fee to receive: {formatNumber(store.receive.feesSat)} sats
       </Text>
     </View>
-    <PillButton onPress={() => receive.copyInvoice()}>Copy Invoice</PillButton>
+    <PillButton onPress={() => receive.copyInvoice()}>{store.receiveCopyBtnLabel}</PillButton>
   </View>
 );
 
