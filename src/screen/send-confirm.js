@@ -45,7 +45,7 @@ const SendConfirmScreen = () => (
     <View style={styles.paramsWrapper}>
       <Text style={styles.label}>Amount:</Text>
       <Text style={styles.value} adjustsFontSizeToFit={true} numberOfLines={1}>
-        {store.sendValueLabel} sats
+        {store.sendValueLabel}
       </Text>
       <Text style={styles.label}>Fee:</Text>
       <Text style={styles.fee} adjustsFontSizeToFit={true} numberOfLines={1}>

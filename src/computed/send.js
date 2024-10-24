@@ -13,7 +13,7 @@ const ComputedSend = store => {
         minSatLn} minimum`;
     },
     get sendValueLabel() {
-      return formatNumber(store.send.value);
+      return formatNumber(store.send.value) + ' sats';
     },
     get sendFeeLabel() {
       const {feesSat} = store.send;
