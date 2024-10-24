@@ -9,8 +9,10 @@ import {nap} from '../util';
 export async function fetchLimits() {
   const limitsLn = await liquid.fetchLightningLimits();
   store.receive.minSatLn = limitsLn.receive.minSat;
+  store.send.minSatLn = limitsLn.send.minSat;
   const limitsBtc = await liquid.fetchOnchainLimits();
   store.receive.minSatBtc = limitsBtc.receive.minSat;
+  store.send.minSatBtc = limitsBtc.send.minSat;
 }
 
 export async function toggleOnchain() {

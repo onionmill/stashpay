@@ -26,7 +26,7 @@ const SendAmountScreen = () => (
     <MainContent>
       <H1Text>Amount (sats)</H1Text>
       <TextInput
-        placeholder="1000 minumum"
+        placeholder={store.sendMinValueLabel}
         keyboardType="number-pad"
         autoFocus
         style={styles.input}
