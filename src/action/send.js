@@ -5,6 +5,7 @@ import store from '../store';
 import * as nav from './nav';
 import * as log from './log';
 import * as alert from './alert';
+import {fetchLnLimits, fetchOnchainLimits} from './receive';
 
 export async function initSendAddress() {
   store.send.rawUri = null;
@@ -80,6 +81,7 @@ async function _parseLnurlPayment() {
   const {data} = JSON.parse(store.send.input);
   store.send.description = _parseLnurlMetadata(data.metadataStr);
   nav.goTo('SendStack', {screen: 'SendAmount'});
+  await fetchLnLimits(); // after nav for performance
 }
 
 function _parseLnurlMetadata(str) {
@@ -91,11 +93,14 @@ function _parseLnurlMetadata(str) {
   return tag && tag.length === 2 && tag[1] || null;
 }
 
-function _parseOnchainData() {
+async function _parseOnchainData() {
   const {address} = JSON.parse(store.send.input);
   store.send.value = address.amountSat ? String(address.amountSat) : null;
   store.send.description = address.label;
   nav.goTo('SendStack', {screen: 'SendAmount'});
+  if (!store.send.value) {
+    await fetchOnchainLimits(); // after nav for performance
+  }
 }
 
 //
