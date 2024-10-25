@@ -7,12 +7,25 @@ import * as alert from './alert';
 import {nap} from '../util';
 
 export async function fetchLimits() {
+  try {
+    await Promise.all([fetchLnLimits(), fetchOnchainLimits()]);
+  } catch(err) {
+    log.error(err);
+  }
+}
+
+export async function fetchLnLimits() {
   const limitsLn = await liquid.fetchLightningLimits();
   store.receive.minSatLn = limitsLn.receive.minSat;
   store.send.minSatLn = limitsLn.send.minSat;
+  log.info(`Min Ln receive: ${store.receive.minSatLn}`);
+}
+
+export async function fetchOnchainLimits() {
   const limitsBtc = await liquid.fetchOnchainLimits();
   store.receive.minSatBtc = limitsBtc.receive.minSat;
   store.send.minSatBtc = limitsBtc.send.minSat;
+  log.info(`Min Btc receive: ${store.receive.minSatBtc}`);
 }
 
 export async function toggleOnchain() {
