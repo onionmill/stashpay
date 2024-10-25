@@ -24,7 +24,7 @@ when(
 when(
   () => store.walletReady,
   async () => {
-    await Promise.all([wallet.initLiquidClient()]);
+    await wallet.initLiquidClient();
   },
 );
 
