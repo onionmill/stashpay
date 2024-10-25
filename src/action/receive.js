@@ -38,14 +38,15 @@ export function setAmount(value) {
 }
 
 export async function fetchInvoice() {
-  const {value, description, onChain, minSatLn, minSatBtc} = store.receive;
+  const {value, description, onChain} = store.receive;
   try {
     store.receive.invoice = null;
     while (!store.liquidConnected) {
       await nap(100);
     }
+    const minSat = await _fetchMinSat(onChain);
     const prepareResponse = await liquid.prepareReceivePayment({
-      payerAmountSat: value ? Number(value) : onChain ? minSatBtc : minSatLn,
+      payerAmountSat: value ? Number(value) : minSat,
       paymentMethod: onChain ? liquid.PaymentMethod.BITCOIN_ADDRESS : liquid.PaymentMethod.LIGHTNING,
     });
     store.receive.feesSat = prepareResponse.feesSat;
@@ -60,6 +61,15 @@ export async function fetchInvoice() {
     }
     alert.error({err});
   }
+}
+
+async function _fetchMinSat(onChain) {
+  if (onChain) {
+    await fetchOnchainLimits();
+  } else {
+    await fetchLnLimits();
+  }
+  return onChain ? store.receive.minSatBtc : store.receive.minSatLn;
 }
 
 export function copyInvoice() {
