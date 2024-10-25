@@ -52,10 +52,10 @@ export async function parseUri() {
     } else if (input.type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
       await _parseOnchainData();
     } else {
-      return alert.error({message: 'Unknown QR code!'});
+      return alert.warn({message: 'Unknown QR code!', onOk: () => initSendAddress()});
     }
   } catch (err) {
-    alert.error({err});
+    alert.warn({err, onOk: () => initSendAddress()});
   }
 }
 

@@ -13,10 +13,10 @@ export function error({title, message, err}) {
   }
 }
 
-export function warn({title, message, onOk, okText}) {
+export function warn({title, message, onOk, okText, err}) {
   Alert.alert(
     title,
-    message,
+    message || err.message,
     [
       {
         text: okText || 'OK',
@@ -27,6 +27,9 @@ export function warn({title, message, onOk, okText}) {
       cancelable: false,
     },
   );
+  if (err) {
+    log.error(err);
+  }
 }
 
 export function confirm({title, message, onOk, okText, destructive}) {
