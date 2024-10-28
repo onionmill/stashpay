@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, Button, View} from 'react-native';
+import {StyleSheet, Button, View, Text} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {color} from '../component/style';
 
+import store from '../store';
 import * as log from '../action/log';
 import * as wallet from '../action/wallet';
 
@@ -15,6 +16,17 @@ const styles = StyleSheet.create({
   btnWrapper: {
     marginTop: 50,
     alignItems: 'center',
+  },
+  versionWrapper: {
+    position: 'absolute',
+    bottom: 35,
+    left: 10,
+    right: 10,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+  },
+  versionText: {
+    color: color.darkGrey,
   },
 });
 
@@ -31,6 +43,9 @@ const SettingsScreen = () => (
     </View>
     <View style={styles.btnWrapper}>
       <Button title="Logout" color={color.red} onPress={() => wallet.logout()} />
+    </View>
+    <View style={styles.versionWrapper}>
+      <Text style={styles.versionText}>version: {store.config.appVersion}</Text>
     </View>
   </View>
 );

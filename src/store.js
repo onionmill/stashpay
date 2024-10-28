@@ -3,6 +3,8 @@ import ComputedSend from './computed/send';
 import ComputedWallet from './computed/wallet';
 import ComputedReceive from './computed/receive';
 
+import {version, dependencies} from '../package.json';
+
 const store = observable({
   // app state
   navReady: false,
@@ -42,6 +44,8 @@ const store = observable({
   // persistent data
   config: {
     explorer: 'https://liquid.network',
+    appVersion: version,
+    sdkVersion: dependencies['@breeztech/react-native-breez-sdk-liquid'],
   },
 });
 
