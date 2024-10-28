@@ -10,22 +10,25 @@ const LOG_LEVEL_DISPLAY = ['ERROR', 'WARN', 'INFO'];
 // Logging APIs
 //
 
-export function debug(message) {
+export async function debug(message) {
   const level = 'DEBUG';
   const line = _formatLine('APP', level, message);
   _displayLog(level, line);
+  await _appendLogFile(level, line);
 }
 
-export function info(message) {
+export async function info(message) {
   const level = 'INFO';
   const line = _formatLine('APP', level, message);
   _displayLog(level, line);
+  await _appendLogFile(level, line);
 }
 
-export function warn(message) {
+export async function warn(message) {
   const level = 'WARN';
   const line = _formatLine('APP', level, message);
   _displayLog(level, line);
+  await _appendLogFile(level, line);
 }
 
 export async function error(err) {
