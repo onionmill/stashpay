@@ -10,11 +10,11 @@ import * as alert from './alert';
 import * as keychain from './keychain';
 import * as storage from './local-storage';
 import {generateMnemonic, validateMnemonic} from './mnemonic';
+import {loadPayments, fetchPayments, deletePayments} from './payment';
 import {nap, formatNumber} from '../util';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
 const INFO_KEY = 'info';
-const PAYMENTS_KEY = 'payments';
 
 //
 // Init and startup
@@ -25,7 +25,7 @@ export const init = action(async () => {
     const hasWallet = await _getSeedFromKeychain();
     if (hasWallet) {
       await _loadBalance();
-      await _loadPayments();
+      await loadPayments();
     } else {
       await _generateSeedAndSaveToKeychain();
     }
@@ -129,31 +129,6 @@ const _updateBalance = action(info => {
     store.balance = _totalBalance(info) || null;
     store.balanceFetched = true;
 });
-
-export async function _loadPayments() {
-  try {
-    const payments = await storage.getItem(PAYMENTS_KEY);
-    log.info(`Cached payments: ${payments && payments.length}`);
-    if (!payments) {
-      return;
-    }
-    store.payments = payments;
-  } catch (err) {
-    log.error(err);
-  }
-}
-
-export async function fetchPayments() {
-  try {
-    const payments = await liquid.listPayments({});
-    payments.sort((a,b) => b.timestamp - a.timestamp);
-    await storage.setItem(PAYMENTS_KEY, payments);
-    log.info(`Storing payments: ${payments.length}`);
-    store.payments = payments;
-  } catch (err) {
-    log.error(err);
-  }
-}
 
 export const update = action(async () => {
   store.balanceRefreshing = true;
@@ -270,6 +245,6 @@ async function _resetStorage() {
   store.balanceFetched = false;
   store.payments = [];
   await storage.removeItem(INFO_KEY);
-  await storage.removeItem(PAYMENTS_KEY);
+  await deletePayments();
   await log.deleteLogFile();
 }

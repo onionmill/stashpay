@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, FlatList, StyleSheet, Text} from 'react-native';
+import {View, TouchableOpacity, FlatList, StyleSheet, Text} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {color, font} from '../component/style';
 
 import store from '../store';
+import {openExplorer} from '../action/payment';
 import {formatDate, formatNumber} from '../util';
 
 const styles = StyleSheet.create({
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
 });
 
 const Item = ({item}) => (
-  <View style={styles.item}>
+  <TouchableOpacity style={styles.item} onPress={() => openExplorer(item)}>
     <View style={styles.row}>
       <Text style={[{color: item.paymentType === 'send' ? color.red : 'green'}, styles.text]}>
         {item.paymentType === 'send' ? '-' : '+'}{formatNumber(item.amountSat)} sats
@@ -42,7 +43,7 @@ const Item = ({item}) => (
       <Text style={styles.text}>Fee: {formatNumber(item.feesSat)} sats</Text>
       <Text style={styles.text}>{item.status}</Text>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 const PaymentListScreen = () => (

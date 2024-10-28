@@ -41,6 +41,7 @@ const store = observable({
 
   // persistent data
   config: {
+    explorer: 'https://liquid.network',
   },
 });
 
