@@ -39,10 +39,10 @@ export async function readQRCode(data) {
 
 export async function parseUri() {
   try {
-    log.info(`Uri to parse: ${store.send.rawUri}`);
+    log.trace(`Uri to parse: ${store.send.rawUri}`);
     const input = await liquid.parse(_removeBip353Prefix(store.send.rawUri));
     store.send.input = JSON.stringify(input);
-    log.info(`Parsed payment data: ${store.send.input}`);
+    log.trace(`Parsed payment data: ${store.send.input}`);
     if (input.type === liquid.InputTypeVariant.BOLT11) {
       await _prepareBolt11Payment(input.invoice);
     } else if (input.type === liquid.InputTypeVariant.LN_URL_PAY) {
@@ -69,7 +69,7 @@ async function _prepareBolt11Payment(invoice) {
     destination: invoice.bolt11,
     amountSat,
   });
-  log.info(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
+  log.trace(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
   store.send.value = amountSat;
   store.send.destination = JSON.stringify(prepareSendResponse.destination);
   store.send.feesSat = prepareSendResponse.feesSat;
@@ -201,7 +201,7 @@ async function _sendBolt11Payment() {
     feesSat: store.send.feesSat,
   };
   const sendResponse = await liquid.sendPayment({prepareResponse});
-  log.info(`Send response: ${JSON.stringify(sendResponse)}`);
+  log.trace(`Send response: ${JSON.stringify(sendResponse)}`);
   return sendResponse.payment;
 }
 
@@ -209,7 +209,7 @@ async function _sendLnurlPayment() {
   const lnUrlPayResult = await liquid.lnurlPay({
     prepareResponse: JSON.parse(store.send.destination),
   });
-  log.info(`LnurlPay Result: ${JSON.stringify(lnUrlPayResult)}`);
+  log.trace(`LnurlPay Result: ${JSON.stringify(lnUrlPayResult)}`);
 }
 
 async function _sendOnchainPayment() {
@@ -218,13 +218,13 @@ async function _sendOnchainPayment() {
     address: address.address,
     prepareResponse: JSON.parse(store.send.destination),
   });
-  log.info(`PayOnchain Result: ${JSON.stringify(payOnchainRes)}`);
+  log.trace(`PayOnchain Result: ${JSON.stringify(payOnchainRes)}`);
 }
 
 async function _sendLiquidPayment() {
   const sendResponse = await liquid.sendPayment({
     prepareResponse: JSON.parse(store.send.destination),
   });
-  log.info(`Send response: ${JSON.stringify(sendResponse)}`);
+  log.trace(`Send response: ${JSON.stringify(sendResponse)}`);
   return sendResponse.payment;
 }

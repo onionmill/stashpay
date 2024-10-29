@@ -64,7 +64,7 @@ export const initLiquidClient = action(async () => {
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
     const onEvent = action(async e => {
-      log.info(`Received event: ${e.type}`);
+      log.trace(`Received event: ${e.type}`);
       await update();
     });
     store.liquidListenerId = await liquid.addEventListener(onEvent);
@@ -80,7 +80,7 @@ export const initLiquidClient = action(async () => {
 
 async function _loadBalance() {
   const info = await storage.getItem(INFO_KEY);
-  log.info(`Cached info: ${JSON.stringify(info)}`);
+  log.trace(`Cached info: ${JSON.stringify(info)}`);
   if (!info) {
     store.balance = null;
     return;
@@ -95,13 +95,13 @@ export async function fetchBalance() {
       store.balance = null;
       return;
     }
-    log.info(`Wallet balance: ${info.balanceSat}`);
-    log.info(`Wallet pending send balance: ${info.pendingSendSat}`);
-    log.info(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
+    log.trace(`Wallet balance: ${info.balanceSat}`);
+    log.trace(`Wallet pending send balance: ${info.pendingSendSat}`);
+    log.trace(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
     const oldInfo = await storage.getItem(INFO_KEY);
     _displayReceiveMessage(oldInfo, info);
     await storage.setItem(INFO_KEY, info);
-    log.info(`Storing info: ${JSON.stringify(info)}`);
+    log.trace(`Storing info: ${JSON.stringify(info)}`);
     _updateBalance(info);
   } catch (err) {
     log.error(err);

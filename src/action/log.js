@@ -4,11 +4,18 @@ import RNShare from 'react-native-share';
 const LOG_FILE_PATH = RNFS.DocumentDirectoryPath + '/wallet-log.txt';
 const LOG_LEVEL_SDK = ['ERROR', 'WARN', 'INFO', 'DEBUG']; // 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'
 const LOG_LEVEL_FILE = ['ERROR', 'WARN', 'INFO', 'DEBUG'];
-const LOG_LEVEL_DISPLAY = ['ERROR', 'WARN', 'INFO'];
+const LOG_LEVEL_DISPLAY = ['ERROR', 'WARN', 'INFO', 'TRACE'];
 
 //
 // Logging APIs
 //
+
+export async function trace(message) {
+  const level = 'TRACE';
+  const line = _formatLine('APP', level, message);
+  _displayLog(level, line);
+  await _appendLogFile(level, line);
+}
 
 export async function debug(message) {
   const level = 'DEBUG';

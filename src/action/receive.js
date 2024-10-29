@@ -18,14 +18,14 @@ export async function fetchLnLimits() {
   const limitsLn = await liquid.fetchLightningLimits();
   store.receive.minSatLn = limitsLn.receive.minSat;
   store.send.minSatLn = limitsLn.send.minSat;
-  log.info(`Min Ln receive: ${store.receive.minSatLn}`);
+  log.trace(`Min Ln receive: ${store.receive.minSatLn}`);
 }
 
 export async function fetchOnchainLimits() {
   const limitsBtc = await liquid.fetchOnchainLimits();
   store.receive.minSatBtc = limitsBtc.receive.minSat;
   store.send.minSatBtc = limitsBtc.send.minSat;
-  log.info(`Min Btc receive: ${store.receive.minSatBtc}`);
+  log.trace(`Min Btc receive: ${store.receive.minSatBtc}`);
 }
 
 export async function toggleOnchain() {
@@ -50,10 +50,10 @@ export async function fetchInvoice() {
       paymentMethod: onChain ? liquid.PaymentMethod.BITCOIN_ADDRESS : liquid.PaymentMethod.LIGHTNING,
     });
     store.receive.feesSat = prepareResponse.feesSat;
-    log.info(`Receive fees, in sats: ${store.receive.feesSat}`);
+    log.trace(`Receive fees, in sats: ${store.receive.feesSat}`);
     const res = await liquid.receivePayment({prepareResponse, description});
     store.receive.invoice = res.destination;
-    log.info(`Invoice: ${store.receive.invoice}`);
+    log.trace(`Invoice: ${store.receive.invoice}`);
   } catch (err) {
     if (err.message.includes('Could not contact servers:')) {
       log.error(err);

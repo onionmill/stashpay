@@ -10,7 +10,7 @@ const PAYMENTS_KEY = 'payments';
 export async function loadPayments() {
   try {
     const payments = await storage.getItem(PAYMENTS_KEY);
-    log.info(`Cached payments: ${payments && payments.length}`);
+    log.trace(`Cached payments: ${payments && payments.length}`);
     if (!payments) {
       return;
     }
@@ -25,7 +25,7 @@ export async function fetchPayments() {
     const payments = await liquid.listPayments({});
     payments.sort((a,b) => b.timestamp - a.timestamp);
     await storage.setItem(PAYMENTS_KEY, payments);
-    log.info(`Storing payments: ${payments.length}`);
+    log.trace(`Storing payments: ${payments.length}`);
     store.payments = payments;
   } catch (err) {
     log.error(err);
