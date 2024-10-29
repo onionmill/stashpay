@@ -11,28 +11,22 @@ const LOG_LEVEL_DISPLAY = ['ERROR', 'WARN', 'INFO', 'TRACE'];
 //
 
 export async function trace(message) {
-  const level = 'TRACE';
-  const line = _formatLine('APP', level, message);
-  _displayLog(level, line);
-  await _appendLogFile(level, line);
+  await _logApp('TRACE', message);
 }
 
 export async function debug(message) {
-  const level = 'DEBUG';
-  const line = _formatLine('APP', level, message);
-  _displayLog(level, line);
-  await _appendLogFile(level, line);
+  await _logApp('DEBUG', message);
 }
 
 export async function info(message) {
-  const level = 'INFO';
-  const line = _formatLine('APP', level, message);
-  _displayLog(level, line);
-  await _appendLogFile(level, line);
+  await _logApp('INFO', message);
 }
 
 export async function warn(message) {
-  const level = 'WARN';
+  await _logApp('WARN', message);
+}
+
+async function _logApp(level, message) {
   const line = _formatLine('APP', level, message);
   _displayLog(level, line);
   await _appendLogFile(level, line);
