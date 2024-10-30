@@ -79,7 +79,7 @@ android {
 
     namespace "com.stashpay"
     defaultConfig {
-        applicationId "com.stashpay"
+        applicationId "com.onionmill.stashpay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
