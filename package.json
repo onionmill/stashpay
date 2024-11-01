@@ -7,7 +7,14 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "build": "yarn build:clean && yarn build:bump-patch && yarn build:android && yarn build:copy",
+    "build:clean": "rm -rf build android/app/build android/build",
+    "build:bump-patch": "npm version patch --no-git-tag-version && fastlane bump",
+    "build:bump-minor": "npm version minor --no-git-tag-version && fastlane bump",
+    "build:bump-major": "npm version major --no-git-tag-version && fastlane bump",
+    "build:android": "react-native run-android --mode=release || exit 0",
+    "build:copy": "mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk"
   },
   "dependencies": {
     "@breeztech/react-native-breez-sdk-liquid": "0.5.0-rc1",
