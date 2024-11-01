@@ -45,7 +45,7 @@ const SettingsScreen = () => (
       <Button title="Logout" color={color.red} onPress={() => wallet.logout()} />
     </View>
     <View style={styles.versionWrapper}>
-      <Text style={styles.versionText}>version: {store.config.appVersion}</Text>
+      <Text style={styles.versionText}>version {store.config.appVersion}</Text>
     </View>
   </View>
 );

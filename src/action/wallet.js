@@ -22,7 +22,7 @@ const INFO_KEY = 'info';
 
 export const init = action(async () => {
   try {
-    log.info(`Running StashPay version: ${store.config.appVersion} (SDK ${store.config.sdkVersion})`);
+    log.info(`Running version ${store.config.appVersion} (SDK ${store.config.sdkVersion})`);
     const hasWallet = await _getSeedFromKeychain();
     if (hasWallet) {
       await _loadBalance();
