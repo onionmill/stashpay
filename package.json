@@ -14,7 +14,8 @@
     "build:bump-minor": "npm version minor --no-git-tag-version && fastlane bump",
     "build:bump-major": "npm version major --no-git-tag-version && fastlane bump",
     "build:android": "react-native run-android --mode=release || exit 0",
-    "build:copy": "mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk"
+    "build:copy": "mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk",
+    "build:tag": "git add package.json ios android && git commit -m '$npm_package_version' && git tag v$npm_package_version"
   },
   "dependencies": {
     "@breeztech/react-native-breez-sdk-liquid": "0.5.0-rc1",
