@@ -1,3 +1,8 @@
+before_all do
+  ensure_git_branch
+  ensure_git_status_clean
+end
+
 package = load_json(json_path: "./package.json")
 
 desc 'Android: Increment versionCode and set versionName to package.json version.'
