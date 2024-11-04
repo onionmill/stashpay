@@ -19,10 +19,10 @@ end
 desc 'iOS: Increment build number and set the version to package.json version.'
 private_lane :inc_ver_ios do
   increment_build_number_in_xcodeproj(
-    xcodeproj: './ios/' + package['name'] + '.xcodeproj'
+    xcodeproj: './ios/StashPay.xcodeproj'
   )
   increment_version_number_in_xcodeproj(
-    xcodeproj: './ios/' + package['name'] + '.xcodeproj',
+    xcodeproj: './ios/StashPay.xcodeproj',
     version_number: package['version']
   )
 end
@@ -36,7 +36,7 @@ end
 platform :ios do
   desc 'Build the iOS application.'
   lane :build do
-    gym(scheme: 'stashpay', workspace: './ios/' + package['name'] + '.xcworkspace', clean: true)
+    gym(scheme: 'stashpay', workspace: './ios/StashPay.xcworkspace', clean: true)
   end
 
   desc 'Ship to Testflight.'
