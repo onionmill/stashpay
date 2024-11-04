@@ -23,6 +23,48 @@ Bump build numbers, and set the version to match the pacakage.json version.
 
 ----
 
+
+## iOS
+
+### ios build
+
+```sh
+[bundle exec] fastlane ios build
+```
+
+Build the iOS application.
+
+### ios beta
+
+```sh
+[bundle exec] fastlane ios beta
+```
+
+Ship to Testflight.
+
+----
+
+
+## Android
+
+### android build
+
+```sh
+[bundle exec] fastlane android build
+```
+
+Build the Android application.
+
+### android beta
+
+```sh
+[bundle exec] fastlane android beta
+```
+
+Ship to Playstore Beta.
+
+----
+
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 
 More information about _fastlane_ can be found on [fastlane.tools](https://fastlane.tools).

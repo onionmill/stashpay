@@ -32,3 +32,30 @@ lane :bump do
   inc_ver_ios
   inc_ver_and
 end
+
+platform :ios do
+  desc 'Build the iOS application.'
+  lane :build do
+    gym(scheme: 'stashpay', workspace: './ios/' + package['name'] + '.xcworkspace', clean: true)
+  end
+
+  desc 'Ship to Testflight.'
+  lane :beta do
+    build
+    # pilot
+  end
+end
+
+platform :android do
+  desc 'Build the Android application.'
+  lane :build do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+  end
+
+  desc 'Ship to Playstore Beta.'
+  lane :beta do
+    build
+    # supply(track: 'beta', track_promote_to: 'beta')
+  end
+end
