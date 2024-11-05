@@ -10,7 +10,7 @@
     "test": "jest",
     "build": "yarn build:clean && yarn build:bump && yarn build:android && yarn build:ios && yarn build:copy && yarn build:tag",
     "build:clean": "rm -rf build android/app/build android/build",
-    "build:bump": "npm version patch --no-git-tag-version && fastlane bump",
+    "build:bump": "git diff --exit-code && npm version patch --no-git-tag-version && fastlane bump",
     "build:android": "react-native run-android --mode=release || exit 0",
     "build:ios": "fastlane ios build",
     "build:copy": "mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk && mv StashPay.ipa StashPay.app.dSYM.zip build/",
