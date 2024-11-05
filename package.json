@@ -14,7 +14,7 @@
     "build:android": "react-native run-android --mode=release || exit 0",
     "build:ios": "fastlane ios build",
     "build:copy": "mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk && mv StashPay.ipa StashPay.app.dSYM.zip build/",
-    "build:tag": "git add package.json ios android && git commit -m $npm_package_version && git tag $npm_package_version && git push --follow-tags"
+    "build:tag": "git add package.json ios android && git commit -m $npm_package_version && git tag $npm_package_version && git push && git push --tags"
   },
   "dependencies": {
     "@breeztech/react-native-breez-sdk-liquid": "0.5.0-rc4",
