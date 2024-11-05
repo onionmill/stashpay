@@ -8,13 +8,13 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "build": "yarn build:clean && yarn build:bump && yarn build:tag && yarn build:android && yarn build:ios && yarn build:copy",
+    "build": "yarn build:clean && yarn build:bump && yarn build:android && yarn build:ios && yarn build:copy && yarn build:tag",
     "build:clean": "rm -rf build android/app/build android/build",
     "build:bump": "npm version patch --no-git-tag-version && fastlane bump",
-    "build:tag": "git add package.json ios android && git commit -m $npm_package_version && git tag $npm_package_version",
     "build:android": "react-native run-android --mode=release || exit 0",
     "build:ios": "fastlane ios build",
-    "build:copy": "mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk && mv StashPay.ipa StashPay.app.dSYM.zip build/"
+    "build:copy": "mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk && mv StashPay.ipa StashPay.app.dSYM.zip build/",
+    "build:tag": "git add package.json ios android && git commit -m $npm_package_version && git tag $npm_package_version"
   },
   "dependencies": {
     "@breeztech/react-native-breez-sdk-liquid": "0.5.0-rc1",
