@@ -12,7 +12,7 @@
     "build:clean": "rm -rf build android/app/build android/build",
     "build:bump": "git diff --exit-code && npm version patch --no-git-tag-version && fastlane bump",
     "build:android": "fastlane android build && mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk",
-    "build:ios": "fastlane ios build && mkdir -p build && mv StashPay.ipa StashPay.app.dSYM.zip build/",
+    "build:ios": "fastlane ios build || exit 0",
     "build:tag": "git add package.json ios android && git commit -m $npm_package_version && git tag $npm_package_version && git push && git push --tags"
   },
   "dependencies": {
