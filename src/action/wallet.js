@@ -61,6 +61,8 @@ export const initLiquidClient = action(async () => {
     await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET, breezApiKey);
+    config.liquidElectrumUrl = store.config.electrumLiquid;
+    config.bitcoinElectrumUrl = store.config.electrumBitcoin;
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
     const onEvent = action(async e => {

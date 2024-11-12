@@ -43,6 +43,8 @@ const store = observable({
 
   // persistent data
   config: {
+    electrumLiquid: 'elements-mainnet.blockstream.info:50002',
+    electrumBitcoin: 'bitcoin-mainnet.blockstream.info:50002',
     explorer: 'https://liquid.network',
     appVersion: version,
     sdkVersion: dependencies['@breeztech/react-native-breez-sdk-liquid'],
