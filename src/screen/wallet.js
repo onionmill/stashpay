@@ -1,7 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
+import {Text} from '../component/text';
+import {font} from '../component/style';
 import {ArrowUpButton} from '../component/button';
 
 import store from '../store';
@@ -35,11 +37,12 @@ const balanceStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    fontSize: 30,
+    fontSize: font.sizeXL,
+    lineHeight: font.lineHeightXL,
   },
   numeral: {
-    marginTop: 10,
-    fontSize: 50,
+    fontSize: font.sizeXXXL,
+    lineHeight: font.lineHeightXXXL,
   },
 });
 

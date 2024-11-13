@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text as RNText, StyleSheet} from 'react-native';
-import {font} from './style';
+import {font, color} from './style';
 
 //
 // Base Text
@@ -10,6 +10,7 @@ const baseStyles = StyleSheet.create({
   text: {
     fontSize: font.sizeBase,
     lineHeight: font.lineHeightBase,
+    color: color.black,
   },
 });
 
@@ -27,6 +28,7 @@ const h1Styles = StyleSheet.create({
   text: {
     fontSize: font.sizeXL,
     lineHeight: font.lineHeightsXL,
+    color: color.black,
   },
 });
 

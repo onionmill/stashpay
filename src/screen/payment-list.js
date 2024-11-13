@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, TouchableOpacity, FlatList, StyleSheet, Text} from 'react-native';
+import {View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
+import {Text} from '../component/text';
 import {color, font} from '../component/style';
 
 import store from '../store';

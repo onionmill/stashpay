@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Button, View, Text} from 'react-native';
+import {StyleSheet, Button, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {color} from '../component/style';
+import {Text} from '../component/text';
+import {color, font} from '../component/style';
 
 import store from '../store';
 import * as log from '../action/log';
@@ -27,6 +28,8 @@ const styles = StyleSheet.create({
   },
   versionText: {
     color: color.darkGrey,
+    fontSize: font.sizeSub,
+    lineHeight: font.lineHeightSub,
   },
 });
 
