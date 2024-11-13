@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
 const Item = ({item}) => (
   <TouchableOpacity style={styles.item} onPress={() => openExplorer(item)}>
     <View style={styles.row}>
-      <Text style={[{color: item.paymentType === 'send' ? color.red : 'green'}, styles.text]}>
+      <Text style={[{color: item.paymentType === 'send' ? color.red : color.green}, styles.text]}>
         {item.paymentType === 'send' ? '-' : '+'}{formatNumber(item.amountSat)} sats
       </Text>
       <Text style={styles.text}>{formatDate(item.timestamp)}</Text>
