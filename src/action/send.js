@@ -47,6 +47,8 @@ export async function parseUri() {
       await _prepareBolt11Payment(input.invoice);
     } else if (input.type === liquid.InputTypeVariant.LN_URL_PAY) {
       await _parseLnurlPayment();
+    } else if (input.type === liquid.InputTypeVariant.BOLT12_OFFER) {
+      await _parseBolt12Payment();
     } else if (input.type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
       await _parseOnchainData();
     } else if (input.type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
@@ -93,6 +95,12 @@ function _parseLnurlMetadata(str) {
   return tag && tag.length === 2 && tag[1] || null;
 }
 
+async function _parseBolt12Payment() {
+  store.send.description = 'BOLT12 Offer';
+  nav.goTo('SendStack', {screen: 'SendAmount'});
+  await fetchLnLimits(); // after nav for performance
+}
+
 async function _parseOnchainData() {
   const {address} = JSON.parse(store.send.input);
   store.send.value = address.amountSat ? String(address.amountSat) : null;
@@ -120,6 +128,8 @@ export async function validateAmount() {
       await _prepareLiquidPayment();
     } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
       await _prepareLnurlPayment();
+    } else if (type === liquid.InputTypeVariant.BOLT12_OFFER) {
+      await _prepareBolt12Payment();
     }
   } catch (err) {
     nav.goTo('SendAmount');
@@ -165,6 +175,23 @@ async function _prepareLnurlPayment() {
   nav.goTo('SendConfirm');
 }
 
+async function _prepareBolt12Payment() {
+  const {offer} = JSON.parse(store.send.input);
+  const amountSat = Number(store.send.value);
+  const prepareResponse = await liquid.prepareSendPayment({
+    destination: offer.offer,
+    amount: {
+      type: liquid.PayAmountVariant.RECEIVER,
+      amountSat,
+    },
+  });
+  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
+  store.send.value = amountSat;
+  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.feesSat = prepareResponse.feesSat;
+  nav.goTo('SendStack', {screen: 'SendConfirm'});
+}
+
 //
 // Payment Sending
 //
@@ -188,6 +215,8 @@ async function _sendPayment() {
     await _sendBolt11Payment();
   } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
     await _sendLnurlPayment();
+  } else if (type === liquid.InputTypeVariant.BOLT12_OFFER) {
+    await _sendBolt12Payment();
   } else if (type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
     await _sendOnchainPayment();
   } else if (type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
@@ -210,6 +239,13 @@ async function _sendLnurlPayment() {
     prepareResponse: JSON.parse(store.send.destination),
   });
   log.trace(`LnurlPay Result: ${JSON.stringify(lnUrlPayResult)}`);
+}
+
+async function _sendBolt12Payment() {
+  const sendResponse = await liquid.sendPayment({
+    prepareResponse: JSON.parse(store.send.destination),
+  });
+  log.trace(`Bolt12 send response: ${JSON.stringify(sendResponse)}`);
 }
 
 async function _sendOnchainPayment() {
