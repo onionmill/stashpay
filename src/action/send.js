@@ -141,7 +141,7 @@ async function _prepareOnchainPayment() {
   const amountSat = Number(store.send.value);
   const prepareResponse = await liquid.preparePayOnchain({
     amount: {
-      type: liquid.PayOnchainAmountVariant.RECEIVER,
+      type: liquid.PayAmountVariant.RECEIVER,
       amountSat,
     },
   });
@@ -155,7 +155,10 @@ async function _prepareLiquidPayment() {
   const {address} = JSON.parse(store.send.input);
   const prepareResponse = await liquid.prepareSendPayment({
     destination: address.address,
-    amountSat,
+    amount: {
+      type: liquid.PayAmountVariant.RECEIVER,
+      amountSat,
+    },
   });
   store.send.destination = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
