@@ -145,6 +145,7 @@ async function _prepareOnchainPayment() {
       amountSat,
     },
   });
+  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
   store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.totalFeesSat;
   nav.goTo('SendConfirm');
@@ -160,6 +161,7 @@ async function _prepareLiquidPayment() {
       amountSat,
     },
   });
+  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
   store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendConfirm');
@@ -173,6 +175,7 @@ async function _prepareLnurlPayment() {
     amountMsat,
     validateSuccessActionUrl: true,
   });
+  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
   store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendConfirm');
