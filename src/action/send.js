@@ -11,7 +11,7 @@ export async function initSendAddress() {
   store.send.rawUri = null;
   store.send.input = null;
   store.send.value = null;
-  store.send.destination = null;
+  store.send.prepareResponse = null;
   store.send.feesSat = null;
   store.send.description = null;
 }
@@ -67,14 +67,14 @@ function _removeBip353Prefix(uri) {
 
 async function _prepareBolt11Payment(invoice) {
   const amountSat = invoice.amountMsat / 1000;
-  const prepareSendResponse = await liquid.prepareSendPayment({
+  const prepareResponse = await liquid.prepareSendPayment({
     destination: invoice.bolt11,
     amountSat,
   });
-  log.trace(`Prepare send response: ${JSON.stringify(prepareSendResponse)}`);
+  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
   store.send.value = amountSat;
-  store.send.destination = JSON.stringify(prepareSendResponse.destination);
-  store.send.feesSat = prepareSendResponse.feesSat;
+  store.send.prepareResponse = JSON.stringify(prepareResponse);
+  store.send.feesSat = prepareResponse.feesSat;
   store.send.description = invoice.description;
   nav.goTo('SendStack', {screen: 'SendConfirm'});
 }
@@ -145,7 +145,7 @@ async function _prepareOnchainPayment() {
       amountSat,
     },
   });
-  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.totalFeesSat;
   nav.goTo('SendConfirm');
 }
@@ -160,7 +160,7 @@ async function _prepareLiquidPayment() {
       amountSat,
     },
   });
-  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendConfirm');
 }
@@ -173,7 +173,7 @@ async function _prepareLnurlPayment() {
     amountMsat,
     validateSuccessActionUrl: true,
   });
-  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendConfirm');
 }
@@ -190,7 +190,7 @@ async function _prepareBolt12Payment() {
   });
   log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
   store.send.value = amountSat;
-  store.send.destination = JSON.stringify(prepareResponse);
+  store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendStack', {screen: 'SendConfirm'});
 }
@@ -228,25 +228,23 @@ async function _sendPayment() {
 }
 
 async function _sendBolt11Payment() {
-  const prepareResponse = {
-    destination: JSON.parse(store.send.destination),
-    feesSat: store.send.feesSat,
-  };
-  const sendResponse = await liquid.sendPayment({prepareResponse});
+  const sendResponse = await liquid.sendPayment({
+    prepareResponse: JSON.parse(store.send.prepareResponse),
+  });
   log.trace(`Send response: ${JSON.stringify(sendResponse)}`);
   return sendResponse.payment;
 }
 
 async function _sendLnurlPayment() {
   const lnUrlPayResult = await liquid.lnurlPay({
-    prepareResponse: JSON.parse(store.send.destination),
+    prepareResponse: JSON.parse(store.send.prepareResponse),
   });
   log.trace(`LnurlPay Result: ${JSON.stringify(lnUrlPayResult)}`);
 }
 
 async function _sendBolt12Payment() {
   const sendResponse = await liquid.sendPayment({
-    prepareResponse: JSON.parse(store.send.destination),
+    prepareResponse: JSON.parse(store.send.prepareResponse),
   });
   log.trace(`Bolt12 send response: ${JSON.stringify(sendResponse)}`);
 }
@@ -255,14 +253,14 @@ async function _sendOnchainPayment() {
   const {address} = JSON.parse(store.send.input);
   const payOnchainRes = await liquid.payOnchain({
     address: address.address,
-    prepareResponse: JSON.parse(store.send.destination),
+    prepareResponse: JSON.parse(store.send.prepareResponse),
   });
   log.trace(`PayOnchain Result: ${JSON.stringify(payOnchainRes)}`);
 }
 
 async function _sendLiquidPayment() {
   const sendResponse = await liquid.sendPayment({
-    prepareResponse: JSON.parse(store.send.destination),
+    prepareResponse: JSON.parse(store.send.prepareResponse),
   });
   log.trace(`Send response: ${JSON.stringify(sendResponse)}`);
   return sendResponse.payment;

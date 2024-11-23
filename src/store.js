@@ -34,7 +34,7 @@ const store = observable({
     rawUri: null,
     input: null,
     value: null,
-    destination: null,
+    prepareResponse: null,
     feesSat: null,
     description: null,
     minSatLn: 1000,
