@@ -1,3 +1,25 @@
+# StashPay
+
+#### Beta Warning
+*!!! This is beta software. Only test with funds you are willing to lose !!!*
+
+### How to install StashPay for Android
+
+1. Install [Obtainium](https://obtainium.imranr.dev/) to get app updates from this github repo
+2. Open Obtainium -> go to "Add App"
+3. Copy this URL: [https://github.com/onionmill/stashpay](https://github.com/onionmill/stashpay)
+4. Paste the URL into "App Source URL *"
+5. Press "Add"
+6. Wait for the StashPay APK to download (can take a bit depending on your internet connection)
+7. Press "Install" on the bottom of the screen
+8. Enable "Allow from this source" to give Obtainium permission to install APKs
+9. Press the back arrow
+10. Confirm "Install" for StashPay
+
+**Done! StashPay should now be installed and you will be notified of App updates via Obtainium 🎉**
+
+## Development
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
