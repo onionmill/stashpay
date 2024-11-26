@@ -122,49 +122,19 @@ export function setAmount(value) {
 export async function validateAmount() {
   try {
     const {type} = JSON.parse(store.send.input);
-    if (type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
-      await _prepareOnchainPayment();
-    } else if (type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
-      await _prepareLiquidPayment();
-    } else if (type === liquid.InputTypeVariant.LN_URL_PAY) {
+    if (type === liquid.InputTypeVariant.LN_URL_PAY) {
       await _prepareLnurlPayment();
     } else if (type === liquid.InputTypeVariant.BOLT12_OFFER) {
       await _prepareBolt12Payment();
+    } else if (type === liquid.InputTypeVariant.BITCOIN_ADDRESS) {
+      await _prepareOnchainPayment();
+    } else if (type === liquid.InputTypeVariant.LIQUID_ADDRESS) {
+      await _prepareLiquidPayment();
     }
   } catch (err) {
     nav.goTo('SendAmount');
     alert.error({err});
   }
-}
-
-async function _prepareOnchainPayment() {
-  const amountSat = Number(store.send.value);
-  const prepareResponse = await liquid.preparePayOnchain({
-    amount: {
-      type: liquid.PayAmountVariant.RECEIVER,
-      amountSat,
-    },
-  });
-  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
-  store.send.prepareResponse = JSON.stringify(prepareResponse);
-  store.send.feesSat = prepareResponse.totalFeesSat;
-  nav.goTo('SendConfirm');
-}
-
-async function _prepareLiquidPayment() {
-  const amountSat = Number(store.send.value);
-  const {address} = JSON.parse(store.send.input);
-  const prepareResponse = await liquid.prepareSendPayment({
-    destination: address.address,
-    amount: {
-      type: liquid.PayAmountVariant.RECEIVER,
-      amountSat,
-    },
-  });
-  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
-  store.send.prepareResponse = JSON.stringify(prepareResponse);
-  store.send.feesSat = prepareResponse.feesSat;
-  nav.goTo('SendConfirm');
 }
 
 async function _prepareLnurlPayment() {
@@ -196,6 +166,36 @@ async function _prepareBolt12Payment() {
   store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendStack', {screen: 'SendConfirm'});
+}
+
+async function _prepareOnchainPayment() {
+  const amountSat = Number(store.send.value);
+  const prepareResponse = await liquid.preparePayOnchain({
+    amount: {
+      type: liquid.PayAmountVariant.RECEIVER,
+      amountSat,
+    },
+  });
+  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
+  store.send.prepareResponse = JSON.stringify(prepareResponse);
+  store.send.feesSat = prepareResponse.totalFeesSat;
+  nav.goTo('SendConfirm');
+}
+
+async function _prepareLiquidPayment() {
+  const amountSat = Number(store.send.value);
+  const {address} = JSON.parse(store.send.input);
+  const prepareResponse = await liquid.prepareSendPayment({
+    destination: address.address,
+    amount: {
+      type: liquid.PayAmountVariant.RECEIVER,
+      amountSat,
+    },
+  });
+  log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
+  store.send.prepareResponse = JSON.stringify(prepareResponse);
+  store.send.feesSat = prepareResponse.feesSat;
+  nav.goTo('SendConfirm');
 }
 
 //
