@@ -8,7 +8,7 @@ const ComputedReceive = store => {
     },
     get receiveCopyBtnLabel() {
       const {onChain} = store.receive;
-      return `Copy ${onChain ? 'Address' : 'Invoice'}`;
+      return `Copy ${onChain ? 'BTC Address' : 'LN Invoice'}`;
     },
   });
 };
