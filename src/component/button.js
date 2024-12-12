@@ -59,6 +59,28 @@ export const ArrowUpButton = ({onPress, disabled, children, style}) => (
 );
 
 //
+// Icon Button
+//
+
+const iconStyles = StyleSheet.create({
+  touchable: {
+    height: 50,
+    width: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export const IconButton = ({onPress, disabled, iconName, style}) => (
+  <TouchableOpacity
+    style={[{opacity: disabled ? 0.5 : 1}, iconStyles.touchable, style]}
+    disabled={disabled}
+    onPress={onPress}>
+    <Feather name={iconName} size={25} color={color.darkerGrey} />
+  </TouchableOpacity>
+);
+
+//
 // Glas Button
 //
 

@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
 import {font} from '../component/style';
-import {ArrowUpButton, GlasButton} from '../component/button';
+import {ArrowUpButton, GlasButton, IconButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 25,
   },
+  settingsBtn: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
   listBtn: {
     position: 'absolute',
     left: 10,
@@ -26,6 +31,7 @@ const styles = StyleSheet.create({
 
 const WalletScreen = () => (
   <View style={styles.wrapper}>
+    <IconButton iconName={'settings'} style={styles.settingsBtn} />
     <Balance />
     <SendReceiveButton />
     <ArrowUpButton style={styles.listBtn} onPress={() => nav.goTo('PaymentList')} />
