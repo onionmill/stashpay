@@ -21,7 +21,7 @@ const pillStyles = StyleSheet.create({
   text: {
     letterSpacing: 1,
     fontSize: font.sizeL,
-    lineHeight: font.lineHeightBase,
+    lineHeight: font.lineHeightL,
     color: color.white,
   },
 });
