@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
@@ -28,7 +29,6 @@ const pillStyles = StyleSheet.create({
 
 export const PillButton = ({onPress, disabled, children, style}) => (
   <TouchableOpacity
-    // eslint-disable-next-line react-native/no-inline-styles
     style={[{opacity: disabled ? 0.5 : 1}, pillStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
@@ -51,7 +51,6 @@ const arrowUpStyles = StyleSheet.create({
 
 export const ArrowUpButton = ({onPress, disabled, children, style}) => (
   <TouchableOpacity
-    // eslint-disable-next-line react-native/no-inline-styles
     style={[{opacity: disabled ? 0.5 : 1}, arrowUpStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
