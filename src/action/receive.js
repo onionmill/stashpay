@@ -1,10 +1,16 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
+import {nap} from '../util';
 import store from '../store';
 import * as log from './log';
 import * as alert from './alert';
-import {nap} from '../util';
+import * as nav from '../action/nav';
+
+export function initReceive() {
+  store.receive.onChain = false;
+  nav.goTo('ReceiveStack');
+}
 
 export async function fetchLimits() {
   try {

@@ -8,6 +8,7 @@ import {ArrowUpButton, GlasButton, IconButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
+import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -39,7 +40,7 @@ const WalletScreen = () => (
     <Balance />
     <SendReceiveButton
       onSend={() => nav.goTo('SendStack')}
-      onReceive={() => nav.goTo('ReceiveStack')}
+      onReceive={() => initReceive()}
     />
     <ArrowUpButton
       style={styles.listBtn}
