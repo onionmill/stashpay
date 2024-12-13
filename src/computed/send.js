@@ -10,7 +10,7 @@ const ComputedSend = store => {
       return `${
         type === InputTypeVariant.BITCOIN_ADDRESS ? minSatBtc :
         type === InputTypeVariant.LIQUID_ADDRESS ? 1 :
-        minSatLn} minimum`;
+        minSatLn} min (sats)`;
     },
     get sendValueLabel() {
       return formatNumber(store.send.value) + ' sats';

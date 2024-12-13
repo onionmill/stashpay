@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import {TextInput as RNTextInput, StyleSheet} from 'react-native';
 import {font, color} from './style';
 
+//
+// Text Input
+//
+
 const baseStyles = StyleSheet.create({
   input: {
     color: color.black,
@@ -26,3 +30,19 @@ export class TextInput extends Component {
     );
   }
 }
+
+//
+// Amount Input
+//
+
+const amountStyles = StyleSheet.create({
+  input: {
+    textAlign: 'center',
+    fontSize: font.sizeXXL,
+  },
+});
+
+export const AmountInput = ({style, ...props}) => (
+  <TextInput style={[amountStyles.input, style]} {...props} />
+);
+

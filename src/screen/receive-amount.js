@@ -2,10 +2,9 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {H1Text} from '../component/text';
-import {TextInput} from '../component/input';
+import {AmountInput} from '../component/input';
 import {PillButton} from '../component/button';
-import {MainContent, Spacer} from '../component/layout';
+import {MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
@@ -14,10 +13,10 @@ import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 10,
+    flex: 1,
   },
   btnWrapper: {
-    marginTop: 10,
+    marginTop: 20,
     height: 150,
   },
 });
@@ -25,8 +24,7 @@ const styles = StyleSheet.create({
 const ReceiveAmountScreen = () => (
   <Background style={styles.wrapper}>
     <MainContent>
-      <H1Text>Amount (sats)</H1Text>
-      <TextInput
+      <AmountInput
         placeholder={store.receiveMinValueLabel}
         keyboardType="number-pad"
         autoFocus
@@ -34,9 +32,8 @@ const ReceiveAmountScreen = () => (
         value={store.receive.value}
         onChangeText={value => receive.setAmount(value)}
       />
-      <Spacer />
       <View style={styles.btnWrapper}>
-      <PillButton onPress={() => nav.goTo('Receive')}>Request Amount</PillButton>
+        <PillButton onPress={() => nav.goTo('Receive')}>Request Amount</PillButton>
       </View>
     </MainContent>
   </Background>
