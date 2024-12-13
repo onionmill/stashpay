@@ -25,16 +25,26 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 10,
     right: 10,
-    bottom: 20,
+    bottom: 30,
   },
 });
 
 const WalletScreen = () => (
   <View style={styles.wrapper}>
-    <IconButton iconName={'settings'} style={styles.settingsBtn} />
+    <IconButton
+      iconName={'settings'}
+      onPress={() => nav.goTo('Settings')}
+      style={styles.settingsBtn}
+    />
     <Balance />
-    <SendReceiveButton />
-    <ArrowUpButton style={styles.listBtn} onPress={() => nav.goTo('PaymentList')} />
+    <SendReceiveButton
+      onSend={() => nav.goTo('SendStack')}
+      onReceive={() => nav.goTo('ReceiveStack')}
+    />
+    <ArrowUpButton
+      style={styles.listBtn}
+      onPress={() => nav.goTo('PaymentList')}
+    />
   </View>
 );
 
@@ -72,7 +82,7 @@ const Balance = () => (
 const bigBtnStyles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
-    marginTop: 40,
+    marginTop: 60,
   },
   leftBtn: {
     flex: 1,
@@ -86,12 +96,12 @@ const bigBtnStyles = StyleSheet.create({
   },
 });
 
-const SendReceiveButton = ({ goPay, goRequest }) => (
+const SendReceiveButton = ({ onSend, onReceive }) => (
   <View style={bigBtnStyles.wrapper}>
-    <GlasButton onPress={goRequest} style={bigBtnStyles.leftBtn}>
+    <GlasButton onPress={onReceive} style={bigBtnStyles.leftBtn}>
       Receive
     </GlasButton>
-    <GlasButton onPress={goPay} style={bigBtnStyles.rightBtn}>
+    <GlasButton onPress={onSend} style={bigBtnStyles.rightBtn}>
       Send
     </GlasButton>
   </View>

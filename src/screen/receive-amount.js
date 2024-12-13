@@ -36,7 +36,7 @@ const ReceiveAmountScreen = () => (
       />
       <Spacer />
       <View style={styles.btnWrapper}>
-      <PillButton onPress={() => nav.goBack()}>Request Amount</PillButton>
+      <PillButton onPress={() => nav.goTo('Receive')}>Request Amount</PillButton>
       </View>
     </MainContent>
   </Background>

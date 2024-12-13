@@ -3,8 +3,6 @@ import React from 'react';
 import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Feather from 'react-native-vector-icons/Feather';
 
 import './action';
 import * as nav from './action/nav';
@@ -29,7 +27,6 @@ import WaitScreen from './screen/wait';
 const ReceiveStack = createNativeStackNavigator();
 const SendStack = createNativeStackNavigator();
 const SeedBackupStack = createNativeStackNavigator();
-const MainStack = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
 
 const ReceiveStackScreen = () => (
@@ -37,13 +34,41 @@ const ReceiveStackScreen = () => (
     <ReceiveStack.Screen
       name="ReceiveAmount"
       component={ReceiveAmountScreen}
-      options={{headerShown: false}}
+      options={{
+        headerLeft: () => (
+          <Button title="Back" onPress={() => nav.goBack()} />
+        ),
+      }}
+    />
+    <ReceiveStack.Screen
+      name="Receive"
+      component={ReceiveScreen}
+      options={{
+        headerLeft: () => (
+          <Button title="Back" onPress={() => nav.goBack()} />
+        ),
+        headerRight: () => (
+          <Button title="Chain/Ln" onPress={() => toggleOnchain()} />
+        ),
+      }}
     />
   </ReceiveStack.Navigator>
 );
 
 const SendStackScreen = () => (
   <SendStack.Navigator>
+    <SendStack.Screen
+      name="Send"
+      component={SendScreen}
+      options={{
+        headerLeft: () => (
+          <Button title="Back" onPress={() => nav.goBack()} />
+        ),
+        headerRight: () => (
+          <Button title="@Address" onPress={() => nav.goTo('SendAddress')} />
+        ),
+      }}
+    />
     <SendStack.Screen
       name="SendAddress"
       component={SendAddressScreen}
@@ -102,49 +127,6 @@ const SeedBackupStackScreen = () => (
   </SeedBackupStack.Navigator>
 );
 
-const MainStackScreen = () => (
-  <MainStack.Navigator
-    screenOptions={({route}) => ({
-      tabBarIcon: ({focused, color, size}) => {
-        let iconName;
-        if (route.name === 'Wallet') {
-          iconName = 'list';
-        } else if (route.name === 'Send') {
-          iconName = 'send';
-        } else if (route.name === 'Receive') {
-          iconName = 'download';
-        } else if (route.name === 'Settings') {
-          iconName = 'settings';
-        }
-        return <Feather name={iconName} size={size} color={color} />;
-      },
-    })}>
-    <MainStack.Screen name="Wallet" component={WalletScreen} />
-    <MainStack.Screen
-      name="Receive"
-      component={ReceiveScreen}
-      options={{
-        headerLeft: () => (
-          <Button title="Chain/Ln" onPress={() => toggleOnchain()} />
-        ),
-        headerRight: () => (
-          <Button title="Amount" onPress={() => nav.goTo('ReceiveStack')} />
-        ),
-      }}
-    />
-    <MainStack.Screen
-      name="Send"
-      component={SendScreen}
-      options={{
-        headerRight: () => (
-          <Button title="@Address" onPress={() => nav.goTo('SendStack')} />
-        ),
-      }}
-    />
-    <MainStack.Screen name="Settings" component={SettingsScreen} />
-  </MainStack.Navigator>
-);
-
 const App = () => (
   <NavigationContainer ref={navRef => nav.setTopLevelNavigator(navRef)}>
     <RootStack.Navigator screenOptions={{gestureEnabled: false}}>
@@ -155,8 +137,13 @@ const App = () => (
       />
       <RootStack.Screen
         name="Main"
-        component={MainStackScreen}
-        options={{headerShown: false}}
+        component={WalletScreen}
+        options={{title: 'Wallet'}}
+      />
+      <RootStack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{title: 'Settings', headerBackTitle: 'Back'}}
       />
       <RootStack.Screen
         name="SeedBackupStack"
@@ -171,7 +158,7 @@ const App = () => (
       <RootStack.Screen
         name="ReceiveStack"
         component={ReceiveStackScreen}
-        options={{title: 'Amount', headerBackTitle: 'Back'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="SendStack"
