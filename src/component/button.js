@@ -95,6 +95,7 @@ const glasStyles = StyleSheet.create({
     letterSpacing: 1,
     fontSize: font.sizeL,
     lineHeight: font.lineHeightL,
+    fontWeight: 'bold',
   },
 });
 
