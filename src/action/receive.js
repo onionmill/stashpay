@@ -8,6 +8,7 @@ import * as alert from './alert';
 import * as nav from '../action/nav';
 
 export function initReceive() {
+  store.receive.value = null;
   store.receive.onChain = false;
   nav.goTo('ReceiveStack');
 }
