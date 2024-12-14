@@ -11,9 +11,6 @@ import store from '../store';
 import * as send from '../action/send';
 
 const styles = StyleSheet.create({
-  input: {
-    flex: 1,
-  },
   btnWrapper: {
     marginTop: 20,
     height: 150,
@@ -27,7 +24,6 @@ const SendAmountScreen = () => (
         placeholder={store.sendMinValueLabel}
         keyboardType="number-pad"
         autoFocus
-        style={styles.input}
         value={store.send.value}
         onChangeText={value => send.setAmount(value)}
       />

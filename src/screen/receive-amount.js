@@ -12,9 +12,6 @@ import * as nav from '../action/nav';
 import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
-  input: {
-    flex: 1,
-  },
   btnWrapper: {
     marginTop: 20,
     height: 150,
@@ -28,7 +25,6 @@ const ReceiveAmountScreen = () => (
         placeholder={store.receiveMinValueLabel}
         keyboardType="number-pad"
         autoFocus
-        style={styles.input}
         value={store.receive.value}
         onChangeText={value => receive.setAmount(value)}
       />

@@ -37,6 +37,7 @@ export class TextInput extends Component {
 
 const amountStyles = StyleSheet.create({
   input: {
+    flex: 1,
     textAlign: 'center',
     fontSize: font.sizeXXL,
   },
