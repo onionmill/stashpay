@@ -28,7 +28,9 @@ const SendAmountScreen = () => (
         onChangeText={value => send.setAmount(value)}
       />
       <View style={styles.btnWrapper}>
-        <PillButton onPress={() => send.validateAmount()}>Review</PillButton>
+        <PillButton onPress={() => send.validateAmount()}>
+          Review
+        </PillButton>
       </View>
     </MainContent>
   </Background>

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 const ReceiveAmountScreen = () => (
-  <Background style={styles.wrapper}>
+  <Background>
     <MainContent>
       <AmountInput
         placeholder={store.receiveMinValueLabel}
@@ -29,7 +29,9 @@ const ReceiveAmountScreen = () => (
         onChangeText={value => receive.setAmount(value)}
       />
       <View style={styles.btnWrapper}>
-        <PillButton onPress={() => nav.goTo('Receive')}>Request Amount</PillButton>
+        <PillButton onPress={() => nav.goTo('Receive')}>
+          Request Amount
+        </PillButton>
       </View>
     </MainContent>
   </Background>
