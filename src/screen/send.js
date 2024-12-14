@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {PillButton} from '../component/button';
@@ -8,10 +8,12 @@ import {QRCodeScanner} from '../component/qrcode-scanner';
 import * as send from '../action/send';
 
 const styles = StyleSheet.create({
-  wrapper: {
+  safe: {
     flex: 1,
     justifyContent: 'flex-end',
-    padding: 25,
+  },
+  btn: {
+    margin: 20,
   },
 });
 
@@ -21,13 +23,18 @@ const SendAddressScreen = ({navigation}) => {
     [navigation],
   );
   return (
-    <View style={styles.wrapper}>
+    <SafeAreaView style={styles.safe}>
       <QRCodeScanner
         style={StyleSheet.absoluteFill}
         onCodeScanned={(data) => send.readQRCode(data)}
       />
-      <PillButton onPress={() => send.pasteInvoice()}>Paste Address</PillButton>
-    </View>
+      <PillButton
+        style={styles.btn}
+        onPress={() => send.pasteInvoice()}
+      >
+        Paste Address<
+      /PillButton>
+    </SafeAreaView>
   );
 };
 

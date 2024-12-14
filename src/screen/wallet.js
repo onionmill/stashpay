@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, SafeAreaView} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
@@ -11,6 +11,9 @@ import * as nav from '../action/nav';
 import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
+  safe: {
+    flex: 1,
+  },
   wrapper: {
     flexGrow: 1,
     alignItems: 'center',
@@ -26,27 +29,29 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 10,
     right: 10,
-    bottom: 30,
+    bottom: 20,
   },
 });
 
 const WalletScreen = () => (
-  <View style={styles.wrapper}>
-    <IconButton
-      iconName={'settings'}
-      onPress={() => nav.goTo('Settings')}
-      style={styles.settingsBtn}
-    />
-    <Balance />
-    <SendReceiveButton
-      onSend={() => nav.goTo('SendStack')}
-      onReceive={() => initReceive()}
-    />
-    <ArrowUpButton
-      style={styles.listBtn}
-      onPress={() => nav.goTo('PaymentList')}
-    />
-  </View>
+  <SafeAreaView style={styles.safe}>
+    <View style={styles.wrapper}>
+      <IconButton
+        iconName={'settings'}
+        onPress={() => nav.goTo('Settings')}
+        style={styles.settingsBtn}
+      />
+      <Balance />
+      <SendReceiveButton
+        onSend={() => nav.goTo('SendStack')}
+        onReceive={() => initReceive()}
+      />
+      <ArrowUpButton
+        style={styles.listBtn}
+        onPress={() => nav.goTo('PaymentList')}
+      />
+    </View>
+  </SafeAreaView>
 );
 
 const balanceStyles = StyleSheet.create({
