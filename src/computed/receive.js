@@ -4,7 +4,7 @@ const ComputedReceive = store => {
   extendObservable(store, {
     get receiveMinValueLabel() {
       const {onChain, minSatLn, minSatBtc} = store.receive;
-      return `${onChain ? minSatBtc : minSatLn} min (sats)`;
+      return `${onChain ? minSatBtc : minSatLn} sats`;
     },
     get receiveCopyBtnLabel() {
       const {onChain} = store.receive;
