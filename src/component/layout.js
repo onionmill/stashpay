@@ -7,14 +7,31 @@ import {View, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   content: {
+    flex: 1,
+    padding: 20,
+  },
+});
+
+export const MainContent = ({children, style}) => (
+  <View style={[styles.content, style]}>
+    {children}
+  </View>
+);
+
+//
+// Scroll Content
+//
+
+const scrollStyles = StyleSheet.create({
+  content: {
     flexGrow: 1,
     padding: 20,
   },
 });
 
-export const MainContent = ({children, style, refreshing, onRefresh}) => (
+export const ScrollContent = ({children, style, refreshing, onRefresh}) => (
   <ScrollView
-    contentContainerStyle={[styles.content, style]}
+    contentContainerStyle={[scrollStyles.content, style]}
     keyboardShouldPersistTaps="handled"
     refreshControl={
       onRefresh ? (

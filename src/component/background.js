@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 export const Background = ({color, children, style}) => (
-  <View style={[{backgroundColor: color}, styles.background, style]}>
+  <View style={[{backgroundColor: color}, styles.background]}>
     <ContentWrapper style={style}>{children}</ContentWrapper>
   </View>
 );
@@ -31,9 +31,11 @@ export const Background = ({color, children, style}) => (
 const wrapperStyles = StyleSheet.create({
   safe: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   avoid: {
+    flex: 1,
+  },
+  wrapper: {
     flex: 1,
   },
 });
@@ -42,9 +44,11 @@ export const ContentWrapper = ({children, style}) => (
   <SafeAreaView style={wrapperStyles.safe}>
     <StatusBar barStyle="dark-content" />
     <KeyboardAvoidingView
-      style={[wrapperStyles.avoid, style]}
+      style={wrapperStyles.avoid}
       behavior={Platform.OS === 'android' ? null : 'padding'}>
-      {children}
+      <View style={[wrapperStyles.wrapper, style]}>
+        {children}
+      </View>
     </KeyboardAvoidingView>
   </SafeAreaView>
 );

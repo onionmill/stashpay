@@ -1,11 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
 import {QRCode} from '../component/qrcode';
 import {PillButton} from '../component/button';
 import {LargeSpinner} from '../component/spinner';
+import {MainContent} from '../component/layout';
+import {Background} from '../component/background';
 import {font} from '../component/style';
 
 import store from '../store';
@@ -13,14 +15,9 @@ import {formatNumber} from '../util';
 import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-  },
   wrapper: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
   },
   codeWrapper: {
     flex: 1,
@@ -40,16 +37,14 @@ const ReceiveScreen = ({navigation}) => {
     [navigation],
   );
   return (
-    <SafeAreaView style={styles.safe}>
-      <View style={styles.wrapper}>
-        {store.receive.invoice ? <Address /> : <LargeSpinner />}
-      </View>
-    </SafeAreaView>
+    <Background style={styles.wrapper}>
+      {store.receive.invoice ? <Address /> : <LargeSpinner />}
+    </Background>
   );
 };
 
 const Address = () => (
-  <View>
+  <MainContent>
     <View style={styles.codeWrapper}>
       <QRCode size={260}>{store.receive.invoice}</QRCode>
       <Text style={styles.feeText} numberOfLines={1}>
@@ -59,7 +54,7 @@ const Address = () => (
     <PillButton onPress={() => receive.copyInvoice()}>
       {store.receiveCopyBtnLabel}
     </PillButton>
-  </View>
+  </MainContent>
 );
 
 export default observer(ReceiveScreen);

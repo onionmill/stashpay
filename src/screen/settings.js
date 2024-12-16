@@ -1,22 +1,17 @@
 import React from 'react';
-import {StyleSheet, Button, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Button, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
 import {color, font} from '../component/style';
+import {MainContent} from '../component/layout';
+import {Background} from '../component/background';
 
 import store from '../store';
 import * as log from '../action/log';
 import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-  },
-  wrapper: {
-    flex: 1,
-    padding: 20,
-  },
   btnWrapper: {
     marginTop: 50,
     alignItems: 'center',
@@ -37,8 +32,8 @@ const styles = StyleSheet.create({
 });
 
 const SettingsScreen = () => (
-  <SafeAreaView style={styles.safe}>
-    <View style={styles.wrapper}>
+  <Background>
+    <MainContent>
       <View style={styles.btnWrapper}>
         <Button
           title="Backup wallet"
@@ -69,8 +64,8 @@ const SettingsScreen = () => (
           version {store.config.appVersion}
         </Text>
       </View>
-    </View>
-  </SafeAreaView>
+    </MainContent>
+  </Background>
 );
 
 export default observer(SettingsScreen);
