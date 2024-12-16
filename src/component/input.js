@@ -12,6 +12,7 @@ const baseStyles = StyleSheet.create({
     fontSize: font.sizeL,
     height: font.lineHeightL + 2 * 12,
     padding: 0,
+    textAlignVertical: 'top',
   },
 });
 
@@ -40,6 +41,7 @@ const amountStyles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontSize: font.sizeXXL,
+    textAlignVertical: 'center',
   },
 });
 
