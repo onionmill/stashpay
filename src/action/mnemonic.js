@@ -1,22 +1,14 @@
 const {NativeModules} = require('react-native');
-const {RNRandomBytes} = NativeModules;
 import * as bip39 from 'bip39';
 
-async function randomBytes(size) {
-  return new Promise((resolve, reject) => {
-    RNRandomBytes.randomBytes(size, (err, bytes) => {
-      if (err) {
-        reject(err);
-      } else {
-        // eslint-disable-next-line no-undef
-        resolve(Buffer.from(bytes, 'base64'));
-      }
-    });
-  });
+function randomBytes(size) {
+  const bytes = NativeModules.RNGetRandomValues.getRandomBase64(size);
+  // eslint-disable-next-line no-undef
+  return Buffer.from(bytes, 'base64');
 }
 
 export async function generateMnemonic() {
-  const buf = await randomBytes(16);
+  const buf = randomBytes(16);
   return bip39.entropyToMnemonic(buf);
 }
 
