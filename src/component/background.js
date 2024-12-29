@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
-  StatusBar,
 } from 'react-native';
 
 //
@@ -42,7 +41,6 @@ const wrapperStyles = StyleSheet.create({
 
 export const ContentWrapper = ({children, style}) => (
   <SafeAreaView style={wrapperStyles.safe}>
-    <StatusBar barStyle="dark-content" />
     <KeyboardAvoidingView
       style={wrapperStyles.avoid}
       behavior={Platform.OS === 'android' ? null : 'padding'}>
