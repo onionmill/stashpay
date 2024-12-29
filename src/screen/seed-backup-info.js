@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {H1Text, Text} from '../component/text';
@@ -17,10 +17,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontWeight: 'bold',
   },
-  btnWrapper: {
-    marginTop: 30,
-    height: 150,
-  },
 });
 
 const SeedBackupInfoScreen = () => (
@@ -37,11 +33,9 @@ const SeedBackupInfoScreen = () => (
         The most secure backup option is to write it down on a piece of paper and keep that in a safe place. For smaller amounts you can also copy & paste it into a password manager.
       </Text>
       <Spacer />
-      <View style={styles.btnWrapper}>
-        <PillButton onPress={() => nav.goTo('SeedBackup')}>
-          Display Recovery Phrase
-        </PillButton>
-      </View>
+      <PillButton onPress={() => nav.goTo('SeedBackup')}>
+        Display Recovery Phrase
+      </PillButton>
     </MainContent>
   </Background>
 );

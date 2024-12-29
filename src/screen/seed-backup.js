@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {H1Text, Text} from '../component/text';
@@ -14,10 +14,6 @@ const styles = StyleSheet.create({
   seed: {
     marginTop: 20,
   },
-  btnWrapper: {
-    marginTop: 30,
-    height: 150,
-  },
 });
 
 const SeedBackupScreen = () => (
@@ -26,11 +22,9 @@ const SeedBackupScreen = () => (
       <H1Text>Recovery Phrase</H1Text>
       <Text style={styles.seed}>{store.mnemonic}</Text>
       <Spacer />
-      <View style={styles.btnWrapper}>
-        <PillButton onPress={() => wallet.copyMnemonic()}>
-          Copy to Clipboard
-        </PillButton>
-      </View>
+      <PillButton onPress={() => wallet.copyMnemonic()}>
+        Copy to Clipboard
+      </PillButton>
     </MainContent>
   </Background>
 );
