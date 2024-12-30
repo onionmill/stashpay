@@ -7,7 +7,7 @@ import * as log from './log';
 import * as alert from './alert';
 import {fetchLnLimits, fetchOnchainLimits} from './receive';
 
-export async function initSendAddress() {
+export function initSendAddress() {
   store.send.rawUri = null;
   store.send.input = null;
   store.send.value = null;

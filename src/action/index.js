@@ -1,7 +1,7 @@
 import {when, configure} from 'mobx';
 
 import store from '../store';
-import * as nav from './nav';
+import * as link from './link';
 import * as wallet from './wallet';
 import * as receive from './receive';
 
@@ -16,8 +16,8 @@ when(
 
 when(
   () => store.balanceFetched,
-  () => {
-    nav.reset('Main');
+  async () => {
+    await link.listenForUrl();
   },
 );
 
