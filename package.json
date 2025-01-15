@@ -16,7 +16,7 @@
     "build:tag": "git add package.json ios android && git commit -m $npm_package_version && git tag $npm_package_version && git push && git push --tags"
   },
   "dependencies": {
-    "@breeztech/react-native-breez-sdk-liquid": "0.5.1",
+    "@breeztech/react-native-breez-sdk-liquid": "0.6.0-dev1",
     "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-clipboard/clipboard": "^1.15.0",
     "@react-navigation/native": "^6.1.18",

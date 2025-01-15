@@ -1,11 +1,11 @@
 PODS:
   - boost (1.84.0)
-  - breez_sdk_liquid (0.5.1):
-    - BreezSDKLiquid (= 0.5.1)
+  - breez_sdk_liquid (0.6.0-dev1):
+    - BreezSDKLiquid (= 0.6.0-dev1)
     - React-Core
-  - breez_sdk_liquidFFI (0.5.1)
-  - BreezSDKLiquid (0.5.1):
-    - breez_sdk_liquidFFI (= 0.5.1)
+  - breez_sdk_liquidFFI (0.6.0-dev1)
+  - BreezSDKLiquid (0.6.0-dev1):
+    - breez_sdk_liquidFFI (= 0.6.0-dev1)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.75.2)
   - fmt (9.1.0)
@@ -1960,9 +1960,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 4cb898d0bf20404aab1850c656dcea009429d6c1
-  breez_sdk_liquid: 8528aefaa995706819939f420f869bc1d90bd5c5
-  breez_sdk_liquidFFI: 60003088e92e35cf6fc5a8686883b346023a26d1
-  BreezSDKLiquid: 2895e61f32ed200952104575a56e937b0a787df8
+  breez_sdk_liquid: a0b8a0e03a5354f997735dc0d48e974ed5a9fdda
+  breez_sdk_liquidFFI: a588b01f6d00f8ac200b895af1d3b72331acb22f
+  BreezSDKLiquid: 95ad632b9eb5ac91e7fe21e8d7e04bdaf964c26f
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 38bb611218305c3bc61803e287b8a81c6f63b619
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
