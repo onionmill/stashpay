@@ -45,6 +45,7 @@ const store = observable({
   config: {
     electrumLiquid: 'elements-mainnet.breez.technology:50002',
     electrumBitcoin: 'bitcoin-mainnet.blockstream.info:50002',
+    syncServiceUrl: '',
     explorer: 'https://liquid.network',
     appVersion: version,
     sdkVersion: dependencies['@breeztech/react-native-breez-sdk-liquid'],
