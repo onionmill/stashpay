@@ -93,7 +93,7 @@ async function _loadBalance() {
 
 export async function fetchBalance() {
   try {
-    const info = await liquid.getInfo();
+    const info = (await liquid.getInfo()).walletInfo;
     if (!info) {
       store.balance = null;
       return;
