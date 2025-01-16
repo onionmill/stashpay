@@ -27,8 +27,8 @@ const store = observable({
     feesSat: null,
     description: null,
     onChain: false,
-    minSatLn: 1000,
-    minSatBtc: 25000,
+    minSatLn: 1_000,
+    minSatBtc: 25_000,
   },
   send: {
     rawUri: null,
@@ -37,8 +37,8 @@ const store = observable({
     prepareResponse: null,
     feesSat: null,
     description: null,
-    minSatLn: 1000,
-    minSatBtc: 25000,
+    minSatLn: 1_000,
+    minSatBtc: 25_000,
   },
 
   // persistent data
