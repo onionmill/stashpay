@@ -11,6 +11,10 @@ const ComputedReceive = store => {
       const {onChain, minSatBtc} = store.receive;
       return onChain ? `Send min ${formatNumber(minSatBtc)} sats` : null;
     },
+    get receiveFeeLabel() {
+      const {feesSat} = store.receive;
+      return `Fee to receive: ${formatNumber(feesSat)} sats`;
+    },
     get receiveCopyBtnLabel() {
       const {onChain} = store.receive;
       return `Copy ${onChain ? 'BTC Address' : 'LN Invoice'}`;

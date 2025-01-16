@@ -11,7 +11,6 @@ import {Background} from '../component/background';
 import {font} from '../component/style';
 
 import store from '../store';
-import {formatNumber} from '../util';
 import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
@@ -56,7 +55,7 @@ const Address = () => (
       </Text>
       <QRCode size={260}>{store.receive.invoice}</QRCode>
       <Text style={styles.feeText} numberOfLines={1}>
-        Fee to receive: {formatNumber(store.receive.feesSat)} sats
+        {store.receiveFeeLabel}
       </Text>
     </View>
     <PillButton onPress={() => receive.copyInvoice()}>
