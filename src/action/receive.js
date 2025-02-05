@@ -53,7 +53,10 @@ export async function fetchInvoice() {
     }
     const minSat = await _fetchMinSat(onChain);
     const prepareResponse = await liquid.prepareReceivePayment({
-      payerAmountSat: onChain ? undefined : value ? Number(value) : minSat,
+      amount: onChain ? undefined : {
+        type: liquid.ReceiveAmountVariant.BITCOIN,
+        payerAmountSat: value ? Number(value) : minSat,
+      },
       paymentMethod: onChain ? liquid.PaymentMethod.BITCOIN_ADDRESS : liquid.PaymentMethod.LIGHTNING,
     });
     store.receive.feesSat = prepareResponse.feesSat;
