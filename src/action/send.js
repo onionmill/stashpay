@@ -69,7 +69,10 @@ async function _prepareBolt11Payment(invoice) {
   const amountSat = invoice.amountMsat / 1000;
   const prepareResponse = await liquid.prepareSendPayment({
     destination: invoice.bolt11,
-    amountSat,
+    amount: {
+      type: liquid.PayAmountVariant.BITCOIN,
+      receiverAmountSat: amountSat,
+    },
   });
   log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
   store.send.value = amountSat;
@@ -157,8 +160,8 @@ async function _prepareBolt12Payment() {
   const prepareResponse = await liquid.prepareSendPayment({
     destination: offer.offer,
     amount: {
-      type: liquid.PayAmountVariant.RECEIVER,
-      amountSat,
+      type: liquid.PayAmountVariant.BITCOIN,
+      receiverAmountSat: amountSat,
     },
   });
   log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
@@ -188,8 +191,8 @@ async function _prepareLiquidPayment() {
   const prepareResponse = await liquid.prepareSendPayment({
     destination: address.address,
     amount: {
-      type: liquid.PayAmountVariant.RECEIVER,
-      amountSat,
+      type: liquid.PayAmountVariant.BITCOIN,
+      receiverAmountSat: amountSat,
     },
   });
   log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
