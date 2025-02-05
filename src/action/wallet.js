@@ -1,7 +1,6 @@
 import {action} from 'mobx';
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
-import {breezApiKey} from '../../breez-api-key.json';
 
 import store from '../store';
 import * as log from './log';
@@ -60,7 +59,7 @@ export const initLiquidClient = action(async () => {
     log.info('Liquid wallet connecting...');
     await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
-    const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET, breezApiKey);
+    const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
     config.liquidElectrumUrl = store.config.electrumLiquid;
     config.bitcoinElectrumUrl = store.config.electrumBitcoin;
     config.syncServiceUrl = store.config.syncServiceUrl;
