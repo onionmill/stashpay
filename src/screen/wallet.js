@@ -69,17 +69,19 @@ const balanceStyles = StyleSheet.create({
   },
 });
 
-const Balance = () => (
-  <View style={balanceStyles.wrapper}>
-    <Text style={balanceStyles.label}>Total sats</Text>
-    <Text
-      style={balanceStyles.numeral}
-      adjustsFontSizeToFit={true}
-      numberOfLines={1}>
-      {store.balanceLabel}
-    </Text>
-  </View>
-);
+const Balance = observer(() => {
+  return (
+    <View style={balanceStyles.wrapper}>
+      <Text style={balanceStyles.label}>Total sats</Text>
+      <Text
+        style={balanceStyles.numeral}
+        adjustsFontSizeToFit={true}
+        numberOfLines={1}>
+        {store.balanceLabel}
+      </Text>
+    </View>
+  );
+});
 
 //
 // Send Receive Button
