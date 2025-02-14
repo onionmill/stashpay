@@ -1,9 +1,9 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Linking} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
-import {Button} from '../component/button';
+import {Button, LinkButton} from '../component/button';
 import {color, font} from '../component/style';
 import {MainContent} from '../component/layout';
 import {Background} from '../component/background';
@@ -25,7 +25,11 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
   },
+  links: {
+    marginBottom: 20,
+  },
   versionText: {
+    marginTop: 15,
     color: color.darkGrey,
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
@@ -61,6 +65,18 @@ const SettingsScreen = () => (
         />
       </View>
       <View style={styles.versionWrapper}>
+        <LinkButton
+          title="Terms of Service"
+          style={styles.links}
+          color={color.darkerGrey}
+          onPress={() => Linking.openURL('https://stashpay.me/terms/')}
+        />
+        <LinkButton
+          title="Privacy Policy"
+          style={styles.links}
+          color={color.darkerGrey}
+          onPress={() => Linking.openURL('https://stashpay.me/privacy/')}
+        />
         <Text style={styles.versionText}>
           version {store.config.appVersion}
         </Text>

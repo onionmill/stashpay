@@ -33,6 +33,31 @@ export const Button = ({onPress, disabled, title, color: clr, style}) => (
 );
 
 //
+// Link Button
+//
+
+const linkStyles = StyleSheet.create({
+  touchable: {
+    height: 20,
+    borderBottomWidth: 1,
+    borderColor: color.darkerGrey,
+  },
+  text: {
+    fontSize: font.sizeSub,
+    lineHeight: font.lineHeightSub,
+  },
+});
+
+export const LinkButton = ({onPress, disabled, title, color: clr, style}) => (
+  <TouchableOpacity
+    style={[linkStyles.touchable, style]}
+    disabled={disabled}
+    onPress={onPress}>
+    <Text style={[linkStyles.text, {color: clr || color.blue}]}>{title}</Text>
+  </TouchableOpacity>
+);
+
+//
 // Pill Button
 //
 
