@@ -11,7 +11,6 @@ import {Background} from '../component/background';
 import {font} from '../component/style';
 
 import store from '../store';
-import {formatNumber} from '../util';
 import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
@@ -23,6 +22,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  typeText: {
+    textAlign: 'center',
+    marginBottom: 20,
+    fontWeight: 'bold',
   },
   feeText: {
     marginTop: 20,
@@ -46,9 +50,12 @@ const ReceiveScreen = ({navigation}) => {
 const Address = () => (
   <MainContent>
     <View style={styles.codeWrapper}>
+      <Text style={styles.typeText}>
+        {store.receiveTypeLabel}
+      </Text>
       <QRCode size={260}>{store.receive.invoice}</QRCode>
       <Text style={styles.feeText} numberOfLines={1}>
-        Fee to receive: {formatNumber(store.receive.feesSat)} sats
+        {store.receiveFeeLabel}
       </Text>
     </View>
     <PillButton onPress={() => receive.copyInvoice()}>
