@@ -1,10 +1,62 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
 import {Text} from './text';
 import {color, font} from './style';
+
+//
+// Button
+//
+
+const btnStyles = StyleSheet.create({
+  touchable: {
+    paddingRight: Platform.OS === 'android' ? 10 : null,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: font.sizeM,
+    lineHeight: font.lineHeightM,
+  },
+});
+
+export const Button = ({onPress, disabled, title, color: clr, style}) => (
+  <TouchableOpacity
+    style={[btnStyles.touchable, style]}
+    disabled={disabled}
+    onPress={onPress}>
+    <Text style={[btnStyles.text, {color: clr || color.blue}]}>{title}</Text>
+  </TouchableOpacity>
+);
+
+//
+// Link Button
+//
+
+const linkStyles = StyleSheet.create({
+  touchable: {
+    height: 20,
+    borderBottomWidth: 1,
+    borderColor: color.darkerGrey,
+  },
+  text: {
+    fontSize: font.sizeSub,
+    lineHeight: font.lineHeightSub,
+    color: color.darkerGrey,
+  },
+});
+
+export const LinkButton = ({onPress, disabled, title, style}) => (
+  <TouchableOpacity
+    style={[linkStyles.touchable, style]}
+    disabled={disabled}
+    onPress={onPress}>
+    <Text style={linkStyles.text}>{title}</Text>
+  </TouchableOpacity>
+);
 
 //
 // Pill Button

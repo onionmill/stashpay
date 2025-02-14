@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -8,6 +7,7 @@ import './action';
 import * as nav from './action/nav';
 import {toggleOnchain} from './action/receive';
 
+import {Button} from './component/button';
 import WalletScreen from './screen/wallet';
 import ReceiveScreen from './screen/receive';
 import ReceiveAmountScreen from './screen/receive-amount';
