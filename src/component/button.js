@@ -45,15 +45,16 @@ const linkStyles = StyleSheet.create({
   text: {
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
+    color: color.darkerGrey,
   },
 });
 
-export const LinkButton = ({onPress, disabled, title, color: clr, style}) => (
+export const LinkButton = ({onPress, disabled, title, style}) => (
   <TouchableOpacity
     style={[linkStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
-    <Text style={[linkStyles.text, {color: clr || color.blue}]}>{title}</Text>
+    <Text style={linkStyles.text}>{title}</Text>
   </TouchableOpacity>
 );
 

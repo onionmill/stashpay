@@ -68,13 +68,11 @@ const SettingsScreen = () => (
         <LinkButton
           title="Terms of Service"
           style={styles.links}
-          color={color.darkerGrey}
           onPress={() => Linking.openURL('https://stashpay.me/terms/')}
         />
         <LinkButton
           title="Privacy Policy"
           style={styles.links}
-          color={color.darkerGrey}
           onPress={() => Linking.openURL('https://stashpay.me/privacy/')}
         />
         <Text style={styles.versionText}>
