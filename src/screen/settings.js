@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Button, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
+import {Button} from '../component/button';
 import {color, font} from '../component/style';
 import {MainContent} from '../component/layout';
 import {Background} from '../component/background';
