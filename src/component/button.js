@@ -40,12 +40,12 @@ const linkStyles = StyleSheet.create({
   touchable: {
     height: 20,
     borderBottomWidth: 1,
-    borderColor: color.darkerGrey,
+    borderColor: color.darkGrey,
   },
   text: {
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
-    color: color.darkerGrey,
+    color: color.darkGrey,
   },
 });
 
