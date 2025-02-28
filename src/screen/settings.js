@@ -66,14 +66,14 @@ const SettingsScreen = () => (
       </View>
       <View style={styles.versionWrapper}>
         <LinkButton
-          title="Terms of Service"
-          style={styles.links}
-          onPress={() => Linking.openURL('https://stashpay.me/terms/')}
-        />
-        <LinkButton
           title="Privacy Policy"
           style={styles.links}
           onPress={() => Linking.openURL('https://stashpay.me/privacy/')}
+        />
+        <LinkButton
+          title="Terms of Service"
+          style={styles.links}
+          onPress={() => Linking.openURL('https://stashpay.me/terms/')}
         />
         <Text style={styles.versionText}>
           version {store.config.appVersion}
