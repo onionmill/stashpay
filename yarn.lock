@@ -1579,13 +1579,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@breeztech/react-native-breez-sdk-liquid@npm:0.7.0-rc5":
-  version: 0.7.0-rc5
-  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.7.0-rc5"
+"@breeztech/react-native-breez-sdk-liquid@npm:0.7.1":
+  version: 0.7.1
+  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.7.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 96e86a1f1744efff7783b87c8c92b4c163f721cebb889bf3acf788c6f3dc92e56e356e3e6140cb44f46e8c93c5916abb93ca6855ae9e261bdcaa881b79d85d6b
+  checksum: b2cfa6e314496b94c5d3bc42874c56b625794779aeae73637f38b460430b8604aaa1e854278c2078550cc2e74487f5180a7d9e0d466c8512380f6fbc2bd3ae64
   languageName: node
   linkType: hard
 
@@ -3056,7 +3056,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
-    "@breeztech/react-native-breez-sdk-liquid": 0.7.0-rc5
+    "@breeztech/react-native-breez-sdk-liquid": 0.7.1
     "@react-native-async-storage/async-storage": ^2.1.0
     "@react-native-clipboard/clipboard": ^1.15.0
     "@react-native/babel-preset": 0.75.2
