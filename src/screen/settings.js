@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   versionText: {
-    marginTop: 15,
+    marginTop: 5,
     color: color.darkGrey,
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
