@@ -16,6 +16,8 @@ const store = observable({
   balanceRefreshing: false,
   balanceFetched: false,
   payments: [],
+  refundables: [],
+  refundAddress: null,
 
   // screens
   restore: {
