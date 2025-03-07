@@ -63,6 +63,7 @@ export const initLiquidClient = action(async () => {
     config.liquidElectrumUrl = store.config.electrumLiquid;
     config.bitcoinElectrumUrl = store.config.electrumBitcoin;
     config.syncServiceUrl = store.config.syncServiceUrl;
+    config.onchainFeeRateLeewaySatPerVbyte = store.config.feeFlex;
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
     const onEvent = action(async e => {
