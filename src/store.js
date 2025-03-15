@@ -45,7 +45,7 @@ const store = observable({
 
   // persistent data
   config: {
-    electrumLiquid: 'elements-mainnet.blockstream.info:50002',
+    electrumLiquid: 'elements-mainnet.breez.technology:50002',
     electrumBitcoin: 'bitcoin-mainnet.blockstream.info:50002',
     syncServiceUrl: null,
     feeFlex: 100,
