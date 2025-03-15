@@ -135,7 +135,7 @@ export async function validateAmount() {
       await _prepareLiquidPayment();
     }
   } catch (err) {
-    nav.goTo('SendAmount');
+    nav.goBackTo('SendAmount');
     alert.error({err});
   }
 }
@@ -216,7 +216,7 @@ export async function validateSend() {
     await _sendPayment();
     nav.goTo('SendSuccess');
   } catch (err) {
-    nav.goTo('SendConfirm');
+    nav.goBackTo('SendConfirm');
     alert.error({err});
   }
 }
