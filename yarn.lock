@@ -2003,7 +2003,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:^2.1.0":
+"@react-native-async-storage/async-storage@npm:^2.1.2":
   version: 2.1.2
   resolution: "@react-native-async-storage/async-storage@npm:2.1.2"
   dependencies:
@@ -2014,7 +2014,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-clipboard/clipboard@npm:^1.15.0":
+"@react-native-clipboard/clipboard@npm:^1.16.2":
   version: 1.16.2
   resolution: "@react-native-clipboard/clipboard@npm:1.16.2"
   peerDependencies:
@@ -2935,8 +2935,8 @@ __metadata:
     "@babel/preset-env": ^7.25.3
     "@babel/runtime": ^7.25.0
     "@breeztech/react-native-breez-sdk-liquid": 0.7.2
-    "@react-native-async-storage/async-storage": ^2.1.0
-    "@react-native-clipboard/clipboard": ^1.15.0
+    "@react-native-async-storage/async-storage": ^2.1.2
+    "@react-native-clipboard/clipboard": ^1.16.2
     "@react-native-community/cli": 15.0.1
     "@react-native-community/cli-platform-android": 15.0.1
     "@react-native-community/cli-platform-ios": 15.0.1
@@ -2953,23 +2953,23 @@ __metadata:
     buffer: ^6.0.3
     eslint: ^8.19.0
     jest: ^29.6.3
-    mobx: ^6.13.5
+    mobx: ^6.13.6
     mobx-react: ^9.2.0
     prettier: 2.8.8
     react: 19.0.0
     react-native: 0.78.0
     react-native-fs: ^2.20.0
-    react-native-gesture-handler: ^2.21.2
+    react-native-gesture-handler: ^2.24.0
     react-native-get-random-values: ^1.11.0
-    react-native-keychain: ^9.2.2
-    react-native-qrcode-svg: ^6.3.12
-    react-native-reanimated: ^3.16.6
-    react-native-safe-area-context: ^4.14.1
-    react-native-screens: ^3.35.0
-    react-native-share: ^12.0.3
-    react-native-svg: ^15.10.1
+    react-native-keychain: ^9.2.3
+    react-native-qrcode-svg: ^6.3.15
+    react-native-reanimated: ^3.17.1
+    react-native-safe-area-context: ^5.3.0
+    react-native-screens: ^4.9.2
+    react-native-share: ^12.0.9
+    react-native-svg: ^15.11.2
     react-native-vector-icons: ^10.2.0
-    react-native-vision-camera: ^4.6.3
+    react-native-vision-camera: ^4.6.4
     react-test-renderer: 19.0.0
     typescript: 5.0.4
   languageName: unknown
@@ -7362,7 +7362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx@npm:^6.13.5":
+"mobx@npm:^6.13.6":
   version: 6.13.6
   resolution: "mobx@npm:6.13.6"
   checksum: cb76c9303945df5b6fe985d1cea2877e70d514d39f1220ee60e6d0760ddff7493571fd4eba9575a9fd7629610655e30eba1becafe5257a4f5ff89c89d43165a8
@@ -8136,7 +8136,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gesture-handler@npm:^2.21.2":
+"react-native-gesture-handler@npm:^2.24.0":
   version: 2.24.0
   resolution: "react-native-gesture-handler@npm:2.24.0"
   dependencies:
@@ -8171,14 +8171,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-keychain@npm:^9.2.2":
+"react-native-keychain@npm:^9.2.3":
   version: 9.2.3
   resolution: "react-native-keychain@npm:9.2.3"
   checksum: 2a5bef250efdf0aef4f13cab0f24eab127bfb52ad88f9475ff0eab199d4f0ca4807bb5f22e8a3b89978e8e8573c274c6284ec6aa9ab182382edfe20af76802ff
   languageName: node
   linkType: hard
 
-"react-native-qrcode-svg@npm:^6.3.12":
+"react-native-qrcode-svg@npm:^6.3.15":
   version: 6.3.15
   resolution: "react-native-qrcode-svg@npm:6.3.15"
   dependencies:
@@ -8193,7 +8193,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-reanimated@npm:^3.16.6":
+"react-native-reanimated@npm:^3.17.1":
   version: 3.17.1
   resolution: "react-native-reanimated@npm:3.17.1"
   dependencies:
@@ -8217,37 +8217,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^4.14.1":
-  version: 4.14.1
-  resolution: "react-native-safe-area-context@npm:4.14.1"
+"react-native-safe-area-context@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "react-native-safe-area-context@npm:5.3.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: acf94ea2a30a3ec5594b467f8e0942ac48c10cbb5d34d16beba33cc0052f7c82dfd6ace754fa55f41d55143f134d3d3fa908eaf4cc9dec5743d6c4483b23520a
+  checksum: 21f18b1286fc7bc6f38f864b7468848c16c58106ae429633e8f655dabb80571beba19ac8aa8bc5e1b2e926d75afddd7ded919a56450aa00c36d56f7fb421f782
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.35.0":
-  version: 3.37.0
-  resolution: "react-native-screens@npm:3.37.0"
+"react-native-screens@npm:^4.9.2":
+  version: 4.9.2
+  resolution: "react-native-screens@npm:4.9.2"
   dependencies:
     react-freeze: ^1.0.0
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 84d1e4697ab7afccf42111d13b7c7e68d382b136f4f4d9cd8fd077b0984ada3114e8c7459a69159983a538fe35db1cf4296075e72fc8cb45341e0feb5080d3dc
+  checksum: 7c39983082c244437df7840504205ea27c235bbd4bd11bcfdf6d73bba4cc6dbbba010d051d51de54c340df6d4e54d8a0833ef9ec151e7f075eb1f69833b0f8b6
   languageName: node
   linkType: hard
 
-"react-native-share@npm:^12.0.3":
+"react-native-share@npm:^12.0.9":
   version: 12.0.9
   resolution: "react-native-share@npm:12.0.9"
   checksum: 837e7162d3e9b44bb225029d08abebc9b064c4dee54ebad5bbe017fba5c9f1be02451dd87d96f937d79bfe2b2e6424cb638ec469cdafb33b4a7d4ef069bfa60a
   languageName: node
   linkType: hard
 
-"react-native-svg@npm:^15.10.1":
+"react-native-svg@npm:^15.11.2":
   version: 15.11.2
   resolution: "react-native-svg@npm:15.11.2"
   dependencies:
@@ -8276,7 +8276,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vision-camera@npm:^4.6.3":
+"react-native-vision-camera@npm:^4.6.4":
   version: 4.6.4
   resolution: "react-native-vision-camera@npm:4.6.4"
   peerDependencies:
