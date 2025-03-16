@@ -135,8 +135,8 @@ const _updateBalance = action(info => {
 });
 
 export const update = action(async () => {
-  while (store.balanceRefreshing) {
-    await nap(100);
+  if (store.balanceRefreshing) {
+    return; // prevent race conditions
   }
   store.balanceRefreshing = true;
   while (!store.walletReady || !store.liquidConnected) {
