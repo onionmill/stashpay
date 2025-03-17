@@ -135,14 +135,13 @@ const _updateBalance = action(info => {
 });
 
 export const update = action(async () => {
-  if (store.balanceRefreshing) {
-    return; // prevent race conditions
+  while (store.balanceRefreshing) {
+    await nap(100); // prevent race conditions
   }
   store.balanceRefreshing = true;
   while (!store.walletReady || !store.liquidConnected) {
     await nap(100);
   }
-  await nap(3000); // mitigate lag in electrum wallet balance
   await fetchBalance();
   await fetchPayments();
   store.balanceRefreshing = false;
