@@ -112,18 +112,14 @@ export async function fetchBalance() {
 }
 
 function _displayReceiveMessage(oldInfo, info) {
-  if (oldInfo && _totalBalance(oldInfo) < _totalBalance(info)) {
-    // handle direct liquid payment
+  if (oldInfo && oldInfo.pendingReceiveSat < info.pendingReceiveSat) {
     nav.goTo('ReceiveSuccess',{
-      valueLabel: formatNumber(_totalBalance(info) - _totalBalance(oldInfo)),
+      valueLabel: formatNumber(info.pendingReceiveSat - oldInfo.pendingReceiveSat),
     });
-  } else if (info.pendingReceiveSat) {
-    // handle lightning/swap payment
-    if (!oldInfo || !oldInfo.pendingReceiveSat) {
-      nav.goTo('ReceiveSuccess',{
-        valueLabel: formatNumber(info.pendingReceiveSat),
-      });
-    }
+  } else if (info.pendingReceiveSat && (!oldInfo || !oldInfo.pendingReceiveSat)) {
+    nav.goTo('ReceiveSuccess',{
+      valueLabel: formatNumber(info.pendingReceiveSat),
+    });
   }
 }
 
