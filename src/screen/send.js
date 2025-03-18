@@ -5,6 +5,7 @@ import {observer} from 'mobx-react';
 import {PillButton} from '../component/button';
 import {QRCodeScanner} from '../component/qrcode-scanner';
 
+import store from '../store';
 import * as send from '../action/send';
 
 const styles = StyleSheet.create({
@@ -30,6 +31,7 @@ const SendAddressScreen = ({navigation}) => {
       />
       <PillButton
         style={styles.btn}
+        processing={store.send.processing}
         onPress={() => send.pasteInvoice()}
       >
         Paste Address<

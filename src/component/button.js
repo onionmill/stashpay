@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import {Text} from './text';
 import {color, font} from './style';
+import {SmallSpinner} from './spinner';
 
 //
 // Button
@@ -79,12 +80,16 @@ const pillStyles = StyleSheet.create({
   },
 });
 
-export const PillButton = ({onPress, disabled, children, style}) => (
+export const PillButton = ({onPress, processing, disabled, children, style}) => (
   <TouchableOpacity
     style={[{opacity: disabled ? 0.5 : 1}, pillStyles.touchable, style]}
-    disabled={disabled}
+    disabled={disabled || processing}
     onPress={onPress}>
-    <Text style={pillStyles.text}>{children}</Text>
+    {
+      processing ?
+      <SmallSpinner color={color.white}/> :
+      <Text style={pillStyles.text}>{children}</Text>
+    }
   </TouchableOpacity>
 );
 

@@ -37,7 +37,9 @@ const SendAddressScreen = () => (
       />
       <Spacer />
       <View style={styles.btnWrapper}>
-        <PillButton onPress={() => send.parseUri()}>
+        <PillButton
+          processing={store.send.processing}
+          onPress={() => send.parseUri()}>
           Check Address
         </PillButton>
       </View>

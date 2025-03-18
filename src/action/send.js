@@ -39,6 +39,7 @@ export async function readQRCode(data) {
 
 export async function parseUri() {
   try {
+    store.send.processing = true;
     log.trace(`Uri to parse: ${store.send.rawUri}`);
     const input = await liquid.parse(_removeBip353Prefix(store.send.rawUri));
     store.send.input = JSON.stringify(input);
@@ -58,6 +59,8 @@ export async function parseUri() {
     }
   } catch (err) {
     alert.warn({err, onOk: () => initSendAddress()});
+  } finally {
+    store.send.processing = false;
   }
 }
 
@@ -124,6 +127,7 @@ export function setAmount(value) {
 
 export async function validateAmount() {
   try {
+    store.send.processing = true;
     const {type} = JSON.parse(store.send.input);
     if (type === liquid.InputTypeVariant.LN_URL_PAY) {
       await _prepareLnurlPayment();
@@ -137,6 +141,8 @@ export async function validateAmount() {
   } catch (err) {
     nav.goBackTo('SendAmount');
     alert.error({err});
+  } finally {
+    store.send.processing = false;
   }
 }
 

@@ -41,6 +41,7 @@ const store = observable({
     description: null,
     minSatLn: 1_000,
     minSatBtc: 25_000,
+    processing: false,
   },
 
   // persistent data
