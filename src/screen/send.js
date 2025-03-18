@@ -32,10 +32,9 @@ const SendAddressScreen = ({navigation}) => {
       <PillButton
         style={styles.btn}
         processing={store.send.processing}
-        onPress={() => send.pasteInvoice()}
-      >
-        Paste Address<
-      /PillButton>
+        onPress={() => send.pasteInvoice()}>
+        Paste Address
+      </PillButton>
     </SafeAreaView>
   );
 };
