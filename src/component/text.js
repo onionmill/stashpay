@@ -22,14 +22,32 @@ export const Text = ({children, style, ...props}) => (
 );
 
 //
+// Header
+//
+
+const headerStyles = StyleSheet.create({
+  text: {
+    fontFamily: 'SFProDisplay-Semibold',
+    fontSize: font.sizeXL,
+    lineHeight: font.lineHeightXL,
+  },
+});
+
+export const Header = ({children, style}) => (
+  <Text style={headerStyles.text}>
+    {children}
+  </Text>
+);
+
+//
 // H1 Text
 //
 
 const h1Styles = StyleSheet.create({
   text: {
-    fontSize: font.sizeXL,
-    lineHeight: font.lineHeightsXL,
-    color: color.black,
+    fontFamily: 'SFProDisplay-Bold',
+    fontSize: font.sizeXXL,
+    lineHeight: font.lineHeightsXXL,
   },
 });
 

@@ -22,8 +22,8 @@ export const font = {
   sizeBase: 16,
   sizeM: 18,
   sizeL: 20,
-  sizeXL: 30,
-  sizeXXL: 40,
+  sizeXL: 24,
+  sizeXXL: 30,
   sizeXXXL: 80,
   lineHeightXS: 14,
   lineHeightS: 16,
@@ -31,8 +31,8 @@ export const font = {
   lineHeightBase: 22,
   lineHeightM: 22,
   lineHeightL: 24,
-  lineHeightXL: 50,
-  lineHeightXXL: 60,
+  lineHeightXL: 32,
+  lineHeightXXL: 50,
   lineHeightXXXL: 100,
 };
 
