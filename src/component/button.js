@@ -138,35 +138,29 @@ export const IconButton = ({onPress, disabled, iconName, style}) => (
 );
 
 //
-// Glas Button
+// Big Button
 //
 
-const glasStyles = StyleSheet.create({
+const bigStyles = StyleSheet.create({
   touchable: {
-    height: 75,
+    padding: 16,
+    borderRadius: 8,
     alignSelf: 'stretch',
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  text: {
-    letterSpacing: 1,
-    fontSize: font.sizeL,
-    lineHeight: font.lineHeightL,
-    fontWeight: 'bold',
   },
 });
 
-export const GlasButton = ({ onPress, disabled, children, style }) => (
+export const BigButton = ({ onPress, disabled, children, style }) => (
   <TouchableOpacity
     style={[
-      { backgroundColor: disabled ? color.glasDark : color.lightGrey },
-      glasStyles.touchable,
+      { backgroundColor: disabled ? color.disabled : color.neutralTertiary },
+      bigStyles.touchable,
       style,
     ]}
     disabled={disabled}
     onPress={onPress}
   >
-    <Text style={[{ opacity: disabled ? 0.5 : 1 }, glasStyles.text]}>
+    <Text style={{ opacity: disabled ? 0.5 : 1 }}>
       {children}
     </Text>
   </TouchableOpacity>

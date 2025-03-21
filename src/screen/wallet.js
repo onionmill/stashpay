@@ -6,7 +6,7 @@ import {font, color} from '../component/style';
 import {Text, Title} from '../component/text';
 import {Background} from '../component/background';
 import {MainContent, Header} from '../component/layout';
-import {GlasButton, IconButton} from '../component/button';
+import {BigButton, IconButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -14,7 +14,7 @@ import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
   content: {
-    paddingBottom: 50,
+    paddingBottom: 40,
     justifyContent: 'space-between',
   },
 });
@@ -84,24 +84,22 @@ const bigBtnStyles = StyleSheet.create({
   },
   leftBtn: {
     flex: 1,
-    borderTopLeftRadius: 21,
-    borderBottomLeftRadius: 21,
+    marginRight: 4,
   },
   rightBtn: {
     flex: 1,
-    borderTopRightRadius: 21,
-    borderBottomRightRadius: 21,
+    marginLeft: 4,
   },
 });
 
 const SendReceiveButton = ({ onSend, onReceive }) => (
   <View style={bigBtnStyles.wrapper}>
-    <GlasButton onPress={onReceive} style={bigBtnStyles.leftBtn}>
+    <BigButton onPress={onReceive} style={bigBtnStyles.leftBtn}>
       Receive
-    </GlasButton>
-    <GlasButton onPress={onSend} style={bigBtnStyles.rightBtn}>
+    </BigButton>
+    <BigButton onPress={onSend} style={bigBtnStyles.rightBtn}>
       Send
-    </GlasButton>
+    </BigButton>
   </View>
 );
 
