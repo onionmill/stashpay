@@ -1,57 +1,48 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
 import {font} from '../component/style';
-import {ArrowUpButton, GlasButton, IconButton} from '../component/button';
+import {Text, Header} from '../component/text';
+import {Background} from '../component/background';
+import {MainContent, Navbar} from '../component/layout';
+import {GlasButton, IconButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
 import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
-  },
   wrapper: {
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 25,
-  },
-  settingsBtn: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-  },
-  listBtn: {
-    position: 'absolute',
-    left: 10,
-    right: 10,
-    bottom: 20,
   },
 });
 
 const WalletScreen = () => (
-  <SafeAreaView style={styles.safe}>
-    <View style={styles.wrapper}>
-      <IconButton
-        iconName={'settings'}
-        onPress={() => nav.goTo('Settings')}
-        style={styles.settingsBtn}
-      />
-      <Balance />
-      <SendReceiveButton
-        onSend={() => nav.goTo('SendStack')}
-        onReceive={() => initReceive()}
-      />
-      <ArrowUpButton
-        style={styles.listBtn}
-        onPress={() => nav.goTo('PaymentList')}
-      />
-    </View>
-  </SafeAreaView>
+  <Background>
+    <MainContent>
+      <Navbar>
+        <IconButton
+          iconName={'clock'}
+          onPress={() => nav.goTo('PaymentList')}
+        />
+        <Header>StashPay</Header>
+        <IconButton
+          iconName={'settings'}
+          onPress={() => nav.goTo('Settings')}
+        />
+      </Navbar>
+      <View style={styles.wrapper}>
+        <Balance />
+        <SendReceiveButton
+          onSend={() => nav.goTo('SendStack')}
+          onReceive={() => initReceive()}
+        />
+      </View>
+    </MainContent>
+  </Background>
 );
 
 const balanceStyles = StyleSheet.create({
@@ -60,8 +51,8 @@ const balanceStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    fontSize: font.sizeXL,
-    lineHeight: font.lineHeightXL,
+    fontSize: font.sizeXXL,
+    lineHeight: font.lineHeightXXL,
   },
   numeral: {
     fontSize: font.sizeXXXL,

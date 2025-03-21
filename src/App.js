@@ -139,7 +139,7 @@ const App = () => (
       <RootStack.Screen
         name="Main"
         component={WalletScreen}
-        options={{title: 'StashPay'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="Settings"
