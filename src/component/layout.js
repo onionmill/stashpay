@@ -19,19 +19,19 @@ export const MainContent = ({children, style}) => (
 );
 
 //
-// Navbar
+// Header
 //
 
-const navStyles = StyleSheet.create({
-  nav: {
+const headerStyles = StyleSheet.create({
+  content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
 });
 
-export const Navbar = ({children, style}) => (
-  <View style={[navStyles.nav, style]}>
+export const Header = ({children, style}) => (
+  <View style={[headerStyles.content, style]}>
     {children}
   </View>
 );

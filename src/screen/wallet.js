@@ -2,10 +2,10 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {font} from '../component/style';
-import {Text, Header} from '../component/text';
+import {font, color} from '../component/style';
+import {Text, Title} from '../component/text';
 import {Background} from '../component/background';
-import {MainContent, Navbar} from '../component/layout';
+import {MainContent, Header} from '../component/layout';
 import {GlasButton, IconButton} from '../component/button';
 
 import store from '../store';
@@ -13,34 +13,31 @@ import * as nav from '../action/nav';
 import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  content: {
+    paddingBottom: 50,
+    justifyContent: 'space-between',
   },
 });
 
 const WalletScreen = () => (
   <Background>
-    <MainContent>
-      <Navbar>
+    <MainContent style={styles.content}>
+      <Header>
         <IconButton
           iconName={'clock'}
           onPress={() => nav.goTo('PaymentList')}
         />
-        <Header>StashPay</Header>
+        <Title>StashPay</Title>
         <IconButton
           iconName={'settings'}
           onPress={() => nav.goTo('Settings')}
         />
-      </Navbar>
-      <View style={styles.wrapper}>
-        <Balance />
-        <SendReceiveButton
-          onSend={() => nav.goTo('SendStack')}
-          onReceive={() => initReceive()}
-        />
-      </View>
+      </Header>
+      <Balance />
+      <SendReceiveButton
+        onSend={() => nav.goTo('SendStack')}
+        onReceive={() => initReceive()}
+      />
     </MainContent>
   </Background>
 );
@@ -50,25 +47,28 @@ const balanceStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  label: {
-    fontSize: font.sizeXXL,
-    lineHeight: font.lineHeightXXL,
-  },
-  numeral: {
+  primary: {
     fontSize: font.sizeXXXL,
     lineHeight: font.lineHeightXXXL,
+  },
+  secondary: {
+    color: color.textSecondary,
+    fontSize: font.sizeL,
+    lineHeight: font.lineHeightL,
   },
 });
 
 const Balance = observer(() => {
   return (
     <View style={balanceStyles.wrapper}>
-      <Text style={balanceStyles.label}>Total sats</Text>
       <Text
-        style={balanceStyles.numeral}
+        style={balanceStyles.primary}
         adjustsFontSizeToFit={true}
         numberOfLines={1}>
-        {store.balanceLabel}
+        {'$1,234.56' || store.balanceLabel}
+      </Text>
+      <Text style={balanceStyles.secondary}>
+        1,457,626 sats
       </Text>
     </View>
   );
@@ -81,7 +81,6 @@ const Balance = observer(() => {
 const bigBtnStyles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
-    marginTop: 60,
   },
   leftBtn: {
     flex: 1,

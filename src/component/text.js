@@ -22,10 +22,10 @@ export const Text = ({children, style, ...props}) => (
 );
 
 //
-// Header
+// Title
 //
 
-const headerStyles = StyleSheet.create({
+const titleStyles = StyleSheet.create({
   text: {
     fontFamily: 'SFProDisplay-Semibold',
     fontSize: font.sizeXL,
@@ -33,8 +33,8 @@ const headerStyles = StyleSheet.create({
   },
 });
 
-export const Header = ({children, style}) => (
-  <Text style={headerStyles.text}>
+export const Title = ({children, style}) => (
+  <Text style={titleStyles.text}>
     {children}
   </Text>
 );
