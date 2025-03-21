@@ -8,9 +8,10 @@ import {font, color} from './style';
 
 const baseStyles = StyleSheet.create({
   text: {
+    fontFamily: 'SFProDisplay-Regular',
     fontSize: font.sizeBase,
     lineHeight: font.lineHeightBase,
-    color: color.black,
+    color: color.textBase,
   },
 });
 
