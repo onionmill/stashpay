@@ -7,6 +7,8 @@ import {
   Platform,
 } from 'react-native';
 
+import {color as clr} from './style';
+
 //
 // Background
 //
@@ -17,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Background = ({color, children, style}) => (
+export const Background = ({color = clr.white, children, style}) => (
   <View style={[{backgroundColor: color}, styles.background]}>
     <ContentWrapper style={style}>{children}</ContentWrapper>
   </View>
