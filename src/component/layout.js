@@ -19,6 +19,24 @@ export const MainContent = ({children, style}) => (
 );
 
 //
+// Navbar
+//
+
+const navStyles = StyleSheet.create({
+  nav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+});
+
+export const Navbar = ({children, style}) => (
+  <View style={[navStyles.nav, style]}>
+    {children}
+  </View>
+);
+
+//
 // Scroll Content
 //
 
