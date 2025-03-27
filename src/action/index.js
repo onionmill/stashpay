@@ -11,8 +11,8 @@ configure({enforceActions: 'never'}); // disable strict mode
 when(
   () => store.navReady,
   async () => {
+    fiat.pollExchangeRate();
     await wallet.init();
-    await fiat.pollExchangeRate();
   },
 );
 
