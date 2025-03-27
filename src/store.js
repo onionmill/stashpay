@@ -44,7 +44,7 @@ const store = observable({
     processing: false,
   },
 
-  // persistent data
+  // wallet config
   config: {
     electrumLiquid: 'elements-mainnet.blockstream.info:50002',
     electrumBitcoin: 'bitcoin-mainnet.blockstream.info:50002',
@@ -53,6 +53,14 @@ const store = observable({
     explorer: 'https://liquid.network',
     appVersion: version,
     sdkVersion: dependencies['@breeztech/react-native-breez-sdk-liquid'],
+  },
+
+  // persistent app settings
+  settings: {
+    unit: 'sat',
+    fiat: 'usd',
+    displayFiat: true,
+    exchangeRate: {},
   },
 });
 
