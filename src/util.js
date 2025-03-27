@@ -50,10 +50,6 @@ export const formatNumber = val => {
   return new Intl.NumberFormat(undefined, options).format(num);
 };
 
-export const btcToSat = val => {
-  return Math.round(Number(val) * 100000000);
-};
-
 export const formatDate = timestamp => {
   const options = {
     month: 'short',
