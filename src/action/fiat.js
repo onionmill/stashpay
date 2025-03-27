@@ -1,4 +1,5 @@
 import Frisbee from 'frisbee';
+import {action} from 'mobx';
 
 import store from '../store';
 import {poll} from '../util';
@@ -11,22 +12,21 @@ const api = new Frisbee({
   headers: {'Accept': 'application/json'},
 });
 
-export async function getRates() {
+const _getRates = action(async () => {
   try {
-    const {body, err} = await api.get('/v2/exchange-rates?currency=BTC');
+    const {fiat, exchangeRate} = store.settings;
+    const {body, err} = await api.get('/v2/exchange-rates?currency=' + fiat);
     if (err) {
       throw err;
     }
-    const fiat = store.settings.fiat;
-    const rate = Object.keys(body.data.rates).find(r => r.toLowerCase() === fiat);
-    store.settings.exchangeRate[fiat] = body.data.rates[rate];
+    exchangeRate[fiat] = Number(body.data.rates.BTC);
     // db.save();
-    log.trace(`Fiat rates: ${JSON.stringify(store.settings.exchangeRate)}`);
+    log.trace(`Fiat rates: ${JSON.stringify(exchangeRate)}`);
   } catch (err) {
     alert.error({message: 'Error fetching fiat rate', err});
   }
-}
+});
 
 export async function pollExchangeRate() {
-  await poll(() => getRates(), POLL_DELAY);
+  await poll(() => _getRates(), POLL_DELAY);
 }
