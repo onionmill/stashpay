@@ -2,6 +2,7 @@ import {when, configure} from 'mobx';
 
 import store from '../store';
 import * as link from './link';
+import * as fiat from './fiat';
 import * as wallet from './wallet';
 import * as receive from './receive';
 
@@ -11,6 +12,7 @@ when(
   () => store.navReady,
   async () => {
     await wallet.init();
+    await fiat.pollExchangeRate();
   },
 );
 
