@@ -28,7 +28,9 @@ export function nap(ms = NAP_DELAY) {
 export const poll = async (api, interval = RETRY_DELAY, retries = Infinity) => {
   while (retries--) {
     const response = await api();
-    if (response) return response;
+    if (response) {
+      return response;
+    }
     await nap(interval);
   }
   throw new Error('Maximum retries for polling reached');
