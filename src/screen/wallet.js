@@ -65,10 +65,10 @@ const Balance = observer(() => {
         style={balanceStyles.primary}
         adjustsFontSizeToFit={true}
         numberOfLines={1}>
-        {'$1,234.56' || store.balanceLabel}
+        {store.balanceFiatLabel}
       </Text>
       <Text style={balanceStyles.secondary}>
-        1,457,626 sats
+        {store.balanceSatLabel}
       </Text>
     </View>
   );
