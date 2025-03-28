@@ -9,7 +9,7 @@ const ComputedWallet = store => {
     },
     get balanceFiatLabel() {
       const {balance, settings} = store;
-      return formatFiat(calculateExchangeRate(balance, settings), settings.fiat);
+      return formatFiat(calculateExchangeRate(balance || 0, settings), settings.fiat);
     },
   });
 };
