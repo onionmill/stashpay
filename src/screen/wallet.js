@@ -18,24 +18,23 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: 40,
-    justifyContent: 'space-between',
   },
 });
 
 const WalletScreen = () => (
   <Background>
+    <Header>
+      <IconButton
+        iconName={'clock'}
+        onPress={() => nav.goTo('PaymentList')}
+      />
+      <Title style={styles.title}>StashPay</Title>
+      <IconButton
+        iconName={'settings'}
+        onPress={() => nav.goTo('Settings')}
+      />
+    </Header>
     <MainContent style={styles.content}>
-      <Header>
-        <IconButton
-          iconName={'clock'}
-          onPress={() => nav.goTo('PaymentList')}
-        />
-        <Title>StashPay</Title>
-        <IconButton
-          iconName={'settings'}
-          onPress={() => nav.goTo('Settings')}
-        />
-      </Header>
       <Balance />
       <SendReceiveButton
         onSend={() => nav.goTo('SendStack')}
@@ -47,6 +46,7 @@ const WalletScreen = () => (
 
 const balanceStyles = StyleSheet.create({
   wrapper: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -133,7 +133,7 @@ export const IconButton = ({onPress, disabled, iconName, style}) => (
     style={[{opacity: disabled ? 0.5 : 1}, iconStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
-    <Feather name={iconName} size={25} color={color.textBase} />
+    <Feather name={iconName} size={22} color={color.textBase} />
   </TouchableOpacity>
 );
 

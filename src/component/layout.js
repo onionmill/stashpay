@@ -8,7 +8,9 @@ import {View, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    padding: 24,
+    paddingLeft: 24,
+    paddingRight: 24,
+    paddingBottom: 24,
   },
 });
 
@@ -27,6 +29,9 @@ const headerStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });
 
@@ -43,7 +48,7 @@ export const Header = ({children, style}) => (
 const scrollStyles = StyleSheet.create({
   content: {
     flexGrow: 1,
-    padding: 20,
+    padding: 24,
   },
 });
 
