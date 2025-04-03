@@ -13,6 +13,9 @@ import * as nav from '../action/nav';
 import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
+  title: {
+    fontFamily: 'SFProDisplay-Semibold',
+  },
   content: {
     paddingBottom: 40,
     justifyContent: 'space-between',

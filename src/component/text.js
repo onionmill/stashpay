@@ -27,14 +27,13 @@ export const Text = ({children, style, ...props}) => (
 
 const titleStyles = StyleSheet.create({
   text: {
-    fontFamily: 'SFProDisplay-Semibold',
     fontSize: font.sizeXL,
     lineHeight: font.lineHeightXL,
   },
 });
 
 export const Title = ({children, style}) => (
-  <Text style={titleStyles.text}>
+  <Text style={[titleStyles.text, style]}>
     {children}
   </Text>
 );
