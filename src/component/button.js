@@ -148,6 +148,10 @@ const bigStyles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
   },
+  text: {
+    fontSize: font.sizeM,
+    lineHeight: font.lineHeightM,
+  },
 });
 
 export const BigButton = ({ onPress, disabled, children, style }) => (
@@ -160,7 +164,7 @@ export const BigButton = ({ onPress, disabled, children, style }) => (
     disabled={disabled}
     onPress={onPress}
   >
-    <Text style={{ opacity: disabled ? 0.5 : 1 }}>
+    <Text style={[bigStyles.text, { color: disabled ? color.textDisabled : color.textBase }]}>
       {children}
     </Text>
   </TouchableOpacity>
