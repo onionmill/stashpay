@@ -13,6 +13,7 @@ const store = observable({
   liquidConnected: false,
   liquidListenerId: null,
   balance: null,
+  balancePendingReceive: null,
   balanceRefreshing: false,
   balanceFetched: false,
   payments: [],

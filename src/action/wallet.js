@@ -123,10 +123,9 @@ function _displayReceiveMessage(oldInfo, info) {
   }
 }
 
-const _totalBalance = info => info.balanceSat + info.pendingReceiveSat;
-
 const _updateBalance = action(info => {
-    store.balance = _totalBalance(info) || null;
+    store.balance = info.balanceSat;
+    store.balancePendingReceive = info.pendingReceiveSat;
     store.balanceFetched = true;
 });
 

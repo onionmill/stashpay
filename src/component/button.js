@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Platform} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
 import {Text} from './text';
@@ -126,15 +126,40 @@ const iconStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  alert: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
 });
 
-export const IconButton = ({onPress, disabled, iconName, style}) => (
+export const IconButton = ({onPress, disabled, alert, iconName, style}) => (
   <TouchableOpacity
     style={[{opacity: disabled ? 0.5 : 1}, iconStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
     <Feather name={iconName} size={22} color={color.textBase} />
+    {alert ? <AlertBubble style={iconStyles.alert} /> : null}
   </TouchableOpacity>
+);
+
+//
+// Alert Bubble
+//
+
+const alertStyles = StyleSheet.create({
+  bubble: {
+    height: 14,
+    width: 14,
+    borderRadius: 14 / 2,
+    backgroundColor: color.warning,
+    borderWidth: 2,
+    borderColor: color.white,
+  },
+});
+
+export const AlertBubble = ({style}) => (
+  <View style={[alertStyles.bubble, style]} />
 );
 
 //
