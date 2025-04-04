@@ -60,40 +60,6 @@ export const LinkButton = ({onPress, disabled, title, style}) => (
 );
 
 //
-// Pill Button
-//
-
-const pillStyles = StyleSheet.create({
-  touchable: {
-    height: 50,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 58.94,
-    backgroundColor: color.blue,
-  },
-  text: {
-    letterSpacing: 1,
-    fontSize: font.sizeL,
-    lineHeight: font.lineHeightL,
-    color: color.white,
-  },
-});
-
-export const PillButton = ({onPress, processing, disabled, children, style}) => (
-  <TouchableOpacity
-    style={[{opacity: disabled ? 0.5 : 1}, pillStyles.touchable, style]}
-    disabled={disabled || processing}
-    onPress={onPress}>
-    {
-      processing ?
-      <SmallSpinner color={color.white}/> :
-      <Text style={pillStyles.text}>{children}</Text>
-    }
-  </TouchableOpacity>
-);
-
-//
 // Arrow Up Button
 //
 
