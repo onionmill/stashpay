@@ -2,13 +2,14 @@ import React from 'react';
 import {StyleSheet, View, Linking} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
-import {Button, LinkButton} from '../component/button';
+import {Title, Text} from '../component/text';
+import {Button, LinkButton, IconButton} from '../component/button';
 import {color, font} from '../component/style';
-import {MainContent} from '../component/layout';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as log from '../action/log';
 import * as wallet from '../action/wallet';
 
@@ -38,6 +39,14 @@ const styles = StyleSheet.create({
 
 const SettingsScreen = () => (
   <Background>
+    <Header>
+      <IconButton
+        iconName={'chevron-left'}
+        onPress={() => nav.goBack()}
+      />
+      <Title>Settings</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
       <View style={styles.btnWrapper}>
         <Button

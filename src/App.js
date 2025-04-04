@@ -144,7 +144,7 @@ const App = () => (
       <RootStack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{title: 'Settings', headerBackTitle: 'Back'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="SeedBackupStack"
