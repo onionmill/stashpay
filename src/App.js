@@ -149,7 +149,7 @@ const App = () => (
       <RootStack.Screen
         name="SeedBackupStack"
         component={SeedBackupStackScreen}
-        options={{title: 'Backup', headerBackTitle: 'Back'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="SeedRestoreStack"
