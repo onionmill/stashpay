@@ -168,9 +168,10 @@ export const AlertBubble = ({style}) => (
 
 const bigStyles = StyleSheet.create({
   touchable: {
-    padding: 16,
+    height: 54,
     borderRadius: 8,
     alignSelf: 'stretch',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
@@ -179,18 +180,22 @@ const bigStyles = StyleSheet.create({
   },
 });
 
-export const BigButton = ({ onPress, disabled, children, style }) => (
+export const BigButton = ({ onPress, processing, disabled, children, style }) => (
   <TouchableOpacity
     style={[
       { backgroundColor: disabled ? color.disabled : color.neutralTertiary },
       bigStyles.touchable,
       style,
     ]}
-    disabled={disabled}
+    disabled={disabled || processing}
     onPress={onPress}
   >
-    <Text style={[bigStyles.text, { color: disabled ? color.textDisabled : color.textBase }]}>
-      {children}
-    </Text>
+    {
+      processing ?
+      <SmallSpinner color={color.textBase}/> :
+      <Text style={[bigStyles.text, { color: disabled ? color.textDisabled : color.textBase }]}>
+        {children}
+      </Text>
+    }
   </TouchableOpacity>
 );
