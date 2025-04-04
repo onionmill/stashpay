@@ -48,14 +48,7 @@ const SendStackScreen = () => (
     <SendStack.Screen
       name="Send"
       component={SendScreen}
-      options={{
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-        headerRight: () => (
-          <Button title="@Address" onPress={() => nav.goTo('SendAddress')} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <SendStack.Screen
       name="SendAddress"
