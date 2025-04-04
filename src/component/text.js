@@ -46,7 +46,7 @@ const h1Styles = StyleSheet.create({
   text: {
     fontFamily: 'SFProDisplay-Bold',
     fontSize: font.sizeXXL,
-    lineHeight: font.lineHeightsXXL,
+    lineHeight: font.lineHeightXXL,
   },
 });
 
