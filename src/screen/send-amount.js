@@ -1,24 +1,26 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
+import {Title} from '../component/text';
 import {AmountInput} from '../component/input';
-import {PillButton} from '../component/button';
-import {MainContent} from '../component/layout';
+import {BigButton, IconButton} from '../component/button';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as send from '../action/send';
-
-const styles = StyleSheet.create({
-  btnWrapper: {
-    marginTop: 20,
-    height: 150,
-  },
-});
 
 const SendAmountScreen = () => (
   <Background>
+    <Header>
+      <IconButton
+        iconName={'chevron-left'}
+        onPress={() => nav.goBack()}
+      />
+      <Title>Amount</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
       <AmountInput
         placeholder={store.sendMinValueLabel}
@@ -27,13 +29,11 @@ const SendAmountScreen = () => (
         value={store.send.value}
         onChangeText={value => send.setAmount(value)}
       />
-      <View style={styles.btnWrapper}>
-        <PillButton
-          processing={store.send.processing}
-          onPress={() => send.validateAmount()}>
-          Review
-        </PillButton>
-      </View>
+      <BigButton
+        processing={store.send.processing}
+        onPress={() => send.validateAmount()}>
+        Review
+      </BigButton>
     </MainContent>
   </Background>
 );
