@@ -34,12 +34,7 @@ const ReceiveStackScreen = () => (
     <ReceiveStack.Screen
       name="ReceiveAmount"
       component={ReceiveAmountScreen}
-      options={{
-        title: 'Amount',
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <ReceiveStack.Screen
       name="Receive"

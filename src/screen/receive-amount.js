@@ -1,25 +1,26 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {AmountInput} from '../component/input';
-import {PillButton} from '../component/button';
-import {MainContent} from '../component/layout';
+import {Title} from '../component/text';
 import {Background} from '../component/background';
+import {Header, MainContent} from '../component/layout';
+import {BigButton, IconButton} from '../component/button';
+import {AmountInput} from '../component/input';
 
 import store from '../store';
 import * as nav from '../action/nav';
 import * as receive from '../action/receive';
 
-const styles = StyleSheet.create({
-  btnWrapper: {
-    marginTop: 20,
-    height: 150,
-  },
-});
-
 const ReceiveAmountScreen = () => (
   <Background>
+    <Header>
+      <IconButton
+        iconName={'chevron-left'}
+        onPress={() => nav.goBack()}
+      />
+      <Title>Amount</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
       <AmountInput
         placeholder={store.receiveMinValueLabel}
@@ -28,11 +29,9 @@ const ReceiveAmountScreen = () => (
         value={store.receive.value}
         onChangeText={value => receive.setAmount(value)}
       />
-      <View style={styles.btnWrapper}>
-        <PillButton onPress={() => nav.goTo('Receive')}>
-          Request Amount
-        </PillButton>
-      </View>
+      <BigButton onPress={() => nav.goTo('Receive')}>
+        Create Invoice
+      </BigButton>
     </MainContent>
   </Background>
 );
