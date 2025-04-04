@@ -5,7 +5,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import './action';
 import * as nav from './action/nav';
-import {toggleOnchain} from './action/receive';
 
 import {Button} from './component/button';
 import WalletScreen from './screen/wallet';
@@ -39,14 +38,7 @@ const ReceiveStackScreen = () => (
     <ReceiveStack.Screen
       name="Receive"
       component={ReceiveScreen}
-      options={{
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-        headerRight: () => (
-          <Button title="Chain/Ln" onPress={() => toggleOnchain()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
   </ReceiveStack.Navigator>
 );

@@ -2,15 +2,16 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
+import {Title, Text} from '../component/text';
 import {QRCode} from '../component/qrcode';
-import {PillButton} from '../component/button';
+import {BigButton, IconButton} from '../component/button';
 import {LargeSpinner} from '../component/spinner';
-import {MainContent} from '../component/layout';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 import {font} from '../component/style';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
@@ -41,14 +42,27 @@ const ReceiveScreen = ({navigation}) => {
     [navigation],
   );
   return (
-    <Background style={styles.wrapper}>
-      {store.receive.invoice ? <Address /> : <LargeSpinner />}
+    <Background>
+      <Header>
+        <IconButton
+          iconName={'chevron-left'}
+          onPress={() => nav.goBack()}
+        />
+        <Title>Receive</Title>
+        <IconButton
+          iconName={'link'}
+          onPress={() => receive.toggleOnchain()}
+        />
+      </Header>
+      <MainContent style={styles.wrapper}>
+        {store.receive.invoice ? <Address /> : <LargeSpinner />}
+      </MainContent>
     </Background>
   );
 };
 
 const Address = () => (
-  <MainContent>
+  <View>
     <View style={styles.codeWrapper}>
       <Text style={styles.typeText}>
         {store.receiveTypeLabel}
@@ -58,10 +72,10 @@ const Address = () => (
         {store.receiveFeeLabel}
       </Text>
     </View>
-    <PillButton onPress={() => receive.copyInvoice()}>
+    <BigButton onPress={() => receive.copyInvoice()}>
       {store.receiveCopyBtnLabel}
-    </PillButton>
-  </MainContent>
+    </BigButton>
+  </View>
 );
 
 export default observer(ReceiveScreen);
