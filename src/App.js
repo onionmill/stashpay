@@ -154,7 +154,7 @@ const App = () => (
       <RootStack.Screen
         name="SeedRestoreStack"
         component={SeedRestoreScreen}
-        options={{title: 'Recovery', headerBackTitle: 'Cancel'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="ReceiveStack"
