@@ -175,12 +175,7 @@ const App = () => (
         <RootStack.Screen
           name="PaymentList"
           component={PaymentListScreen}
-          options={{
-            title: 'Payments',
-            headerLeft: () => (
-              <Button title="Back" onPress={() => nav.goBack()} />
-            ),
-          }}
+          options={{headerShown: false}}
         />
       </RootStack.Group>
     </RootStack.Navigator>

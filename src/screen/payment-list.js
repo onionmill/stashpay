@@ -2,16 +2,20 @@ import React from 'react';
 import {View, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
 import {color, font} from '../component/style';
+import {Text, Title} from '../component/text';
+import {Header} from '../component/layout';
+import {Background} from '../component/background';
+import {IconButton} from '../component/button';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import {openExplorer} from '../action/payment';
 import {formatDate, formatNumber} from '../util';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  list: {
+    marginTop: 7,
   },
   item: {
     padding: 7,
@@ -48,13 +52,22 @@ const Item = ({item}) => (
 );
 
 const PaymentListScreen = () => (
-  <View style={styles.container}>
+  <Background>
+    <Header>
+      <IconButton
+        iconName={'chevron-left'}
+        onPress={() => nav.goBack()}
+      />
+      <Title>Payments</Title>
+      <IconButton/>
+    </Header>
     <FlatList
+      style={styles.list}
       data={store.payments}
       renderItem={({item}) => <Item item={item} />}
       keyExtractor={item => item.txId}
     />
-  </View>
+  </Background>
 );
 
 export default observer(PaymentListScreen);
