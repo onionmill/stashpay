@@ -52,8 +52,8 @@ const balanceStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   primary: {
-    fontSize: font.sizeXXXL,
-    lineHeight: font.lineHeightXXXL,
+    fontSize: font.sizeXXXXL,
+    lineHeight: font.lineHeightXXXXL,
   },
   secondary: {
     color: color.textSecondary,

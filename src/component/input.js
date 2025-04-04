@@ -40,7 +40,7 @@ const amountStyles = StyleSheet.create({
   input: {
     flex: 1,
     textAlign: 'center',
-    fontSize: font.sizeXXL,
+    fontSize: font.sizeXXXL,
     textAlignVertical: 'center',
   },
 });

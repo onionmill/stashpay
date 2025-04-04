@@ -28,7 +28,8 @@ export const font = {
   sizeL: 22,
   sizeXL: 26,
   sizeXXL: 30,
-  sizeXXXL: 68,
+  sizeXXXL: 40,
+  sizeXXXXL: 68,
   lineHeightXS: 14,
   lineHeightS: 16,
   lineHeightSub: 18,
@@ -37,7 +38,8 @@ export const font = {
   lineHeightL: 28,
   lineHeightXL: 32,
   lineHeightXXL: 50,
-  lineHeightXXXL: 100,
+  lineHeightXXXL: 60,
+  lineHeightXXXXL: 100,
 };
 
 export const invisible = {
