@@ -63,12 +63,7 @@ const SendStackScreen = () => (
     <SendStack.Screen
       name="SendConfirm"
       component={SendConfirmScreen}
-      options={{
-        title: 'Confirm',
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <SendStack.Screen
       name="SendWait"

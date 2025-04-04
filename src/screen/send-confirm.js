@@ -2,13 +2,14 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
-import {PillButton} from '../component/button';
-import {MainContent} from '../component/layout';
+import {Title, Text} from '../component/text';
+import {BigButton, IconButton} from '../component/button';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 import {font} from '../component/style';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as send from '../action/send';
 
 const styles = StyleSheet.create({
@@ -40,6 +41,14 @@ const styles = StyleSheet.create({
 
 const SendConfirmScreen = () => (
   <Background>
+    <Header>
+      <IconButton
+        iconName={'chevron-left'}
+        onPress={() => nav.goBack()}
+      />
+      <Title>Confirm</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
       <View style={styles.paramsWrapper}>
         <Text style={styles.label}>Amount:</Text>
@@ -66,9 +75,9 @@ const SendConfirmScreen = () => (
           {store.send.description}
         </Text>
       </View>
-      <PillButton style={styles.nextBtn} onPress={() => send.validateSend()}>
+      <BigButton style={styles.nextBtn} onPress={() => send.validateSend()}>
         Send
-      </PillButton>
+      </BigButton>
     </MainContent>
   </Background>
 );
