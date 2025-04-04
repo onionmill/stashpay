@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
-import {PillButton} from '../component/button';
+import {BigButton} from '../component/button';
 import {MainContent} from '../component/layout';
 import {Background} from '../component/background';
 import {font} from '../component/style';
@@ -34,7 +34,7 @@ const ReceiveSuccessScreen = ({route}) => (
         <Text style={styles.value}>{route.params.valueLabel} sats</Text>
         <Text style={styles.label}>Payment received!</Text>
       </View>
-      <PillButton onPress={() => nav.reset('Main')}>Done</PillButton>
+      <BigButton onPress={() => nav.reset('Main')}>Done</BigButton>
     </MainContent>
   </Background>
 );
