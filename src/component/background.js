@@ -14,25 +14,29 @@ import {color as clr} from './style';
 //
 
 const styles = StyleSheet.create({
-  background: {
+  safe: {
+    flex: 1,
+  },
+  wrapper: {
     flex: 1,
   },
 });
 
-export const Background = ({color = clr.white, children, style}) => (
-  <View style={[{backgroundColor: color}, styles.background]}>
-    <ContentWrapper style={style}>{children}</ContentWrapper>
-  </View>
+export const Background = ({color = clr.white, form, children, style}) => (
+  <SafeAreaView style={[{backgroundColor: color}, styles.safe]}>
+    {
+      form ?
+      <FormWrapper style={style}>{children}</FormWrapper> :
+      <View style={[styles.wrapper, style]}>{children}</View>
+    }
+  </SafeAreaView>
 );
 
 //
-// ContentWrapper
+// FormWrapper
 //
 
-const wrapperStyles = StyleSheet.create({
-  safe: {
-    flex: 1,
-  },
+const formStyles = StyleSheet.create({
   avoid: {
     flex: 1,
   },
@@ -41,14 +45,12 @@ const wrapperStyles = StyleSheet.create({
   },
 });
 
-export const ContentWrapper = ({children, style}) => (
-  <SafeAreaView style={wrapperStyles.safe}>
-    <KeyboardAvoidingView
-      style={wrapperStyles.avoid}
-      behavior={Platform.OS === 'android' ? null : 'padding'}>
-      <View style={[wrapperStyles.wrapper, style]}>
-        {children}
-      </View>
-    </KeyboardAvoidingView>
-  </SafeAreaView>
+export const FormWrapper = ({children, style}) => (
+  <KeyboardAvoidingView
+    style={formStyles.avoid}
+    behavior={Platform.OS === 'android' ? null : 'padding'}>
+    <View style={[formStyles.wrapper, style]}>
+      {children}
+    </View>
+  </KeyboardAvoidingView>
 );
