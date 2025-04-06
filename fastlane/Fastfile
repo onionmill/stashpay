@@ -26,13 +26,12 @@ private_lane :inc_ver_ios do
   )
 end
 
-desc 'Bump build numbers, and set the version to match the pacakage.json version.'
-lane :bump do
-  inc_ver_ios
-  inc_ver_and
-end
-
 platform :ios do
+  desc 'Bump iOS build number and set the version from package.json.'
+  lane :bump do
+    inc_ver_ios
+  end
+
   desc 'Build the iOS application.'
   lane :build do
     gym(scheme: 'stashpay', workspace: './ios/StashPay.xcworkspace', clean: true)
@@ -40,12 +39,18 @@ platform :ios do
 
   desc 'Ship to Testflight.'
   lane :beta do
+    bump
     build
     # pilot
   end
 end
 
 platform :android do
+  desc 'Bump android versionCode and match versionName with version from package.json.'
+  lane :bump do
+    inc_ver_and
+  end
+
   desc 'Build the Android application.'
   lane :build do
     gradle(task: 'clean', project_dir: 'android/')
@@ -54,6 +59,7 @@ platform :android do
 
   desc 'Ship to Playstore Beta.'
   lane :beta do
+    bump
     build
     # supply(track: 'beta', track_promote_to: 'beta')
   end

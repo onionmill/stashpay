@@ -13,18 +13,15 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### bump
+## iOS
+
+### ios bump
 
 ```sh
-[bundle exec] fastlane bump
+[bundle exec] fastlane ios bump
 ```
 
-Bump build numbers, and set the version to match the pacakage.json version.
-
-----
-
-
-## iOS
+Bump iOS build number and set the version from package.json.
 
 ### ios build
 
@@ -46,6 +43,14 @@ Ship to Testflight.
 
 
 ## Android
+
+### android bump
+
+```sh
+[bundle exec] fastlane android bump
+```
+
+Bump android versionCode and match versionName with version from package.json.
 
 ### android build
 
