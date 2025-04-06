@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     fontFamily: 'SFProDisplay-Semibold',
   },
   content: {
-    paddingBottom: 40,
+    paddingBottom: 50,
   },
 });
 
