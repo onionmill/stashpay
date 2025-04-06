@@ -12,7 +12,7 @@ import * as nav from '../action/nav';
 import * as receive from '../action/receive';
 
 const ReceiveAmountScreen = () => (
-  <Background form>
+  <Background>
     <Header>
       <IconButton
         iconName={'chevron-left'}

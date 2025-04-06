@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 });
 
 const SendAddressScreen = () => (
-  <Background form>
+  <Background>
     <Header>
       <IconButton
         iconName={'chevron-left'}
