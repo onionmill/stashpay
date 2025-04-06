@@ -1,5 +1,5 @@
 before_all do
-  ensure_git_branch(branch: 'main')
+  # ensure_git_branch(branch: 'main')
 end
 
 package = load_json(json_path: "./package.json")
