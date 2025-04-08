@@ -115,9 +115,9 @@ export const IconButton = ({onPress, disabled, alert, iconName, style}) => (
 
 const alertStyles = StyleSheet.create({
   bubble: {
-    height: 15,
-    width: 15,
-    borderRadius: 15 / 2,
+    height: 14,
+    width: 14,
+    borderRadius: 14 / 2,
     backgroundColor: color.warning,
     borderWidth: 2,
     borderColor: color.white,
