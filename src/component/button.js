@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet, Platform} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, Platform, Animated} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
 import {Text} from './text';
@@ -124,9 +124,20 @@ const alertStyles = StyleSheet.create({
   },
 });
 
-export const AlertBubble = ({style}) => (
-  <View style={[alertStyles.bubble, style]} />
-);
+export const AlertBubble = ({style}) => {
+  const opacity = new Animated.Value(0.5);
+  Animated.loop(
+    Animated.sequence([
+      Animated.timing(opacity, {toValue: 1.0, duration: 1000}),
+      Animated.timing(opacity, {toValue: 0.5, duration: 1000}),
+    ])
+  ).start();
+  return (
+    <Animated.View style={[{ opacity }, style]}>
+      <View style={alertStyles.bubble} />
+    </Animated.View>
+  );
+};
 
 //
 // Big Button
