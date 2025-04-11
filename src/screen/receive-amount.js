@@ -24,7 +24,7 @@ const ReceiveAmountScreen = () => (
   <Background>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
-      <Title>Amount</Title>
+      <Title>Receive</Title>
       <IconButton/>
     </Header>
     <MainContent>
