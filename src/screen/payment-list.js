@@ -6,7 +6,7 @@ import {color, font} from '../component/style';
 import {Text, Title} from '../component/text';
 import {Header} from '../component/layout';
 import {Background} from '../component/background';
-import {IconButton} from '../component/button';
+import {IconButton, BackButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -54,10 +54,7 @@ const Item = ({item}) => (
 const PaymentListScreen = () => (
   <Background>
     <Header>
-      <IconButton
-        iconName={'chevron-left'}
-        onPress={() => nav.goBack()}
-      />
+      <BackButton onPress={() => nav.goBack()} />
       <Title>Payments</Title>
       <IconButton/>
     </Header>

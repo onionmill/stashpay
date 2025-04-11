@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Title, Text} from '../component/text';
-import {BigButton, IconButton} from '../component/button';
+import {BigButton, IconButton, BackButton} from '../component/button';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 import {font} from '../component/style';
@@ -42,10 +42,7 @@ const styles = StyleSheet.create({
 const SendConfirmScreen = () => (
   <Background>
     <Header>
-      <IconButton
-        iconName={'chevron-left'}
-        onPress={() => nav.goBack()}
-      />
+      <BackButton onPress={() => nav.goBack()} />
       <Title>Confirm</Title>
       <IconButton/>
     </Header>

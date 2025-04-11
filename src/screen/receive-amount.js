@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 import {Title} from '../component/text';
 import {Background} from '../component/background';
 import {Header, MainContent} from '../component/layout';
-import {BigButton, IconButton} from '../component/button';
+import {BigButton, IconButton, BackButton} from '../component/button';
 import {AmountInput} from '../component/input';
 
 import store from '../store';
@@ -14,10 +14,7 @@ import * as receive from '../action/receive';
 const ReceiveAmountScreen = () => (
   <Background>
     <Header>
-      <IconButton
-        iconName={'chevron-left'}
-        onPress={() => nav.goBack()}
-      />
+      <BackButton onPress={() => nav.goBack()} />
       <Title>Amount</Title>
       <IconButton/>
     </Header>

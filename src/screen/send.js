@@ -5,7 +5,7 @@ import {observer} from 'mobx-react';
 import {color} from '../component/style';
 import {Title} from '../component/text';
 import {Header} from '../component/layout';
-import {BigButton, IconButton} from '../component/button';
+import {BigButton, IconButton, BackButton} from '../component/button';
 import {QRCodeScanner} from '../component/qrcode-scanner';
 
 import store from '../store';
@@ -53,10 +53,7 @@ const SendAddressScreen = ({navigation}) => {
       </SafeAreaView>
       <SafeAreaView style={styles.safeHeader}>
         <Header>
-          <IconButton
-            iconName={'chevron-left'}
-            onPress={() => nav.goBack()}
-          />
+          <BackButton onPress={() => nav.goBack()} />
           <Title>Send</Title>
           <IconButton
             iconName={'at-sign'}

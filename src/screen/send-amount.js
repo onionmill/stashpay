@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 
 import {Title} from '../component/text';
 import {AmountInput} from '../component/input';
-import {BigButton, IconButton} from '../component/button';
+import {BigButton, IconButton, BackButton} from '../component/button';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
@@ -14,10 +14,7 @@ import * as send from '../action/send';
 const SendAmountScreen = () => (
   <Background>
     <Header>
-      <IconButton
-        iconName={'chevron-left'}
-        onPress={() => nav.goBack()}
-      />
+      <BackButton onPress={() => nav.goBack()} />
       <Title>Amount</Title>
       <IconButton/>
     </Header>

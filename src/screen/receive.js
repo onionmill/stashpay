@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 
 import {Title, Text} from '../component/text';
 import {QRCode} from '../component/qrcode';
-import {BigButton, IconButton} from '../component/button';
+import {BigButton, IconButton, BackButton} from '../component/button';
 import {LargeSpinner} from '../component/spinner';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
@@ -44,10 +44,7 @@ const ReceiveScreen = ({navigation}) => {
   return (
     <Background>
       <Header>
-        <IconButton
-          iconName={'chevron-left'}
-          onPress={() => nav.goBack()}
-        />
+        <BackButton onPress={() => nav.goBack()} />
         <Title>Receive</Title>
         <IconButton
           iconName={'link'}

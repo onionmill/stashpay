@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 
 import {Title, H1Text} from '../component/text';
 import {TextInput} from '../component/input';
-import {IconButton, BigButton} from '../component/button';
+import {IconButton, BackButton, BigButton} from '../component/button';
 import {Header, MainContent, Spacer} from '../component/layout';
 import {Background} from '../component/background';
 
@@ -22,10 +22,7 @@ const styles = StyleSheet.create({
 const SeedRestoreScreen = () => (
   <Background>
     <Header>
-      <IconButton
-        iconName={'chevron-left'}
-        onPress={() => nav.goBack()}
-      />
+      <BackButton onPress={() => nav.goBack()} />
       <Title>Recovery</Title>
       <IconButton/>
     </Header>

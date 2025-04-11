@@ -140,6 +140,18 @@ export const AlertBubble = ({style}) => {
 };
 
 //
+// Back Button
+//
+
+export const BackButton = ({onPress, style}) => (
+  <IconButton
+    iconName={'chevron-left'}
+    onPress={onPress}
+    style={style}
+  />
+);
+
+//
 // Big Button
 //
 

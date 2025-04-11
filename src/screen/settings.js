@@ -3,7 +3,7 @@ import {StyleSheet, View, Linking} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Title, Text} from '../component/text';
-import {Button, LinkButton, IconButton} from '../component/button';
+import {Button, LinkButton, IconButton, BackButton} from '../component/button';
 import {color, font} from '../component/style';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
@@ -40,10 +40,7 @@ const styles = StyleSheet.create({
 const SettingsScreen = () => (
   <Background>
     <Header>
-      <IconButton
-        iconName={'chevron-left'}
-        onPress={() => nav.goBack()}
-      />
+      <BackButton onPress={() => nav.goBack()} />
       <Title>Settings</Title>
       <IconButton/>
     </Header>
