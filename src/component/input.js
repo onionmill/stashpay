@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {TextInput as RNTextInput, StyleSheet} from 'react-native';
+import {View, TextInput as RNTextInput, StyleSheet} from 'react-native';
+
+import {Text} from './text';
 import {font, color} from './style';
 
 //
@@ -8,7 +10,8 @@ import {font, color} from './style';
 
 const baseStyles = StyleSheet.create({
   input: {
-    color: color.black,
+    fontFamily: 'SFProDisplay-Regular',
+    color: color.textBase,
     fontSize: font.sizeL,
     height: font.lineHeightL + 2 * 12,
     padding: 0,
@@ -37,15 +40,35 @@ export class TextInput extends Component {
 //
 
 const amountStyles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: font.lineHeightXXXXL,
+  },
+  label: {
+    fontSize: font.sizeXXXXL,
+    lineHeight: font.lineHeightXXXXL,
+  },
   input: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: font.sizeXXXL,
+    fontSize: font.sizeXXXXL,
     textAlignVertical: 'center',
   },
 });
 
-export const AmountInput = ({style, ...props}) => (
-  <TextInput style={[amountStyles.input, style]} {...props} />
+export const AmountInput = ({prefix, suffix, style, ...props}) => (
+  <View style={[amountStyles.wrapper, style]}>
+    <Text style={amountStyles.label}>{prefix}</Text>
+    <TextInput
+      autoFocus
+      caretHidden
+      placeholder="0"
+      keyboardType="decimal-pad"
+      placeholderTextColor={color.textBase}
+      style={amountStyles.input}
+      {...props}
+    />
+    <Text style={amountStyles.label}>{suffix}</Text>
+  </View>
 );
 

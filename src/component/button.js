@@ -60,6 +60,38 @@ export const LinkButton = ({onPress, disabled, title, style}) => (
 );
 
 //
+// Flip Button
+//
+
+const flipStyles = StyleSheet.create({
+  touchable: {
+    height: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  label: {
+    fontSize: font.sizeM,
+    lineHeight: font.lineHeightM,
+    color: color.textFine,
+  },
+  icon: {
+    marginLeft: 5,
+    transform: [{ rotate: '90deg' }],
+    color: color.textFine,
+  },
+});
+
+export const FlipButton = ({onPress, disabled, label, style}) => (
+  <TouchableOpacity
+    style={[flipStyles.touchable, style]}
+    disabled={disabled}
+    onPress={onPress}>
+    <Text style={flipStyles.label}>{label}</Text>
+    <Feather name={'repeat'} size={20} style={flipStyles.icon} />
+  </TouchableOpacity>
+);
+
+//
 // Arrow Up Button
 //
 

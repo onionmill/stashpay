@@ -1,15 +1,24 @@
 import React from 'react';
+import {View, StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Title} from '../component/text';
 import {Background} from '../component/background';
 import {Header, MainContent} from '../component/layout';
-import {BigButton, IconButton, BackButton} from '../component/button';
+import {BigButton, IconButton, FlipButton, BackButton} from '../component/button';
 import {AmountInput} from '../component/input';
 
 import store from '../store';
 import * as nav from '../action/nav';
 import * as receive from '../action/receive';
+
+const styles = StyleSheet.create({
+  amountWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 const ReceiveAmountScreen = () => (
   <Background>
@@ -19,13 +28,15 @@ const ReceiveAmountScreen = () => (
       <IconButton/>
     </Header>
     <MainContent>
-      <AmountInput
-        placeholder={store.receiveMinValueLabel}
-        keyboardType="number-pad"
-        autoFocus
-        value={store.receive.value}
-        onChangeText={value => receive.setAmount(value)}
-      />
+      <View style={styles.amountWrapper}>
+        <AmountInput
+          prefix={store.receiveInputPrefixLabel}
+          suffix={store.receiveInputSuffixLabel}
+          value={store.receive.value}
+          onChangeText={value => receive.setAmount(value)}
+        />
+        <FlipButton label={'21 sats'} />
+      </View>
       <BigButton onPress={() => nav.goTo('Receive')}>
         Create Invoice
       </BigButton>
