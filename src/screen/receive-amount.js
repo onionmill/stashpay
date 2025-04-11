@@ -7,6 +7,7 @@ import {Background} from '../component/background';
 import {Header, MainContent} from '../component/layout';
 import {BigButton, IconButton, FlipButton, BackButton} from '../component/button';
 import {AmountInput} from '../component/input';
+import {Toggle} from '../component/toggle';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -28,6 +29,7 @@ const ReceiveAmountScreen = () => (
       <IconButton/>
     </Header>
     <MainContent>
+      <Toggle label1="Lightning" label2="OnChain" value={'1'} />
       <View style={styles.amountWrapper}>
         <AmountInput
           prefix={store.receiveInputPrefixLabel}

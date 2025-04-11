@@ -10,6 +10,7 @@ export const color = {
   grey: '#BBBBBB',
   lightGrey: '#DFDFDF',
   neutralTertiary: '#E3E3E3',
+  bgGrey: '#F5F5F5',
   disabled: '#D9D9D9',
   white: '#FFFFFF',
   blue: '#147efb',
