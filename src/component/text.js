@@ -54,3 +54,25 @@ const h1Styles = StyleSheet.create({
 export const H1Text = ({children, style}) => (
   <Text style={[h1Styles.text, style]}>{children}</Text>
 );
+
+//
+// Error Label
+//
+
+const errorStyles = StyleSheet.create({
+  text: {
+    marginTop: 8,
+    fontFamily: 'SFProDisplay-Medium',
+    alignSelf: 'center',
+  },
+});
+
+export const ErrorLabel = ({children, error, style}) => (
+  <Text style={[
+    errorStyles.text,
+    {color: error ? color.textError : color.textFine},
+    style,
+  ]}>
+    {children}
+  </Text>
+);

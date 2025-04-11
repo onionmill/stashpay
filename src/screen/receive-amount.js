@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Title} from '../component/text';
+import {Title, ErrorLabel} from '../component/text';
 import {Background} from '../component/background';
 import {Header, MainContent} from '../component/layout';
 import {BigButton, IconButton, FlipButton, BackButton} from '../component/button';
@@ -40,6 +40,7 @@ const ReceiveAmountScreen = () => (
       <BigButton onPress={() => nav.goTo('Receive')}>
         Create Invoice
       </BigButton>
+      <ErrorLabel error={true}>$0.21 minimum</ErrorLabel>
     </MainContent>
   </Background>
 );

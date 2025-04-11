@@ -3,6 +3,7 @@ export const color = {
   textBase: '#1E1E1E',
   textDisabled: '#B3B3B3',
   textSecondary: '#5A5A5A',
+  textError: '#C00F0C',
   textFine: '#757575',
   darkerGrey: '#777777',
   darkGrey: '#888888',
