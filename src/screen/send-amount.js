@@ -20,9 +20,6 @@ const SendAmountScreen = () => (
     </Header>
     <MainContent>
       <AmountInput
-        placeholder={store.sendMinValueLabel}
-        keyboardType="number-pad"
-        autoFocus
         value={store.send.value}
         onChangeText={value => send.setAmount(value)}
       />
