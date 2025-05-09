@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 
 import {color} from './style';
 import {Text} from './text';
@@ -30,13 +30,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Toggle = ({label1, label2, style}) => (
+export const Toggle = ({label1, label2, value, onPress, style}) => (
   <View style={[styles.wrapper, style]}>
-    <View style={[styles.button, styles.btnActive]}>
-      <Text style={[styles.label, styles.lblActive]}>{label1}</Text>
-    </View>
-    <View style={styles.button}>
-      <Text style={styles.label}>{label2}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.button, value === '1' ? styles.btnActive : null]}>
+      <Text style={[styles.label, value === '1' ? styles.lblActive : null]}>
+        {label1}
+      </Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.button, value === '2' ? styles.btnActive : null]}>
+      <Text style={[styles.label, value === '2' ? styles.lblActive : null]}>
+        {label2}
+      </Text>
+    </TouchableOpacity>
   </View>
 );
