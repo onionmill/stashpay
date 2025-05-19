@@ -103,12 +103,13 @@ export const parseDate = timeStamp => {
 export const toSatoshis = (amount, settings) => {
   if (
     typeof amount !== 'string' ||
-    !/^[0-9]*[.]?[0-9]*$/.test(amount) ||
+    !/^[0-9]*[.,]?[0-9]*$/.test(amount) ||
     !settings ||
     typeof settings.displayFiat !== 'boolean'
   ) {
     throw new Error('Invalid input!');
   }
+  amount = amount.replace(',', '.');
   if (settings.displayFiat) {
     const rate = settings.exchangeRate[settings.fiat] || 0;
     return Math.round(Number(amount) * rate * UNITS.btc.denominator);
@@ -139,7 +140,7 @@ export const toAmount = (satoshis, settings, fiatPrecision = 8) => {
     minimumFractionDigits: settings.displayFiat ? 2 : 0,
     maximumFractionDigits: settings.displayFiat ? fiatPrecision : 8,
   };
-  return new Intl.NumberFormat('en-US', options).format(num);
+  return new Intl.NumberFormat(undefined, options).format(num);
 };
 
 /**

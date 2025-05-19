@@ -165,10 +165,6 @@ describe('Util Unit Tests', () => {
       expect(util.toSatoshis.bind(null, 0.1, settings)).toThrow(/Invalid/);
     });
 
-    it('should throw error if amount is separated with a comma', () => {
-      expect(util.toSatoshis.bind(null, '0,1', settings)).toThrow(/Invalid/);
-    });
-
     it('should throw error if settings is undefined', () => {
       expect(util.toSatoshis.bind(null, '100', undefined)).toThrow(/Invalid/);
     });
@@ -184,6 +180,11 @@ describe('Util Unit Tests', () => {
 
     it('should work for string amount', () => {
       const num = util.toSatoshis('0.10', settings);
+      expect(num).toBe(10000000);
+    });
+
+    it('should work for string amount with comma', () => {
+      const num = util.toSatoshis('0,10', settings);
       expect(num).toBe(10000000);
     });
 
@@ -470,10 +471,6 @@ describe('Util Unit Tests', () => {
       expect(util.toLabel.bind(null, 0.1, settings)).toThrow(/Invalid/);
     });
 
-    it('should throw error if amount is separated with a comma', () => {
-      expect(util.toLabel.bind(null, '0,1', settings)).toThrow(/Invalid/);
-    });
-
     it('should throw error if unit is undefined', () => {
       expect(util.toLabel.bind(null, '100', undefined)).toThrow(/Invalid/);
     });
@@ -487,6 +484,12 @@ describe('Util Unit Tests', () => {
       const num = util.toLabel('0.10', settings);
       expect(num).toMatch(/0[,.]10/);
     });
+
+    it('should work for fiat amount with comma', () => {
+      const num = util.toLabel('0,10', settings);
+      expect(num).toMatch(/0[,.]10/);
+    });
+
     it('should work for btc amount', () => {
       settings.displayFiat = false;
       const lbl = util.toLabel('0.10', settings);
