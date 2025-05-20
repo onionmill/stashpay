@@ -42,7 +42,7 @@ const ReceiveAmountScreen = () => (
           value={store.receive.value}
           onChangeText={value => receive.setAmount(value)}
         />
-        <FlipButton label={'21 sats'} />
+        <FlipButton onPress={() => receive.toggleFiat()} label={store.receiveFlipLabel} />
       </View>
       <BigButton onPress={() => nav.goTo('Receive')}>
         Create Invoice

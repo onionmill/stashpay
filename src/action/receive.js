@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
-import {nap} from '../util';
+import {nap, toAmount, toSatoshis} from '../util';
 import store from '../store';
 import * as log from './log';
 import * as alert from './alert';
@@ -38,6 +38,13 @@ export async function fetchOnchainLimits() {
 export async function toggleOnchain() {
   store.receive.onChain = !store.receive.onChain;
   await fetchInvoice();
+}
+
+export function toggleFiat() {
+  const {value} = store.receive;
+  const amountSat = toSatoshis(value || '0', store.settings);
+  store.settings.displayFiat = !store.settings.displayFiat;
+  store.receive.value = toAmount(amountSat, store.settings, 2);
 }
 
 export function setAmount(value) {

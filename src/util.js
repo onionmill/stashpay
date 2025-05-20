@@ -179,6 +179,18 @@ export const toAmountLabel = (satoshis, settings) => {
     : formatNumber(toAmount(satoshis, settings));
 };
 
+export const toAmountFlipLabel = (satoshis, settings) => {
+  if (
+    !Number.isInteger(satoshis) ||
+    typeof settings.displayFiat !== 'boolean'
+  ) {
+    throw new Error('Invalid input!');
+  }
+  return !settings.displayFiat
+    ? formatFiat(calculateExchangeRate(satoshis, settings), settings.fiat)
+    : formatNumber(satoshis);
+};
+
 /**
  * Convert a string formatted btc/fiat amount either to fiat or the selected BTC unit.
  * The output should be used throughout the UI for value labels.
