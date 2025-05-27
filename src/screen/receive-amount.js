@@ -47,7 +47,7 @@ const ReceiveAmountScreen = () => (
       <BigButton onPress={() => nav.goTo('Receive')}>
         Create Invoice
       </BigButton>
-      <ErrorLabel error={true}>$0.21 minimum</ErrorLabel>
+      <ErrorLabel error={true}>{store.receiveMinValueLabel}</ErrorLabel>
     </MainContent>
   </Background>
 );

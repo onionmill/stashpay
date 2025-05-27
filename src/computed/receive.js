@@ -21,7 +21,8 @@ const ComputedReceive = store => {
     },
     get receiveMinValueLabel() {
       const {onChain, minSatLn, minSatBtc} = store.receive;
-      return `${onChain ? minSatBtc : minSatLn} sats`;
+      const amount = toAmountLabel(onChain ? minSatBtc : minSatLn, store.settings);
+      return `${amount}${store.receiveInputSuffixLabel} minimum`;
     },
     get receiveTypeLabel() {
       const {onChain, minSatBtc} = store.receive;
