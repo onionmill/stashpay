@@ -46,10 +46,7 @@ const ReceiveScreen = ({navigation}) => {
       <Header>
         <BackButton onPress={() => nav.goBack()} />
         <Title>Receive</Title>
-        <IconButton
-          iconName={'link'}
-          onPress={() => receive.toggleOnchain()}
-        />
+        <IconButton />
       </Header>
       <MainContent style={styles.wrapper}>
         {store.receive.invoice ? <Address /> : <LargeSpinner />}
