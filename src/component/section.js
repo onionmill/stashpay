@@ -34,11 +34,11 @@ const stylesSectionItem = StyleSheet.create({
   },
 });
 
-export const SectionItem = ({title, onPress, icon, style}) => (
+export const SectionItem = ({title, onPress, icon, iconSize = 20, style}) => (
   <TouchableOpacity style={stylesSectionItem.wrapper} onPress={onPress}>
     <Text style={style}>{title}</Text>
     {icon ? (
-      <Feather name={icon} size={20} color={color.textFine} style={style} />
+      <Feather name={icon} size={iconSize} color={color.textFine} style={style} />
     ) : null}
   </TouchableOpacity>
 );

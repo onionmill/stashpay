@@ -64,12 +64,14 @@ const SettingsScreen = () => (
           title="Export logs"
           onPress={() => log.exportLogFile()}
           icon="download"
+          iconSize={16}
         />
         <SectionItem
           title="Wipe Wallet from Device"
           onPress={() => wallet.logout()}
           style={{color: color.danger}}
           icon="trash-2"
+          iconSize={18}
         />
       </Section>
       <View style={styles.versionWrapper}>
