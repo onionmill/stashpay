@@ -15,6 +15,7 @@ export const color = {
   white: '#FFFFFF',
   blue: '#147efb',
   red: '#fa5035',
+  danger: '#900B09',
   warning: '#E8B931',
   green: '#008000',
   glas: 'rgba(255,255,255,0.13)',
