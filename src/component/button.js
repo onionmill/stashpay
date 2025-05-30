@@ -8,32 +8,6 @@ import {color, font} from './style';
 import {SmallSpinner} from './spinner';
 
 //
-// Button
-//
-
-const btnStyles = StyleSheet.create({
-  touchable: {
-    paddingRight: Platform.OS === 'android' ? 10 : null,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: font.sizeM,
-    lineHeight: font.lineHeightM,
-  },
-});
-
-export const Button = ({onPress, disabled, title, color: clr, style}) => (
-  <TouchableOpacity
-    style={[btnStyles.touchable, style]}
-    disabled={disabled}
-    onPress={onPress}>
-    <Text style={[btnStyles.text, {color: clr || color.blue}]}>{title}</Text>
-  </TouchableOpacity>
-);
-
-//
 // Link Button
 //
 
