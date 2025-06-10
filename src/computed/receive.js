@@ -28,6 +28,11 @@ const ComputedReceive = store => {
       const {onChain, minSatBtc} = store.receive;
       return onChain ? `Send min ${formatNumber(minSatBtc)} sats` : null;
     },
+    get receiveAmountInvalid() {
+      const {value, onChain, minSatLn, minSatBtc} = store.receive;
+      const amountSat = toSatoshis(value || '0', store.settings);
+      return onChain ? amountSat < minSatBtc : amountSat < minSatLn;
+    },
     get receiveFeeLabel() {
       const {feesSat} = store.receive;
       return `Fee to receive: ${formatNumber(feesSat)} sats`;

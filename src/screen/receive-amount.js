@@ -42,12 +42,19 @@ const ReceiveAmountScreen = () => (
           value={store.receive.value}
           onChangeText={value => receive.setAmount(value)}
         />
-        <FlipButton onPress={() => receive.toggleFiat()} label={store.receiveFlipLabel} />
+        <FlipButton
+          onPress={() => receive.toggleFiat()}
+          label={store.receiveFlipLabel}
+        />
       </View>
-      <BigButton onPress={() => nav.goTo('Receive')}>
+      <BigButton
+        disabled={store.receiveAmountInvalid}
+        onPress={() => nav.goTo('Receive')}>
         Create Invoice
       </BigButton>
-      <ErrorLabel error={true}>{store.receiveMinValueLabel}</ErrorLabel>
+      <ErrorLabel error={store.receiveAmountInvalid}>
+        {store.receiveMinValueLabel}
+      </ErrorLabel>
     </MainContent>
   </Background>
 );
