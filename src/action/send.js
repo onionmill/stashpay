@@ -5,6 +5,7 @@ import store from '../store';
 import * as nav from './nav';
 import * as log from './log';
 import * as alert from './alert';
+import {toAmount, toSatoshis} from '../util';
 import {fetchLnLimits, fetchOnchainLimits} from './receive';
 
 export function initSendAddress() {
@@ -14,6 +15,13 @@ export function initSendAddress() {
   store.send.prepareResponse = null;
   store.send.feesSat = null;
   store.send.description = null;
+}
+
+export function toggleFiat() {
+  const {value} = store.send;
+  const amountSat = toSatoshis(value || '0', store.settings);
+  store.settings.displayFiat = !store.settings.displayFiat;
+  store.send.value = toAmount(amountSat, store.settings, 2);
 }
 
 //
@@ -148,7 +156,7 @@ export async function validateAmount() {
 
 async function _prepareLnurlPayment() {
   const {data} = JSON.parse(store.send.input);
-  const amountSat = Number(store.send.value);
+  const amountSat = toSatoshis(store.send.value, store.settings);
   const prepareResponse = await liquid.prepareLnurlPay({
     data,
     amount: {
@@ -165,7 +173,7 @@ async function _prepareLnurlPayment() {
 
 async function _prepareBolt12Payment() {
   const {offer} = JSON.parse(store.send.input);
-  const amountSat = Number(store.send.value);
+  const amountSat = toSatoshis(store.send.value, store.settings);
   const prepareResponse = await liquid.prepareSendPayment({
     destination: offer.offer,
     amount: {
@@ -181,7 +189,7 @@ async function _prepareBolt12Payment() {
 }
 
 async function _prepareOnchainPayment() {
-  const amountSat = Number(store.send.value);
+  const amountSat = toSatoshis(store.send.value, store.settings);
   const prepareResponse = await liquid.preparePayOnchain({
     amount: {
       type: liquid.PayAmountVariant.BITCOIN,
@@ -195,7 +203,7 @@ async function _prepareOnchainPayment() {
 }
 
 async function _prepareLiquidPayment() {
-  const amountSat = Number(store.send.value);
+  const amountSat = toSatoshis(store.send.value, store.settings);
   const {address} = JSON.parse(store.send.input);
   const prepareResponse = await liquid.prepareSendPayment({
     destination: address.address,
