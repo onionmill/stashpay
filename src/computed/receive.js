@@ -1,5 +1,12 @@
 import {extendObservable} from 'mobx';
-import {toSatoshis, toAmountFlipLabel, toAmountLabel, formatNumber, FIATS, UNITS} from '../util';
+import {
+  toSatoshis,
+  toAmountFlipLabel,
+  toAmountLabel,
+  formatNumber,
+  FIATS,
+  UNITS,
+} from '../util';
 
 const ComputedReceive = store => {
   extendObservable(store, {
