@@ -37,7 +37,6 @@ export async function fetchOnchainLimits() {
 
 export async function toggleOnchain() {
   store.receive.onChain = !store.receive.onChain;
-  await fetchInvoice();
 }
 
 export function toggleFiat() {
