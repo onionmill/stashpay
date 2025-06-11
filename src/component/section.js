@@ -42,5 +42,3 @@ export const SectionItem = ({title, onPress, icon, iconSize = 20, style}) => (
     ) : null}
   </TouchableOpacity>
 );
-
-
