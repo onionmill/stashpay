@@ -10,6 +10,7 @@ import * as nav from '../action/nav';
 export function initReceive() {
   store.receive.value = '';
   store.receive.onChain = false;
+  store.settings.displayFiat = true;
   nav.goTo('ReceiveStack');
 }
 

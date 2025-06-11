@@ -15,6 +15,7 @@ export function initSendAddress() {
   store.send.prepareResponse = null;
   store.send.feesSat = null;
   store.send.description = null;
+  store.settings.displayFiat = true;
 }
 
 export function toggleFiat() {
