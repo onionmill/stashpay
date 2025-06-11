@@ -393,6 +393,60 @@ describe('Util Unit Tests', () => {
     });
   });
 
+  describe('toFiatLabel()', () => {
+    let settings;
+
+    beforeEach(() => {
+      settings = {
+        unit: 'btc',
+        fiat: 'usd',
+        exchangeRate: { usd: 0.00014503 },
+        displayFiat: true,
+      };
+    });
+
+    it('should throw error if satoshis is undefined for fiat', () => {
+      expect(util.toFiatLabel.bind(null, undefined, settings)).toThrow(/Invalid/);
+    });
+
+    it('should throw error if satoshis is null for fiat', () => {
+      expect(util.toFiatLabel.bind(null, null, settings)).toThrow(/Invalid/);
+    });
+
+    it('should throw error if satoshis is empty for fiat', () => {
+      expect(util.toFiatLabel.bind(null, '', settings)).toThrow(/Invalid/);
+    });
+
+    it('should throw error if satoshis is undefined for amount', () => {
+      settings.displayFiat = false;
+      expect(util.toFiatLabel.bind(null, undefined, settings)).toThrow(/Invalid/);
+    });
+
+    it('should throw error if satoshis is string value', () => {
+      settings.displayFiat = false;
+      expect(util.toFiatLabel.bind(null, '100000', settings)).toThrow(/Invalid/);
+    });
+
+    it('should throw error if settings is undefined', () => {
+      expect(util.toFiatLabel.bind(null, 100000, undefined)).toThrow(/Cannot read propert/);
+    });
+
+    it('should throw error if settings is invalid', () => {
+      expect(util.toFiatLabel.bind(null, 100000, {})).toThrow(/Invalid/);
+    });
+
+    it('should convert number value to fiat', () => {
+      const lbl = util.toFiatLabel(100000, settings);
+      expect(lbl).toMatch(/6{1}[,.]9{1}0{1}/);
+    });
+
+    it('should format a fiat value even when false', () => {
+      settings.displayFiat = false;
+      const lbl = util.toFiatLabel(100000, settings);
+      expect(lbl).toMatch(/6{1}[,.]9{1}0{1}/);
+    });
+  });
+
   describe('toAmountLabel()', () => {
     let settings;
 

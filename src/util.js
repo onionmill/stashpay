@@ -161,6 +161,17 @@ export const calculateExchangeRate = (satoshis, settings) => {
 };
 
 /**
+ * Convert a satoshi value to fiat. The output should be used
+ * throughout the UI for value labels.
+ * @param  {number} satoshis The BTC amount in satoshis
+ * @param  {Object} settings Contains the current exchange rate
+ * @return {string}          The corresponding value label
+ */
+export const toFiatLabel = (satoshis, settings) => {
+  return formatFiat(calculateExchangeRate(satoshis, settings), settings.fiat);
+};
+
+/**
  * Convert a satoshi value either to fiat or the selected BTC unit.
  * The output should be used throughout the UI for value labels.
  * @param  {number} satoshis The BTC amount in satoshis
@@ -175,7 +186,7 @@ export const toAmountLabel = (satoshis, settings) => {
     throw new Error('Invalid input!');
   }
   return settings.displayFiat
-    ? formatFiat(calculateExchangeRate(satoshis, settings), settings.fiat)
+    ? toFiatLabel(satoshis, settings)
     : formatNumber(toAmount(satoshis, settings));
 };
 
@@ -187,7 +198,7 @@ export const toAmountFlipLabel = (satoshis, settings) => {
     throw new Error('Invalid input!');
   }
   return !settings.displayFiat
-    ? formatFiat(calculateExchangeRate(satoshis, settings), settings.fiat)
+    ? toFiatLabel(satoshis, settings)
     : formatNumber(satoshis);
 };
 
