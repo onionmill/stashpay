@@ -36,8 +36,10 @@ const stylesItem = StyleSheet.create({
     flexDirection: 'column',
   },
   top: {
+    textAlign: 'right',
   },
   bottom: {
+    textAlign: 'right',
     color: color.textFine,
   },
 });
