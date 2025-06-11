@@ -134,8 +134,8 @@ export const AlertBubble = ({style}) => {
   const opacity = new Animated.Value(0.5);
   Animated.loop(
     Animated.sequence([
-      Animated.timing(opacity, {toValue: 1.0, duration: 1000}),
-      Animated.timing(opacity, {toValue: 0.5, duration: 1000}),
+      Animated.timing(opacity, {toValue: 1.0, duration: 1000, useNativeDriver: true}),
+      Animated.timing(opacity, {toValue: 0.5, duration: 1000, useNativeDriver: true}),
     ])
   ).start();
   return (
