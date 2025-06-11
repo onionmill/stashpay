@@ -1,6 +1,6 @@
 import {extendObservable} from 'mobx';
 
-import {formatNumber, formatFiat, calculateExchangeRate} from '../util';
+import {formatNumber, toFiatLabel} from '../util';
 
 const ComputedWallet = store => {
   extendObservable(store, {
@@ -9,7 +9,7 @@ const ComputedWallet = store => {
     },
     get balanceFiatLabel() {
       const {balance, settings} = store;
-      return formatFiat(calculateExchangeRate(balance || 0, settings), settings.fiat);
+      return toFiatLabel(balance || 0, settings);
     },
   });
 };
