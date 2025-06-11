@@ -5,6 +5,7 @@ import {
   toAmountFlipLabel,
   toAmountLabel,
   formatNumber,
+  toFiatLabel,
   UNITS,
 } from '../util';
 
@@ -35,11 +36,33 @@ const ComputedSend = store => {
         type === InputTypeVariant.LIQUID_ADDRESS ? amountSat < 1 :
         amountSat < minSatLn;
     },
-    get sendValueLabel() {
-      return formatNumber(store.send.value) + ' sats';
+    get sendValueFiatLabel() {
+      const {settings} = store;
+      const amountSat = toSatoshis(store.send.value || '0', settings);
+      return toFiatLabel(amountSat, settings);
     },
-    get sendFeeLabel() {
+    get sendValueSatLabel() {
+      const {value} = store.send;
+      const amountSat = toSatoshis(value || '0', store.settings);
+      return formatNumber(amountSat) + ' sats';
+    },
+    get sendFeeFiatLabel() {
+      const {settings} = store;
+      return toFiatLabel(store.send.feesSat || 0, settings);
+    },
+    get sendFeeSatLabel() {
       return formatNumber(store.send.feesSat) + ' sats';
+    },
+    get sendTotalFiatLabel() {
+      const {settings} = store;
+      const amountSat = toSatoshis(store.send.value || '0', settings);
+      const totalSat = amountSat + store.send.feesSat;
+      return toFiatLabel(totalSat, settings);
+    },
+    get sendTotalSatLabel() {
+      const {value, feesSat} = store.send;
+      const amountSat = toSatoshis(value || '0', store.settings);
+      return formatNumber(amountSat + feesSat) + ' sats';
     },
   });
 };

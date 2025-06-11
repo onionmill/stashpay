@@ -3,10 +3,16 @@ import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Title, Text} from '../component/text';
+import {
+  SummaryBox,
+  SummaryItem,
+  SummaryLabel,
+  SummaryLine,
+  SummaryTotal,
+} from '../component/summary';
 import {BigButton, IconButton, BackButton} from '../component/button';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
-import {font} from '../component/style';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -16,23 +22,13 @@ const styles = StyleSheet.create({
   paramsWrapper: {
     flex: 1,
   },
-  label: {
-    marginTop: 30,
+  topBox: {
+    marginTop: 50,
   },
-  value: {
-    marginTop: 10,
-    fontSize: font.sizeXXL,
-    lineHeight: font.lineHeightXXL,
-  },
-  fee: {
-    marginTop: 10,
-    fontSize: font.sizeXL,
-    lineHeight: font.lineHeightXL,
+  bottomBox: {
+    marginTop: 15,
   },
   addressText: {
-    marginVertical: 20,
-    fontSize: font.sizeSub,
-    lineHeight: font.lineHeightSub,
   },
   nextBtn: {
     marginTop: 50,
@@ -48,29 +44,36 @@ const SendConfirmScreen = () => (
     </Header>
     <MainContent>
       <View style={styles.paramsWrapper}>
-        <Text style={styles.label}>Amount:</Text>
-        <Text
-          style={styles.value}
-          adjustsFontSizeToFit={true}
-          numberOfLines={1}
-        >
-          {store.sendValueLabel}
-        </Text>
-        <Text style={styles.label}>Fee:</Text>
-        <Text
-          style={styles.fee}
-          adjustsFontSizeToFit={true}
-          numberOfLines={1}
-        >
-          {store.sendFeeLabel}
-        </Text>
-        <Text style={styles.label}>Note:</Text>
-        <Text
-          style={styles.addressText}
-          adjustsFontSizeToFit={true}
-          numberOfLines={1}>
-          {store.send.description}
-        </Text>
+        <SummaryBox style={styles.topBox}>
+          <SummaryLine>
+            <SummaryLabel>Description</SummaryLabel>
+          </SummaryLine>
+          <Text style={styles.addressText}>
+            {store.send.description || 'No description provided'}
+          </Text>
+        </SummaryBox>
+        <SummaryBox style={styles.bottomBox}>
+          <SummaryLine>
+            <SummaryLabel>Amount</SummaryLabel>
+            <SummaryItem
+              top={store.sendValueFiatLabel}
+              bottom={store.sendValueSatLabel}
+            />
+          </SummaryLine>
+          <SummaryLine>
+            <SummaryLabel>Network Fees</SummaryLabel>
+            <SummaryItem
+              top={store.sendFeeFiatLabel}
+              bottom={store.sendFeeSatLabel}
+            />
+          </SummaryLine>
+          <SummaryTotal>
+            <SummaryItem
+              top={store.sendTotalFiatLabel}
+              bottom={store.sendTotalSatLabel}
+            />
+          </SummaryTotal>
+        </SummaryBox>
       </View>
       <BigButton style={styles.nextBtn} onPress={() => send.validateSend()}>
         Send

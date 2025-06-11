@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet, Platform, Animated} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, Animated} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
 import {Text} from './text';
@@ -178,7 +178,7 @@ const bigStyles = StyleSheet.create({
 export const BigButton = ({ onPress, processing, disabled, children, style }) => (
   <TouchableOpacity
     style={[
-      { backgroundColor: disabled ? color.disabled : color.neutralTertiary },
+      { backgroundColor: disabled ? color.borderGrey : color.neutralTertiary },
       bigStyles.touchable,
       style,
     ]}
