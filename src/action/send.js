@@ -11,7 +11,7 @@ import {fetchLnLimits, fetchOnchainLimits} from './receive';
 export function initSendAddress() {
   store.send.rawUri = null;
   store.send.input = null;
-  store.send.value = null;
+  store.send.value = '';
   store.send.prepareResponse = null;
   store.send.feesSat = null;
   store.send.description = null;
@@ -19,7 +19,7 @@ export function initSendAddress() {
 
 export function toggleFiat() {
   const {value} = store.send;
-  const amountSat = toSatoshis(value || '0', store.settings);
+  const amountSat = toSatoshis(value, store.settings);
   store.settings.displayFiat = !store.settings.displayFiat;
   store.send.value = toAmount(amountSat, store.settings, 2);
 }
@@ -86,7 +86,7 @@ async function _prepareBolt11Payment(invoice) {
     },
   });
   log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
-  store.send.value = amountSat;
+  _setAmountSat(amountSat);
   store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   store.send.description = invoice.description;
@@ -116,9 +116,11 @@ async function _parseBolt12Payment() {
 }
 
 async function _parseOnchainData() {
-  const {address} = JSON.parse(store.send.input);
-  store.send.value = address.amountSat ? String(address.amountSat) : null;
-  store.send.description = address.label;
+  const {address: {amountSat, label}} = JSON.parse(store.send.input);
+  if (amountSat) {
+    _setAmountSat(amountSat);
+  }
+  store.send.description = label;
   nav.goTo('SendStack', {screen: 'SendAmount'});
   if (!store.send.value) {
     await fetchOnchainLimits(); // after nav for performance
@@ -131,6 +133,11 @@ async function _parseOnchainData() {
 
 export function setAmount(value) {
   store.send.value = value;
+}
+
+function _setAmountSat(amountSat) {
+  store.settings.displayFiat = false;
+  store.send.value = toAmount(amountSat, store.settings);
 }
 
 export async function validateAmount() {
@@ -182,7 +189,7 @@ async function _prepareBolt12Payment() {
     },
   });
   log.trace(`Prepare send response: ${JSON.stringify(prepareResponse)}`);
-  store.send.value = amountSat;
+  _setAmountSat(amountSat);
   store.send.prepareResponse = JSON.stringify(prepareResponse);
   store.send.feesSat = prepareResponse.feesSat;
   nav.goTo('SendStack', {screen: 'SendConfirm'});

@@ -21,7 +21,7 @@ const ComputedReceive = store => {
     get receiveFlipLabel() {
       const {unit, displayFiat} = store.settings;
       const {value} = store.receive;
-      const amountSat = toSatoshis(value || '0', store.settings);
+      const amountSat = toSatoshis(value, store.settings);
       const amount = toAmountFlipLabel(amountSat, store.settings);
       const suffix = !displayFiat ? '' : ' ' + UNITS[unit].display;
       return `${amount}${suffix}`;
@@ -37,7 +37,7 @@ const ComputedReceive = store => {
     },
     get receiveAmountInvalid() {
       const {value, onChain, minSatLn, minSatBtc} = store.receive;
-      const amountSat = toSatoshis(value || '0', store.settings);
+      const amountSat = toSatoshis(value, store.settings);
       return onChain ? amountSat < minSatBtc : amountSat < minSatLn;
     },
     get receiveFeeLabel() {

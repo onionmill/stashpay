@@ -14,7 +14,7 @@ const ComputedSend = store => {
     get sendFlipLabel() {
       const {unit, displayFiat} = store.settings;
       const {value} = store.send;
-      const amountSat = toSatoshis(value || '0', store.settings);
+      const amountSat = toSatoshis(value, store.settings);
       const amount = toAmountFlipLabel(amountSat, store.settings);
       const suffix = !displayFiat ? '' : ' ' + UNITS[unit].display;
       return `${amount}${suffix}`;
@@ -31,37 +31,37 @@ const ComputedSend = store => {
     get sendAmountInvalid() {
       const {type} = JSON.parse(store.send.input);
       const {value, minSatLn, minSatBtc} = store.send;
-      const amountSat = toSatoshis(value || '0', store.settings);
+      const amountSat = toSatoshis(value, store.settings);
       return type === InputTypeVariant.BITCOIN_ADDRESS ? amountSat < minSatBtc :
         type === InputTypeVariant.LIQUID_ADDRESS ? amountSat < 1 :
         amountSat < minSatLn;
     },
     get sendValueFiatLabel() {
-      const {settings} = store;
-      const amountSat = toSatoshis(store.send.value || '0', settings);
+      const {settings, send: {value}} = store;
+      const amountSat = toSatoshis(value, settings);
       return toFiatLabel(amountSat, settings);
     },
     get sendValueSatLabel() {
       const {value} = store.send;
-      const amountSat = toSatoshis(value || '0', store.settings);
+      const amountSat = toSatoshis(value, store.settings);
       return formatNumber(amountSat) + ' sats';
     },
     get sendFeeFiatLabel() {
-      const {settings} = store;
-      return toFiatLabel(store.send.feesSat || 0, settings);
+      const {settings, send: {feesSat}} = store;
+      return toFiatLabel(feesSat || 0, settings);
     },
     get sendFeeSatLabel() {
       return formatNumber(store.send.feesSat) + ' sats';
     },
     get sendTotalFiatLabel() {
-      const {settings} = store;
-      const amountSat = toSatoshis(store.send.value || '0', settings);
-      const totalSat = amountSat + store.send.feesSat;
+      const {settings, send: {value, feesSat}} = store;
+      const amountSat = toSatoshis(value, settings);
+      const totalSat = amountSat + feesSat;
       return toFiatLabel(totalSat, settings);
     },
     get sendTotalSatLabel() {
       const {value, feesSat} = store.send;
-      const amountSat = toSatoshis(value || '0', store.settings);
+      const amountSat = toSatoshis(value, store.settings);
       return formatNumber(amountSat + feesSat) + ' sats';
     },
   });

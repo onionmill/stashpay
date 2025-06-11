@@ -8,7 +8,7 @@ import * as alert from './alert';
 import * as nav from '../action/nav';
 
 export function initReceive() {
-  store.receive.value = null;
+  store.receive.value = '';
   store.receive.onChain = false;
   nav.goTo('ReceiveStack');
 }
@@ -41,7 +41,7 @@ export async function toggleOnchain() {
 
 export function toggleFiat() {
   const {value} = store.receive;
-  const amountSat = toSatoshis(value || '0', store.settings);
+  const amountSat = toSatoshis(value, store.settings);
   store.settings.displayFiat = !store.settings.displayFiat;
   store.receive.value = toAmount(amountSat, store.settings, 2);
 }
