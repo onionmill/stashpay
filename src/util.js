@@ -132,12 +132,15 @@ export const toAmount = (satoshis, settings, fiatPrecision = 8) => {
   ) {
     throw new Error('Invalid input!');
   }
+  if (satoshis === 0) {
+    return '';
+  }
   const num = settings.displayFiat
     ? calculateExchangeRate(satoshis, settings)
     : satoshis / UNITS[settings.unit].denominator;
   const options = {
     useGrouping: false,
-    minimumFractionDigits: settings.displayFiat ? 2 : 0,
+    minimumFractionDigits: 0,
     maximumFractionDigits: settings.displayFiat ? fiatPrecision : 8,
   };
   return new Intl.NumberFormat(undefined, options).format(num);

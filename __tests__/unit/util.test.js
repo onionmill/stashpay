@@ -279,7 +279,7 @@ describe('Util Unit Tests', () => {
 
     it('should work for 0', () => {
       const num = util.toAmount(0, settings);
-      expect(num).toBe('0');
+      expect(num).toBe('');
     });
 
     it('should work for 1', () => {
@@ -318,7 +318,13 @@ describe('Util Unit Tests', () => {
     it('should work for number input (fiat)', () => {
       settings.displayFiat = true;
       const num = util.toAmount(100000, settings, 2);
-      expect(num).toBe('6.90');
+      expect(num).toBe('6.9');
+    });
+
+    it('should work for number input (fiat, three decimal places)', () => {
+      settings.displayFiat = true;
+      const num = util.toAmount(100000, settings, 3);
+      expect(num).toBe('6.895');
     });
 
     it('should use period for decimals values (fiat)', () => {
@@ -330,7 +336,7 @@ describe('Util Unit Tests', () => {
     it('should work for 0 (fiat)', () => {
       settings.displayFiat = true;
       const num = util.toAmount(0, settings);
-      expect(num).toBe('0.00');
+      expect(num).toBe('');
     });
 
     it('should work for 1 (fiat)', () => {
@@ -492,6 +498,11 @@ describe('Util Unit Tests', () => {
     it('should convert number value to fiat', () => {
       const lbl = util.toAmountLabel(100000, settings);
       expect(lbl).toMatch(/6{1}[,.]9{1}0{1}/);
+    });
+
+    it('should convert number value to fiat (0)', () => {
+      const lbl = util.toAmountLabel(0, settings);
+      expect(lbl).toMatch(/0{0}[,.]0{2}/);
     });
 
     it('should format a number value', () => {
