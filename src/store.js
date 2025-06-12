@@ -34,7 +34,7 @@ const store = observable({
     minSatBtc: 25_000,
   },
   send: {
-    rawUri: null,
+    rawUri: '',
     input: null,
     value: '',
     prepareResponse: null,

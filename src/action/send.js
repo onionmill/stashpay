@@ -9,7 +9,7 @@ import {toAmount, toSatoshis, normalizeAmount} from '../util';
 import {fetchLnLimits, fetchOnchainLimits} from './receive';
 
 export function initSendAddress() {
-  store.send.rawUri = null;
+  store.send.rawUri = '';
   store.send.input = null;
   store.send.value = '';
   store.send.prepareResponse = null;
