@@ -1,7 +1,8 @@
+import bip21 from 'bip21';
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
-import {nap, toAmount, toSatoshis, normalizeAmount} from '../util';
+import {UNITS, nap, toAmount, toSatoshis, normalizeAmount} from '../util';
 import store from '../store';
 import * as log from './log';
 import * as alert from './alert';
@@ -69,7 +70,7 @@ export async function fetchInvoice() {
     store.receive.feesSat = prepareResponse.feesSat;
     log.trace(`Receive fees, in sats: ${store.receive.feesSat}`);
     const res = await liquid.receivePayment({prepareResponse, description});
-    store.receive.invoice = res.destination;
+    store.receive.invoice = _wrapBip21(res.destination);
     log.trace(`Invoice: ${store.receive.invoice}`);
   } catch (err) {
     if (err.message.includes('Could not contact servers:')) {
@@ -87,6 +88,16 @@ async function _fetchMinSat(onChain) {
     await fetchLnLimits();
   }
   return onChain ? store.receive.minSatBtc : store.receive.minSatLn;
+}
+
+function _wrapBip21(destination) {
+  const {value, onChain} = store.receive;
+  if (!onChain) {
+    return destination;
+  }
+  const {address, options: {label}} = bip21.decode(destination);
+  const amount = toSatoshis(value, store.settings) / UNITS.btc.denominator;
+  return bip21.encode(address, {amount, label});
 }
 
 export function copyInvoice() {
