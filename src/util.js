@@ -61,6 +61,16 @@ export const formatDate = timestamp => {
 };
 
 /**
+ * Format a string from text input to a valid amount. Adds a leading 0 if the
+ * string starts with a . or , and removes any second trailing . or ,
+ * @param   {string} amount The amount as a string e.g. '0.01'
+ * @returns {string}        The normalized amount
+ */
+export const normalizeAmount = (amount) => {
+  return amount.replace(/^[,.]$/, '0$&').replace(/([,.].*)[,.]$/, '$1');
+};
+
+/**
  * Format a fiat currency value in local format with currency symbol and either . or ,
  * @param  {string|number} val The number value
  * @param  {string} currency   The fiat currency e.g. 'usd'

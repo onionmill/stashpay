@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
-import {nap, toAmount, toSatoshis} from '../util';
+import {nap, toAmount, toSatoshis, normalizeAmount} from '../util';
 import store from '../store';
 import * as log from './log';
 import * as alert from './alert';
@@ -48,7 +48,7 @@ export function toggleFiat() {
 }
 
 export function setAmount(value) {
-  store.receive.value = value;
+  store.receive.value = normalizeAmount(value);
 }
 
 export async function fetchInvoice() {

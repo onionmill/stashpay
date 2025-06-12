@@ -5,7 +5,7 @@ import store from '../store';
 import * as nav from './nav';
 import * as log from './log';
 import * as alert from './alert';
-import {toAmount, toSatoshis} from '../util';
+import {toAmount, toSatoshis, normalizeAmount} from '../util';
 import {fetchLnLimits, fetchOnchainLimits} from './receive';
 
 export function initSendAddress() {
@@ -133,7 +133,7 @@ async function _parseOnchainData() {
 //
 
 export function setAmount(value) {
-  store.send.value = value;
+  store.send.value = normalizeAmount(value);
 }
 
 function _setAmountSat(amountSat) {
