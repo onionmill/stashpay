@@ -52,6 +52,7 @@ const amountStyles = StyleSheet.create({
   },
   input: {
     fontSize: font.sizeXXXXL,
+    height: 84,
     textAlignVertical: 'center',
   },
 });
