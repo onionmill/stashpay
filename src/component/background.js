@@ -4,7 +4,6 @@ import {
   StyleSheet,
   SafeAreaView,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 
 import {color as clr} from './style';
