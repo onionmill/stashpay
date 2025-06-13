@@ -10,6 +10,7 @@
     "test:lint": "eslint .",
     "test:unit": "jest __tests__/unit/*",
     "pod-install": "cd ios && bundle exec pod install && cd ..",
+    "adb-start": "open -a /Applications/Android\\ Studio.app",
     "build": "yarn build:clean && yarn build:bump && yarn build:android && yarn build:ios && yarn build:tag",
     "build:clean": "rm -rf build android/app/build android/build",
     "build:bump": "git diff --exit-code && npm version patch --no-git-tag-version",
