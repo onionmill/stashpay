@@ -41,7 +41,7 @@ const wrapperStyles = StyleSheet.create({
 export const ContentWrapper = ({children, style}) => (
   <KeyboardAvoidingView
     style={wrapperStyles.avoid}
-    behavior={Platform.OS === 'android' ? null : 'padding'}>
+    behavior="padding">
     <View style={[wrapperStyles.wrapper, style]}>
       {children}
     </View>
