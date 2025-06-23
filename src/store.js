@@ -30,7 +30,7 @@ const store = observable({
     feesSat: null,
     description: null,
     onChain: false,
-    minSatLn: 1_000,
+    minSatLn: 100,
     minSatBtc: 25_000,
   },
   send: {
@@ -40,7 +40,7 @@ const store = observable({
     prepareResponse: null,
     feesSat: null,
     description: null,
-    minSatLn: 1_000,
+    minSatLn: 21,
     minSatBtc: 25_000,
     processing: false,
   },

@@ -60,8 +60,14 @@ export const initLiquidClient = action(async () => {
     await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
-    config.liquidElectrumUrl = store.config.electrumLiquid;
-    config.bitcoinElectrumUrl = store.config.electrumBitcoin;
+    config.liquidExplorer = {
+      type: liquid.BlockchainExplorerVariant.ELECTRUM,
+      url: store.config.electrumLiquid,
+    };
+    config.bitcoinExplorer = {
+      type: liquid.BlockchainExplorerVariant.ELECTRUM,
+      url: store.config.electrumBitcoin,
+    };
     config.syncServiceUrl = store.config.syncServiceUrl;
     config.onchainFeeRateLeewaySatPerVbyte = store.config.feeFlex;
     await liquid.connect({mnemonic, config});

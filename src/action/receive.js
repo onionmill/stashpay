@@ -28,6 +28,7 @@ export async function fetchLnLimits() {
   store.receive.minSatLn = limitsLn.receive.minSat;
   store.send.minSatLn = limitsLn.send.minSat;
   log.trace(`Min Ln receive: ${store.receive.minSatLn}`);
+  log.trace(`Min Ln send: ${store.send.minSatLn}`);
 }
 
 export async function fetchOnchainLimits() {
@@ -35,6 +36,7 @@ export async function fetchOnchainLimits() {
   store.receive.minSatBtc = limitsBtc.receive.minSat;
   store.send.minSatBtc = limitsBtc.send.minSat;
   log.trace(`Min Btc receive: ${store.receive.minSatBtc}`);
+  log.trace(`Min Btc send: ${store.send.minSatBtc}`);
 }
 
 export async function toggleOnchain() {
@@ -65,7 +67,9 @@ export async function fetchInvoice() {
         type: liquid.ReceiveAmountVariant.BITCOIN,
         payerAmountSat: value ? toSatoshis(value, store.settings) : minSat,
       },
-      paymentMethod: onChain ? liquid.PaymentMethod.BITCOIN_ADDRESS : liquid.PaymentMethod.LIGHTNING,
+      paymentMethod: onChain ?
+        liquid.PaymentMethod.BITCOIN_ADDRESS :
+        liquid.PaymentMethod.BOLT11_INVOICE,
     });
     store.receive.feesSat = prepareResponse.feesSat;
     log.trace(`Receive fees, in sats: ${store.receive.feesSat}`);
