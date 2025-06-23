@@ -1475,13 +1475,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@breeztech/react-native-breez-sdk-liquid@npm:0.7.8":
-  version: 0.7.8
-  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.7.8"
+"@breeztech/react-native-breez-sdk-liquid@npm:0.9.1":
+  version: 0.9.1
+  resolution: "@breeztech/react-native-breez-sdk-liquid@npm:0.9.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/ee937b042d22a14c09bd98e8928befd9cbb55e530ec7c83ffb80e98bc9ee855dcb494a6f8989dbbef4d382a47c9552ab98d556924dc9114449c472ff03842f7a
+  checksum: 10/c95272052f24dd91b207cc2437c2f7884e152544c87fa70cd55f4ed7a4994e30ed7753cd1d7b09d4f68794927525dccce94542feff5050cafb997f97418ba0ca
   languageName: node
   linkType: hard
 
@@ -2942,7 +2942,7 @@ __metadata:
     "@babel/core": "npm:^7.25.2"
     "@babel/preset-env": "npm:^7.25.3"
     "@babel/runtime": "npm:^7.25.0"
-    "@breeztech/react-native-breez-sdk-liquid": "npm:0.7.8"
+    "@breeztech/react-native-breez-sdk-liquid": "npm:0.9.1"
     "@react-native-async-storage/async-storage": "npm:^2.1.2"
     "@react-native-clipboard/clipboard": "npm:^1.16.2"
     "@react-native-community/cli": "npm:15.0.1"
