@@ -45,6 +45,7 @@ const SendAddressScreen = ({navigation}) => {
           onCodeScanned={(data) => send.readQRCode(data)}
         />
         <BigButton
+          icon="clipboard"
           style={styles.btn}
           processing={store.send.processing}
           onPress={() => send.pasteInvoice()}>
