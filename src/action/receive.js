@@ -1,4 +1,5 @@
 import bip21 from 'bip21';
+import RNShare from 'react-native-share';
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
@@ -106,4 +107,12 @@ function _wrapBip21(destination) {
 
 export function copyInvoice() {
   Clipboard.setString(store.receive.invoice);
+}
+
+export async function shareInvoice() {
+  try {
+    await RNShare.open({message: store.receive.invoice});
+  } catch (err) {
+    log.warn(err.message);
+  }
 }

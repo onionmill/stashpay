@@ -24,13 +24,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  typeText: {
-    textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: 'bold',
-  },
   feeText: {
-    marginTop: 20,
+    marginTop: 25,
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
   },
@@ -58,16 +53,43 @@ const ReceiveScreen = ({navigation}) => {
 const Address = () => (
   <View>
     <View style={styles.codeWrapper}>
-      <Text style={styles.typeText}>
-        {store.receiveTypeLabel}
-      </Text>
-      <QRCode size={260}>{store.receive.invoice}</QRCode>
+      <QRCode size={340}>{store.receive.invoice}</QRCode>
       <Text style={styles.feeText} numberOfLines={1}>
         {store.receiveFeeLabel}
       </Text>
     </View>
-    <BigButton icon="copy" onPress={() => receive.copyInvoice()}>
-      {store.receiveCopyBtnLabel}
+    <ShareCopyButton
+      onShare={() => receive.shareInvoice()}
+      onCopy={() => receive.copyInvoice()}
+    />
+  </View>
+);
+
+//
+// Share Copy Buttons
+//
+
+const bigBtnStyles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+  },
+  leftBtn: {
+    flex: 1,
+    marginRight: 8,
+  },
+  rightBtn: {
+    flex: 1,
+    marginLeft: 8,
+  },
+});
+
+const ShareCopyButton = ({ onShare, onCopy }) => (
+  <View style={bigBtnStyles.wrapper}>
+    <BigButton icon="share" onPress={onShare} style={bigBtnStyles.leftBtn}>
+      Share
+    </BigButton>
+    <BigButton icon="copy" onPress={onCopy} style={bigBtnStyles.rightBtn}>
+      Copy
     </BigButton>
   </View>
 );

@@ -4,6 +4,7 @@ import {
   toAmountFlipLabel,
   toAmountLabel,
   formatNumber,
+  toFiatLabel,
   FIATS,
   UNITS,
 } from '../util';
@@ -31,10 +32,6 @@ const ComputedReceive = store => {
       const amount = toAmountLabel(onChain ? minSatBtc : minSatLn, store.settings);
       return `${amount}${store.receiveInputSuffixLabel} minimum`;
     },
-    get receiveTypeLabel() {
-      const {onChain, minSatBtc} = store.receive;
-      return onChain ? `Send min ${formatNumber(minSatBtc)} sats` : null;
-    },
     get receiveAmountInvalid() {
       const {value, onChain, minSatLn, minSatBtc} = store.receive;
       const amountSat = toSatoshis(value, store.settings);
@@ -42,11 +39,8 @@ const ComputedReceive = store => {
     },
     get receiveFeeLabel() {
       const {feesSat} = store.receive;
-      return `Fee to receive: ${formatNumber(feesSat)} sats`;
-    },
-    get receiveCopyBtnLabel() {
-      const {onChain} = store.receive;
-      return `Copy ${onChain ? 'BTC Address' : 'LN Invoice'}`;
+      const fiat = toFiatLabel(feesSat || 0, store.settings);
+      return `Network fee: ${formatNumber(feesSat)} sats (${fiat})`;
     },
   });
 };
