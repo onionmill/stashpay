@@ -169,13 +169,22 @@ const bigStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: 10,
+    color: color.textBase,
+    fontSize: font.sizeM,
+  },
   text: {
     fontSize: font.sizeM,
     lineHeight: font.lineHeightM,
   },
 });
 
-export const BigButton = ({ onPress, processing, disabled, children, style }) => (
+export const BigButton = ({ onPress, processing, disabled, icon, children, style }) => (
   <TouchableOpacity
     style={[
       { backgroundColor: disabled ? color.borderGrey : color.neutralTertiary },
@@ -188,9 +197,14 @@ export const BigButton = ({ onPress, processing, disabled, children, style }) =>
     {
       processing ?
       <SmallSpinner color={color.textBase}/> :
-      <Text style={[bigStyles.text, { color: disabled ? color.textDisabled : color.textBase }]}>
-        {children}
-      </Text>
+      (
+        <View style={bigStyles.wrapper}>
+          {icon ? <Feather name={icon} style={bigStyles.icon} /> : null}
+          <Text style={[bigStyles.text, { color: disabled ? color.textDisabled : color.textBase }]}>
+            {children}
+          </Text>
+        </View>
+      )
     }
   </TouchableOpacity>
 );
