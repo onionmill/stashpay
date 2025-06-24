@@ -66,7 +66,7 @@ const Address = () => (
         {store.receiveFeeLabel}
       </Text>
     </View>
-    <BigButton onPress={() => receive.copyInvoice()}>
+    <BigButton icon="copy" onPress={() => receive.copyInvoice()}>
       {store.receiveCopyBtnLabel}
     </BigButton>
   </View>
