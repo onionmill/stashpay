@@ -11,7 +11,7 @@ import {IconButton, BackButton} from '../component/button';
 import store from '../store';
 import * as nav from '../action/nav';
 import {openExplorer} from '../action/payment';
-import {formatDate, formatNumber} from '../util';
+import {formatDate, formatNumber, toFiatLabel} from '../util';
 
 const styles = StyleSheet.create({
   list: {
@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: font.sizeM,
   },
+  secondary: {
+    color: color.textFine,
+  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -39,14 +42,22 @@ const styles = StyleSheet.create({
 const Item = ({item}) => (
   <TouchableOpacity style={styles.item} onPress={() => openExplorer(item)}>
     <View style={styles.row}>
-      <Text style={[{color: item.paymentType === 'send' ? color.red : color.green}, styles.text]}>
-        {item.paymentType === 'send' ? '-' : '+'}{formatNumber(item.amountSat)} sats
+      <Text style={[{color: item.paymentType === 'send' ? color.textBase : color.green}, styles.text]}>
+        {item.paymentType === 'send' ? '-' : ''}
+        {toFiatLabel(item.amountSat, store.settings)}
       </Text>
-      <Text style={styles.text}>{formatDate(item.timestamp)}</Text>
+      <Text style={styles.text}>
+        {formatDate(item.timestamp)}
+      </Text>
     </View>
     <View style={styles.row}>
-      <Text style={styles.text}>Fee: {formatNumber(item.feesSat)} sats</Text>
-      <Text style={styles.text}>{item.status}</Text>
+      <Text style={[styles.text, styles.secondary]}>
+        {formatNumber(item.amountSat)} sats
+        {item.feesSat ? ` (fee ${formatNumber(item.feesSat)})` : ''}
+      </Text>
+      <Text style={[styles.text, styles.secondary]}>
+        {item.status}
+      </Text>
     </View>
   </TouchableOpacity>
 );
