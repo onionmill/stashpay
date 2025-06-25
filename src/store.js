@@ -33,6 +33,11 @@ const store = observable({
     minSatLn: 100,
     minSatBtc: 25_000,
   },
+  receiveEvent: {
+    txId: null,
+    amountSat: null,
+    feesSat: null,
+  },
   send: {
     rawUri: '',
     input: null,

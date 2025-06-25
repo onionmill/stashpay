@@ -42,6 +42,26 @@ const ComputedReceive = store => {
       const fiat = toFiatLabel(feesSat || 0, store.settings);
       return `Network fee: ${formatNumber(feesSat)} sats (${fiat})`;
     },
+    get receiveEventAmountFiatLabel() {
+      const {settings, receiveEvent: {amountSat, feesSat}} = store;
+      return toFiatLabel(amountSat + feesSat, settings);
+    },
+    get receiveEventAmountSatLabel() {
+      const {amountSat, feesSat} = store.receiveEvent;
+      return formatNumber(amountSat + feesSat) + ' sats';
+    },
+    get receiveEventFeesFiatLabel() {
+      return toFiatLabel(store.receiveEvent.feesSat, store.settings);
+    },
+    get receiveEventFeesSatLabel() {
+      return formatNumber(store.receiveEvent.feesSat) + ' sats';
+    },
+    get receiveEventTotalFiatLabel() {
+      return toFiatLabel(store.receiveEvent.amountSat, store.settings);
+    },
+    get receiveEventTotalSatLabel() {
+      return formatNumber(store.receiveEvent.amountSat) + ' sats';
+    },
   });
 };
 

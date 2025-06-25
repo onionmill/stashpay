@@ -10,7 +10,7 @@ import * as keychain from './keychain';
 import * as storage from './local-storage';
 import {generateMnemonic, validateMnemonic} from './mnemonic';
 import {loadPayments, fetchPayments, deletePayments} from './payment';
-import {nap, formatNumber} from '../util';
+import {nap} from '../util';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
 const INFO_KEY = 'info';
@@ -74,6 +74,15 @@ export const initLiquidClient = action(async () => {
     log.info('Liquid wallet connected!');
     const onEvent = action(async e => {
       log.trace(`Received event: ${e.type}`);
+      if (
+        e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION &&
+        e.details.txId !== store.receiveEvent.txId
+      ) {
+        store.receiveEvent.txId = e.details.txId;
+        store.receiveEvent.amountSat = e.details.amountSat;
+        store.receiveEvent.feesSat = e.details.feesSat;
+        nav.goTo('ReceiveSuccess');
+      }
       await update();
     });
     store.liquidListenerId = await liquid.addEventListener(onEvent);
@@ -107,25 +116,11 @@ export async function fetchBalance() {
     log.trace(`Wallet balance: ${info.balanceSat}`);
     log.trace(`Wallet pending send balance: ${info.pendingSendSat}`);
     log.trace(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
-    const oldInfo = await storage.getItem(INFO_KEY);
-    _displayReceiveMessage(oldInfo, info);
     await storage.setItem(INFO_KEY, info);
     log.trace(`Storing info: ${JSON.stringify(info)}`);
     _updateBalance(info);
   } catch (err) {
     log.error(err);
-  }
-}
-
-function _displayReceiveMessage(oldInfo, info) {
-  if (oldInfo && oldInfo.pendingReceiveSat < info.pendingReceiveSat) {
-    nav.goTo('ReceiveSuccess', {
-      valueSat: info.pendingReceiveSat - oldInfo.pendingReceiveSat,
-    });
-  } else if (info.pendingReceiveSat && (!oldInfo || !oldInfo.pendingReceiveSat)) {
-    nav.goTo('ReceiveSuccess', {
-      valueSat: info.pendingReceiveSat,
-    });
   }
 }
 
