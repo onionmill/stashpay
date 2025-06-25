@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Title, Text} from '../component/text';
@@ -53,7 +53,9 @@ const ReceiveScreen = ({navigation}) => {
 const Address = () => (
   <View>
     <View style={styles.codeWrapper}>
-      <QRCode size={340}>{store.receive.invoice}</QRCode>
+      <QRCode size={Dimensions.get('window').width - 2 * 24}>
+        {store.receive.invoice}
+      </QRCode>
       <Text style={styles.feeText} numberOfLines={1}>
         {store.receiveFeeLabel}
       </Text>
