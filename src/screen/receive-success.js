@@ -8,7 +8,9 @@ import {MainContent} from '../component/layout';
 import {Background} from '../component/background';
 import {font} from '../component/style';
 
+import store from '../store';
 import * as nav from '../action/nav';
+import {formatNumber, toFiatLabel} from '../util';
 
 const styles = StyleSheet.create({
   textWrapper: {
@@ -31,7 +33,9 @@ const ReceiveSuccessScreen = ({route}) => (
   <Background>
     <MainContent>
       <View style={styles.textWrapper}>
-        <Text style={styles.value}>{route.params.valueLabel} sats</Text>
+        <Text style={styles.value}>
+          {toFiatLabel(route.params.valueSat, store.settings)} ({formatNumber(route.params.valueSat)} sats)
+        </Text>
         <Text style={styles.label}>Payment received!</Text>
       </View>
       <BigButton onPress={() => nav.reset('Main')}>Done</BigButton>

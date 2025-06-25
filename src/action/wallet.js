@@ -119,12 +119,12 @@ export async function fetchBalance() {
 
 function _displayReceiveMessage(oldInfo, info) {
   if (oldInfo && oldInfo.pendingReceiveSat < info.pendingReceiveSat) {
-    nav.goTo('ReceiveSuccess',{
-      valueLabel: formatNumber(info.pendingReceiveSat - oldInfo.pendingReceiveSat),
+    nav.goTo('ReceiveSuccess', {
+      valueSat: info.pendingReceiveSat - oldInfo.pendingReceiveSat,
     });
   } else if (info.pendingReceiveSat && (!oldInfo || !oldInfo.pendingReceiveSat)) {
-    nav.goTo('ReceiveSuccess',{
-      valueLabel: formatNumber(info.pendingReceiveSat),
+    nav.goTo('ReceiveSuccess', {
+      valueSat: info.pendingReceiveSat,
     });
   }
 }
