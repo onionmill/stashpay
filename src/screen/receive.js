@@ -53,7 +53,7 @@ const ReceiveScreen = ({navigation}) => {
 const Address = () => (
   <View>
     <View style={styles.codeWrapper}>
-      <QRCode size={Dimensions.get('window').width - 2 * 24}>
+      <QRCode size={Dimensions.get('window').width - 2 * 30}>
         {store.receive.invoice}
       </QRCode>
       <Text style={styles.feeText} numberOfLines={1}>
