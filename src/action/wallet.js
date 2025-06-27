@@ -72,27 +72,27 @@ export const initLiquidClient = action(async () => {
     config.onchainFeeRateLeewaySatPerVbyte = store.config.feeFlex;
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
-    const onEvent = action(async e => {
-      log.trace(`Received event: ${e.type}`);
-      if (
-        (e.type === liquid.SdkEventVariant.PAYMENT_PENDING ||
-        e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION ||
-        e.type === liquid.SdkEventVariant.PAYMENT_SUCCEEDED) &&
-        e.details.paymentType === liquid.PaymentType.RECEIVE &&
-        e.details.txId !== store.receiveEvent.txId
-      ) {
-        store.receiveEvent.txId = e.details.txId;
-        store.receiveEvent.amountSat = e.details.amountSat;
-        store.receiveEvent.feesSat = e.details.feesSat;
-        nav.goTo('ReceiveSuccess');
-      }
-      await update();
-    });
-    store.liquidListenerId = await liquid.addEventListener(onEvent);
+    store.liquidListenerId = await liquid.addEventListener(_onEvent);
     store.liquidConnected = true;
   } catch (err) {
     log.error(err);
   }
+});
+
+const _onEvent = action(async e => {
+  log.trace(`Received event: ${e.type}`);
+  if (
+    (e.type === liquid.SdkEventVariant.PAYMENT_PENDING ||
+    e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION) &&
+    e.details.paymentType === liquid.PaymentType.RECEIVE &&
+    e.details.txId !== store.receiveEvent.txId
+  ) {
+    store.receiveEvent.txId = e.details.txId;
+    store.receiveEvent.amountSat = e.details.amountSat;
+    store.receiveEvent.feesSat = e.details.feesSat;
+    nav.goTo('ReceiveSuccess');
+  }
+  await update();
 });
 
 //
