@@ -75,7 +75,10 @@ export const initLiquidClient = action(async () => {
     const onEvent = action(async e => {
       log.trace(`Received event: ${e.type}`);
       if (
-        e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION &&
+        (e.type === liquid.SdkEventVariant.PAYMENT_PENDING ||
+        e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION ||
+        e.type === liquid.SdkEventVariant.PAYMENT_SUCCEEDED) &&
+        e.details.paymentType === liquid.PaymentType.RECEIVE &&
         e.details.txId !== store.receiveEvent.txId
       ) {
         store.receiveEvent.txId = e.details.txId;
