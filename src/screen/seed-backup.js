@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 40,
+    paddingHorizontal: 35,
   },
 });
 
