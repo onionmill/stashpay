@@ -2,13 +2,19 @@ import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Title, Text} from '../component/text';
+import {Title} from '../component/text';
+import {
+  SummaryBox,
+  SummaryItem,
+  SummaryLabel,
+  SummaryLine,
+  SummaryTotal,
+} from '../component/summary';
 import {QRCode} from '../component/qrcode';
 import {BigButton, IconButton, BackButton} from '../component/button';
 import {LargeSpinner} from '../component/spinner';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
-import {font} from '../component/style';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -19,15 +25,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  codeWrapper: {
+  addressWrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
-  feeText: {
+  codeWrapper: {
     marginTop: 25,
-    fontSize: font.sizeSub,
-    lineHeight: font.lineHeightSub,
   },
 });
 
@@ -51,15 +54,13 @@ const ReceiveScreen = ({navigation}) => {
 };
 
 const Address = () => (
-  <View>
+  <View style={styles.addressWrapper}>
     <View style={styles.codeWrapper}>
       <QRCode size={Dimensions.get('window').width - 2 * 30}>
         {store.receive.invoice}
       </QRCode>
-      <Text style={styles.feeText} numberOfLines={1}>
-        {store.receiveFeeLabel}
-      </Text>
     </View>
+    <Summary />
     <ShareCopyButton
       onShare={() => receive.shareInvoice()}
       onCopy={() => receive.copyInvoice()}
@@ -67,9 +68,30 @@ const Address = () => (
   </View>
 );
 
-//
-// Share Copy Buttons
-//
+const Summary = () => (
+  <SummaryBox>
+    <SummaryLine>
+      <SummaryLabel>Amount</SummaryLabel>
+      <SummaryItem
+        top={store.receiveAmountFiatLabel}
+        bottom={store.receiveAmountSatLabel}
+      />
+    </SummaryLine>
+    <SummaryLine>
+      <SummaryLabel>Network Fees</SummaryLabel>
+      <SummaryItem
+        top={store.receiveFeesFiatLabel}
+        bottom={store.receiveFeesSatLabel}
+      />
+    </SummaryLine>
+    <SummaryTotal>
+      <SummaryItem
+        top={store.receiveTotalFiatLabel}
+        bottom={store.receiveTotalSatLabel}
+      />
+    </SummaryTotal>
+  </SummaryBox>
+);
 
 const bigBtnStyles = StyleSheet.create({
   wrapper: {
