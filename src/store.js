@@ -34,7 +34,7 @@ const store = observable({
     minSatBtc: 25_000,
   },
   receiveEvent: {
-    txId: null,
+    swapId: null,
     amountSat: null,
     feesSat: null,
   },
