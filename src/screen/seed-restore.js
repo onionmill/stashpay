@@ -29,7 +29,7 @@ const SeedRestoreScreen = () => (
     <MainContent>
       <H1Text>Recover Wallet</H1Text>
       <TextInput
-        placeholder="recovery phrase"
+        placeholder="recovery phrase separated by spaces"
         textContentType="password"
         autoFocus
         multiline
