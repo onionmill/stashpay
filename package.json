@@ -1,26 +1,30 @@
 {
   "name": "StashPay",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android --list-devices",
     "ios": "react-native run-ios",
-    "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest",
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "eslint .",
+    "test:unit": "jest __tests__/unit/*",
+    "pod-install": "cd ios && bundle exec pod install && cd ..",
+    "adb-start": "open -a /Applications/Android\\ Studio.app",
     "build": "yarn build:clean && yarn build:bump && yarn build:android && yarn build:ios && yarn build:tag",
     "build:clean": "rm -rf build android/app/build android/build",
-    "build:bump": "git diff --exit-code && npm version patch --no-git-tag-version && fastlane bump",
-    "build:android": "fastlane android build && mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk",
-    "build:ios": "fastlane ios build && mkdir -p build && mv StashPay.ipa StashPay.app.dSYM.zip build/",
+    "build:bump": "git diff --exit-code && npm version patch --no-git-tag-version",
+    "build:android": "bundle exec fastlane android beta && mkdir -p build && cp android/app/build/outputs/apk/release/app-release.apk build/stashpay-$npm_package_version.apk",
+    "build:ios": "bundle exec fastlane ios beta && mkdir -p build && mv StashPay.ipa StashPay.app.dSYM.zip build/",
     "build:tag": "git add package.json ios android && git commit -m $npm_package_version && git tag $npm_package_version && git push && git push --tags"
   },
   "dependencies": {
-    "@breeztech/react-native-breez-sdk-liquid": "0.7.8",
+    "@breeztech/react-native-breez-sdk-liquid": "0.9.1",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-native-clipboard/clipboard": "^1.16.2",
     "@react-navigation/native": "^7.0.15",
     "@react-navigation/native-stack": "^7.2.1",
+    "bip21": "^3.0.0",
     "bip39": "^3.1.0",
     "buffer": "^6.0.3",
     "mobx": "^6.13.6",
@@ -63,5 +67,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.9.2"
 }

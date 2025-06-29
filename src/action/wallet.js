@@ -10,7 +10,7 @@ import * as keychain from './keychain';
 import * as storage from './local-storage';
 import {generateMnemonic, validateMnemonic} from './mnemonic';
 import {loadPayments, fetchPayments, deletePayments} from './payment';
-import {nap, formatNumber} from '../util';
+import {nap} from '../util';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
 const INFO_KEY = 'info';
@@ -60,21 +60,42 @@ export const initLiquidClient = action(async () => {
     await liquid.setLogger(l => log.logSDK(l));
     const mnemonic = await keychain.getItem(MNEMONIC_KEY);
     const config = await liquid.defaultConfig(liquid.LiquidNetwork.MAINNET);
-    config.liquidElectrumUrl = store.config.electrumLiquid;
-    config.bitcoinElectrumUrl = store.config.electrumBitcoin;
+    config.liquidExplorer = {
+      type: liquid.BlockchainExplorerVariant.ELECTRUM,
+      url: store.config.electrumLiquid,
+    };
+    config.bitcoinExplorer = {
+      type: liquid.BlockchainExplorerVariant.ELECTRUM,
+      url: store.config.electrumBitcoin,
+    };
     config.syncServiceUrl = store.config.syncServiceUrl;
     config.onchainFeeRateLeewaySatPerVbyte = store.config.feeFlex;
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
-    const onEvent = action(async e => {
-      log.trace(`Received event: ${e.type}`);
-      await update();
-    });
-    store.liquidListenerId = await liquid.addEventListener(onEvent);
+    store.liquidListenerId = await liquid.addEventListener(_onEvent);
     store.liquidConnected = true;
   } catch (err) {
     log.error(err);
   }
+});
+
+const _onEvent = action(async e => {
+  log.trace(`Received event: ${e.type}`);
+  log.trace(`Payment event details: ${JSON.stringify(e.details)}`);
+  if (
+    (e.type === liquid.SdkEventVariant.PAYMENT_PENDING ||
+    e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION ||
+    e.type === liquid.SdkEventVariant.PAYMENT_SUCCEEDED) &&
+    e.details.paymentType === liquid.PaymentType.RECEIVE &&
+    e.details.details && e.details.details.swapId !== store.receiveEvent.swapId
+  ) {
+    log.trace(`Payment event swap: ${e.details.details.swapId}`);
+    store.receiveEvent.swapId = e.details.details.swapId;
+    store.receiveEvent.amountSat = e.details.amountSat;
+    store.receiveEvent.feesSat = e.details.feesSat;
+    nav.goTo('ReceiveSuccess');
+  }
+  await update();
 });
 
 //
@@ -101,8 +122,6 @@ export async function fetchBalance() {
     log.trace(`Wallet balance: ${info.balanceSat}`);
     log.trace(`Wallet pending send balance: ${info.pendingSendSat}`);
     log.trace(`Wallet pending receive balance: ${info.pendingReceiveSat}`);
-    const oldInfo = await storage.getItem(INFO_KEY);
-    _displayReceiveMessage(oldInfo, info);
     await storage.setItem(INFO_KEY, info);
     log.trace(`Storing info: ${JSON.stringify(info)}`);
     _updateBalance(info);
@@ -111,22 +130,9 @@ export async function fetchBalance() {
   }
 }
 
-function _displayReceiveMessage(oldInfo, info) {
-  if (oldInfo && oldInfo.pendingReceiveSat < info.pendingReceiveSat) {
-    nav.goTo('ReceiveSuccess',{
-      valueLabel: formatNumber(info.pendingReceiveSat - oldInfo.pendingReceiveSat),
-    });
-  } else if (info.pendingReceiveSat && (!oldInfo || !oldInfo.pendingReceiveSat)) {
-    nav.goTo('ReceiveSuccess',{
-      valueLabel: formatNumber(info.pendingReceiveSat),
-    });
-  }
-}
-
-const _totalBalance = info => info.balanceSat + info.pendingReceiveSat;
-
 const _updateBalance = action(info => {
-    store.balance = _totalBalance(info) || null;
+    store.balance = info.balanceSat;
+    store.balancePendingReceive = info.pendingReceiveSat;
     store.balanceFetched = true;
 });
 

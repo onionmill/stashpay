@@ -1,37 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Platform} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, Animated} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 
 import {Text} from './text';
 import {color, font} from './style';
 import {SmallSpinner} from './spinner';
-
-//
-// Button
-//
-
-const btnStyles = StyleSheet.create({
-  touchable: {
-    paddingRight: Platform.OS === 'android' ? 10 : null,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: font.sizeM,
-    lineHeight: font.lineHeightM,
-  },
-});
-
-export const Button = ({onPress, disabled, title, color: clr, style}) => (
-  <TouchableOpacity
-    style={[btnStyles.touchable, style]}
-    disabled={disabled}
-    onPress={onPress}>
-    <Text style={[btnStyles.text, {color: clr || color.blue}]}>{title}</Text>
-  </TouchableOpacity>
-);
 
 //
 // Link Button
@@ -41,12 +15,12 @@ const linkStyles = StyleSheet.create({
   touchable: {
     height: 20,
     borderBottomWidth: 1,
-    borderColor: color.darkGrey,
+    borderColor: color.textFine,
   },
   text: {
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
-    color: color.darkGrey,
+    color: color.textFine,
   },
 });
 
@@ -60,36 +34,34 @@ export const LinkButton = ({onPress, disabled, title, style}) => (
 );
 
 //
-// Pill Button
+// Flip Button
 //
 
-const pillStyles = StyleSheet.create({
+const flipStyles = StyleSheet.create({
   touchable: {
-    height: 50,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
+    height: 40,
+    flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 58.94,
-    backgroundColor: color.blue,
   },
-  text: {
-    letterSpacing: 1,
-    fontSize: font.sizeL,
-    lineHeight: font.lineHeightL,
-    color: color.white,
+  label: {
+    fontSize: font.sizeM,
+    lineHeight: font.lineHeightM,
+    color: color.textFine,
+  },
+  icon: {
+    marginLeft: 5,
+    transform: [{ rotate: '90deg' }],
+    color: color.textFine,
   },
 });
 
-export const PillButton = ({onPress, processing, disabled, children, style}) => (
+export const FlipButton = ({onPress, disabled, label, style}) => (
   <TouchableOpacity
-    style={[{opacity: disabled ? 0.5 : 1}, pillStyles.touchable, style]}
-    disabled={disabled || processing}
+    style={[flipStyles.touchable, style]}
+    disabled={disabled}
     onPress={onPress}>
-    {
-      processing ?
-      <SmallSpinner color={color.white}/> :
-      <Text style={pillStyles.text}>{children}</Text>
-    }
+    <Text style={flipStyles.label}>{label}</Text>
+    <Feather name={'repeat'} size={20} style={flipStyles.icon} />
   </TouchableOpacity>
 );
 
@@ -126,48 +98,113 @@ const iconStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  alert: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
 });
 
-export const IconButton = ({onPress, disabled, iconName, style}) => (
+export const IconButton = ({onPress, disabled, alert, iconName, style}) => (
   <TouchableOpacity
     style={[{opacity: disabled ? 0.5 : 1}, iconStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
-    <Feather name={iconName} size={25} color={color.darkerGrey} />
+    <Feather name={iconName} size={22} color={color.textBase} />
+    {alert ? <AlertBubble style={iconStyles.alert} /> : null}
   </TouchableOpacity>
 );
 
 //
-// Glas Button
+// Alert Bubble
 //
 
-const glasStyles = StyleSheet.create({
+const alertStyles = StyleSheet.create({
+  bubble: {
+    height: 14,
+    width: 14,
+    borderRadius: 14 / 2,
+    backgroundColor: color.warning,
+    borderWidth: 2,
+    borderColor: color.white,
+  },
+});
+
+export const AlertBubble = ({style}) => {
+  const opacity = new Animated.Value(0.5);
+  Animated.loop(
+    Animated.sequence([
+      Animated.timing(opacity, {toValue: 1.0, duration: 1000, useNativeDriver: true}),
+      Animated.timing(opacity, {toValue: 0.5, duration: 1000, useNativeDriver: true}),
+    ])
+  ).start();
+  return (
+    <Animated.View style={[{ opacity }, style]}>
+      <View style={alertStyles.bubble} />
+    </Animated.View>
+  );
+};
+
+//
+// Back Button
+//
+
+export const BackButton = ({onPress, style}) => (
+  <IconButton
+    iconName={'chevron-left'}
+    onPress={onPress}
+    style={style}
+  />
+);
+
+//
+// Big Button
+//
+
+const bigStyles = StyleSheet.create({
   touchable: {
-    height: 75,
+    height: 54,
+    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: 10,
+    color: color.textBase,
+    fontSize: font.sizeM,
+  },
   text: {
-    letterSpacing: 1,
-    fontSize: font.sizeL,
-    lineHeight: font.lineHeightL,
-    fontWeight: 'bold',
+    fontSize: font.sizeM,
+    lineHeight: font.lineHeightM,
   },
 });
 
-export const GlasButton = ({ onPress, disabled, children, style }) => (
+export const BigButton = ({ onPress, processing, disabled, icon, children, style }) => (
   <TouchableOpacity
     style={[
-      { backgroundColor: disabled ? color.glasDark : color.lightGrey },
-      glasStyles.touchable,
+      { backgroundColor: disabled ? color.borderGrey : color.neutralTertiary },
+      bigStyles.touchable,
       style,
     ]}
-    disabled={disabled}
+    disabled={disabled || processing}
     onPress={onPress}
   >
-    <Text style={[{ opacity: disabled ? 0.5 : 1 }, glasStyles.text]}>
-      {children}
-    </Text>
+    {
+      processing ?
+      <SmallSpinner color={color.textBase}/> :
+      (
+        <View style={bigStyles.wrapper}>
+          {icon ? <Feather name={icon} style={bigStyles.icon} /> : null}
+          <Text style={[bigStyles.text, { color: disabled ? color.textDisabled : color.textBase }]}>
+            {children}
+          </Text>
+        </View>
+      )
+    }
   </TouchableOpacity>
 );

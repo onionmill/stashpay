@@ -8,12 +8,35 @@ import {View, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    padding: 20,
+    paddingLeft: 24,
+    paddingRight: 24,
+    paddingBottom: 24,
   },
 });
 
 export const MainContent = ({children, style}) => (
   <View style={[styles.content, style]}>
+    {children}
+  </View>
+);
+
+//
+// Header
+//
+
+const headerStyles = StyleSheet.create({
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+});
+
+export const Header = ({children, style}) => (
+  <View style={[headerStyles.content, style]}>
     {children}
   </View>
 );
@@ -25,7 +48,7 @@ export const MainContent = ({children, style}) => (
 const scrollStyles = StyleSheet.create({
   content: {
     flexGrow: 1,
-    padding: 20,
+    padding: 24,
   },
 });
 

@@ -8,9 +8,10 @@ import {font, color} from './style';
 
 const baseStyles = StyleSheet.create({
   text: {
+    fontFamily: 'SFProDisplay-Regular',
     fontSize: font.sizeBase,
     lineHeight: font.lineHeightBase,
-    color: color.black,
+    color: color.textBase,
   },
 });
 
@@ -21,17 +22,57 @@ export const Text = ({children, style, ...props}) => (
 );
 
 //
+// Title
+//
+
+const titleStyles = StyleSheet.create({
+  text: {
+    fontSize: font.sizeXL,
+    lineHeight: font.lineHeightXL,
+  },
+});
+
+export const Title = ({children, style}) => (
+  <Text style={[titleStyles.text, style]}>
+    {children}
+  </Text>
+);
+
+//
 // H1 Text
 //
 
 const h1Styles = StyleSheet.create({
   text: {
-    fontSize: font.sizeXL,
-    lineHeight: font.lineHeightsXL,
-    color: color.black,
+    marginTop: 24,
+    fontFamily: 'SFProDisplay-Bold',
+    fontSize: font.sizeXXL,
+    lineHeight: font.lineHeightXXL,
   },
 });
 
 export const H1Text = ({children, style}) => (
   <Text style={[h1Styles.text, style]}>{children}</Text>
+);
+
+//
+// Error Label
+//
+
+const errorStyles = StyleSheet.create({
+  text: {
+    marginTop: 8,
+    fontFamily: 'SFProDisplay-Medium',
+    alignSelf: 'center',
+  },
+});
+
+export const ErrorLabel = ({children, error, style}) => (
+  <Text style={[
+    errorStyles.text,
+    {color: error ? color.textError : color.textFine},
+    style,
+  ]}>
+    {children}
+  </Text>
 );

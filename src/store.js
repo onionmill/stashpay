@@ -13,6 +13,7 @@ const store = observable({
   liquidConnected: false,
   liquidListenerId: null,
   balance: null,
+  balancePendingReceive: null,
   balanceRefreshing: false,
   balanceFetched: false,
   payments: [],
@@ -24,27 +25,32 @@ const store = observable({
     mnemonic: '',
   },
   receive: {
-    value: null,
+    value: '',
     invoice: null,
     feesSat: null,
     description: null,
     onChain: false,
-    minSatLn: 1_000,
+    minSatLn: 100,
     minSatBtc: 25_000,
   },
+  receiveEvent: {
+    swapId: null,
+    amountSat: null,
+    feesSat: null,
+  },
   send: {
-    rawUri: null,
+    rawUri: '',
     input: null,
-    value: null,
+    value: '',
     prepareResponse: null,
     feesSat: null,
     description: null,
-    minSatLn: 1_000,
+    minSatLn: 21,
     minSatBtc: 25_000,
     processing: false,
   },
 
-  // persistent data
+  // wallet config
   config: {
     electrumLiquid: 'elements-mainnet.blockstream.info:50002',
     electrumBitcoin: 'bitcoin-mainnet.blockstream.info:50002',
@@ -53,6 +59,14 @@ const store = observable({
     explorer: 'https://liquid.network',
     appVersion: version,
     sdkVersion: dependencies['@breeztech/react-native-breez-sdk-liquid'],
+  },
+
+  // persistent app settings
+  settings: {
+    unit: 'sat',
+    fiat: 'usd',
+    displayFiat: true,
+    exchangeRate: {},
   },
 });
 

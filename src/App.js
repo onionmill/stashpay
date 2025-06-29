@@ -1,13 +1,10 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import './action';
 import * as nav from './action/nav';
-import {toggleOnchain} from './action/receive';
 
-import {Button} from './component/button';
 import WalletScreen from './screen/wallet';
 import ReceiveScreen from './screen/receive';
 import ReceiveAmountScreen from './screen/receive-amount';
@@ -34,24 +31,12 @@ const ReceiveStackScreen = () => (
     <ReceiveStack.Screen
       name="ReceiveAmount"
       component={ReceiveAmountScreen}
-      options={{
-        title: 'Amount',
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <ReceiveStack.Screen
       name="Receive"
       component={ReceiveScreen}
-      options={{
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-        headerRight: () => (
-          <Button title="Chain/Ln" onPress={() => toggleOnchain()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
   </ReceiveStack.Navigator>
 );
@@ -61,44 +46,22 @@ const SendStackScreen = () => (
     <SendStack.Screen
       name="Send"
       component={SendScreen}
-      options={{
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-        headerRight: () => (
-          <Button title="@Address" onPress={() => nav.goTo('SendAddress')} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <SendStack.Screen
       name="SendAddress"
       component={SendAddressScreen}
-      options={{
-        title: '@Address',
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <SendStack.Screen
       name="SendAmount"
       component={SendAmountScreen}
-      options={{
-        title: 'Amount',
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <SendStack.Screen
       name="SendConfirm"
       component={SendConfirmScreen}
-      options={{
-        title: 'Confirm',
-        headerLeft: () => (
-          <Button title="Back" onPress={() => nav.goBack()} />
-        ),
-      }}
+      options={{headerShown: false}}
     />
     <SendStack.Screen
       name="SendWait"
@@ -139,22 +102,22 @@ const App = () => (
       <RootStack.Screen
         name="Main"
         component={WalletScreen}
-        options={{title: 'StashPay'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{title: 'Settings', headerBackTitle: 'Back'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="SeedBackupStack"
         component={SeedBackupStackScreen}
-        options={{title: 'Backup', headerBackTitle: 'Back'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="SeedRestoreStack"
         component={SeedRestoreScreen}
-        options={{title: 'Recovery', headerBackTitle: 'Cancel'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="ReceiveStack"
@@ -175,12 +138,7 @@ const App = () => (
         <RootStack.Screen
           name="PaymentList"
           component={PaymentListScreen}
-          options={{
-            title: 'Payments',
-            headerLeft: () => (
-              <Button title="Back" onPress={() => nav.goBack()} />
-            ),
-          }}
+          options={{headerShown: false}}
         />
       </RootStack.Group>
     </RootStack.Navigator>

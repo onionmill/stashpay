@@ -5,7 +5,6 @@ import {color} from './style';
 
 const styles = StyleSheet.create({
   base: {
-    padding: 30,
     borderRadius: 13,
     backgroundColor: color.white,
   },

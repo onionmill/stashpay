@@ -1,14 +1,15 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {H1Text} from '../component/text';
+import {Title, H1Text} from '../component/text';
 import {TextInput} from '../component/input';
-import {PillButton} from '../component/button';
-import {MainContent, Spacer} from '../component/layout';
+import {IconButton, BackButton, BigButton} from '../component/button';
+import {Header, MainContent, Spacer} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
@@ -16,18 +17,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
     height: 150,
   },
-  btnWrapper: {
-    marginTop: 30,
-    height: 150,
-  },
 });
 
 const SeedRestoreScreen = () => (
   <Background>
+    <Header>
+      <BackButton onPress={() => nav.goBack()} />
+      <Title>Recovery</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
       <H1Text>Recover Wallet</H1Text>
       <TextInput
-        placeholder="recovery phrase"
+        placeholder="recovery phrase separated by spaces"
         textContentType="password"
         autoFocus
         multiline
@@ -36,11 +38,9 @@ const SeedRestoreScreen = () => (
         onChangeText={mnemonic => wallet.setMnemonic(mnemonic)}
       />
       <Spacer />
-      <View style={styles.btnWrapper}>
-        <PillButton onPress={() => wallet.importMnemonic()}>
-          Import Wallet
-        </PillButton>
-      </View>
+      <BigButton onPress={() => wallet.importMnemonic()}>
+        Import Wallet
+      </BigButton>
     </MainContent>
   </Background>
 );

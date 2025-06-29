@@ -1,39 +1,54 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
+import {Title, ErrorLabel} from '../component/text';
 import {AmountInput} from '../component/input';
-import {PillButton} from '../component/button';
-import {MainContent} from '../component/layout';
+import {BigButton, IconButton, FlipButton, BackButton} from '../component/button';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as send from '../action/send';
 
 const styles = StyleSheet.create({
-  btnWrapper: {
-    marginTop: 20,
-    height: 150,
+  amountWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
 const SendAmountScreen = () => (
   <Background>
+    <Header>
+      <BackButton onPress={() => nav.goBack()} />
+      <Title>Amount</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
-      <AmountInput
-        placeholder={store.sendMinValueLabel}
-        keyboardType="number-pad"
-        autoFocus
-        value={store.send.value}
-        onChangeText={value => send.setAmount(value)}
-      />
-      <View style={styles.btnWrapper}>
-        <PillButton
-          processing={store.send.processing}
-          onPress={() => send.validateAmount()}>
-          Review
-        </PillButton>
+      <View style={styles.amountWrapper}>
+        <AmountInput
+          prefix={store.receiveInputPrefixLabel}
+          suffix={store.receiveInputSuffixLabel}
+          value={store.send.value}
+          onChangeText={value => send.setAmount(value)}
+        />
+        <FlipButton
+          onPress={() => send.toggleFiat()}
+          label={store.sendFlipLabel}
+        />
       </View>
+      <BigButton
+        disabled={store.sendAmountInvalid}
+        processing={store.send.processing}
+        onPress={() => send.validateAmount()}>
+        Review
+      </BigButton>
+      <ErrorLabel error={store.sendAmountInvalid}>
+        {store.sendMinValueLabel}
+      </ErrorLabel>
     </MainContent>
   </Background>
 );

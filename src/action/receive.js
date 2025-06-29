@@ -1,15 +1,18 @@
+import bip21 from 'bip21';
+import RNShare from 'react-native-share';
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
-import {nap} from '../util';
+import {UNITS, nap, toAmount, toSatoshis, normalizeAmount} from '../util';
 import store from '../store';
 import * as log from './log';
 import * as alert from './alert';
 import * as nav from '../action/nav';
 
 export function initReceive() {
-  store.receive.value = null;
+  store.receive.value = '';
   store.receive.onChain = false;
+  store.settings.displayFiat = true;
   nav.goTo('ReceiveStack');
 }
 
@@ -26,6 +29,7 @@ export async function fetchLnLimits() {
   store.receive.minSatLn = limitsLn.receive.minSat;
   store.send.minSatLn = limitsLn.send.minSat;
   log.trace(`Min Ln receive: ${store.receive.minSatLn}`);
+  log.trace(`Min Ln send: ${store.send.minSatLn}`);
 }
 
 export async function fetchOnchainLimits() {
@@ -33,15 +37,22 @@ export async function fetchOnchainLimits() {
   store.receive.minSatBtc = limitsBtc.receive.minSat;
   store.send.minSatBtc = limitsBtc.send.minSat;
   log.trace(`Min Btc receive: ${store.receive.minSatBtc}`);
+  log.trace(`Min Btc send: ${store.send.minSatBtc}`);
 }
 
 export async function toggleOnchain() {
   store.receive.onChain = !store.receive.onChain;
-  await fetchInvoice();
+}
+
+export function toggleFiat() {
+  const {value} = store.receive;
+  const amountSat = toSatoshis(value, store.settings);
+  store.settings.displayFiat = !store.settings.displayFiat;
+  store.receive.value = toAmount(amountSat, store.settings, 2);
 }
 
 export function setAmount(value) {
-  store.receive.value = value;
+  store.receive.value = normalizeAmount(value);
 }
 
 export async function fetchInvoice() {
@@ -55,14 +66,16 @@ export async function fetchInvoice() {
     const prepareResponse = await liquid.prepareReceivePayment({
       amount: onChain ? undefined : {
         type: liquid.ReceiveAmountVariant.BITCOIN,
-        payerAmountSat: value ? Number(value) : minSat,
+        payerAmountSat: value ? toSatoshis(value, store.settings) : minSat,
       },
-      paymentMethod: onChain ? liquid.PaymentMethod.BITCOIN_ADDRESS : liquid.PaymentMethod.LIGHTNING,
+      paymentMethod: onChain ?
+        liquid.PaymentMethod.BITCOIN_ADDRESS :
+        liquid.PaymentMethod.BOLT11_INVOICE,
     });
     store.receive.feesSat = prepareResponse.feesSat;
     log.trace(`Receive fees, in sats: ${store.receive.feesSat}`);
     const res = await liquid.receivePayment({prepareResponse, description});
-    store.receive.invoice = res.destination;
+    store.receive.invoice = _wrapBip21(res.destination);
     log.trace(`Invoice: ${store.receive.invoice}`);
   } catch (err) {
     if (err.message.includes('Could not contact servers:')) {
@@ -82,6 +95,24 @@ async function _fetchMinSat(onChain) {
   return onChain ? store.receive.minSatBtc : store.receive.minSatLn;
 }
 
+function _wrapBip21(destination) {
+  const {value, onChain} = store.receive;
+  if (!onChain) {
+    return destination;
+  }
+  const {address, options: {label}} = bip21.decode(destination);
+  const amount = toSatoshis(value, store.settings) / UNITS.btc.denominator;
+  return bip21.encode(address, {amount, label});
+}
+
 export function copyInvoice() {
   Clipboard.setString(store.receive.invoice);
+}
+
+export async function shareInvoice() {
+  try {
+    await RNShare.open({message: store.receive.invoice});
+  } catch (err) {
+    log.warn(err.message);
+  }
 }

@@ -100,8 +100,8 @@ android {
         applicationId "com.onionmill.stashpay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 23
-        versionName "0.2.1"
+        versionCode 37
+        versionName "0.3.0"
     }
     signingConfigs {
         debug {

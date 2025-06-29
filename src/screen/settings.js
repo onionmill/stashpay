@@ -2,21 +2,19 @@ import React from 'react';
 import {StyleSheet, View, Linking} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
-import {Button, LinkButton} from '../component/button';
+import {Title, Text} from '../component/text';
+import {LinkButton, IconButton, BackButton} from '../component/button';
 import {color, font} from '../component/style';
-import {MainContent} from '../component/layout';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
+import {Section, SectionItem} from '../component/section';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as log from '../action/log';
 import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
-  btnWrapper: {
-    marginTop: 50,
-    alignItems: 'center',
-  },
   versionWrapper: {
     position: 'absolute',
     bottom: 30,
@@ -25,58 +23,74 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
   },
-  links: {
-    marginBottom: 20,
-  },
   versionText: {
-    marginTop: 5,
-    color: color.darkGrey,
+    marginTop: 10,
+    color: color.textFine,
     fontSize: font.sizeSub,
     lineHeight: font.lineHeightSub,
+  },
+  appName: {
+    fontFamily: 'SFProDisplay-Bold',
+  },
+  linksWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
 const SettingsScreen = () => (
   <Background>
+    <Header>
+      <BackButton onPress={() => nav.goBack()} />
+      <Title>Settings</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
-      <View style={styles.btnWrapper}>
-        <Button
-          title="Backup wallet"
+      <Section title="Recovery">
+        <SectionItem
+          title="Backup Wallet"
           onPress={() => wallet.initSeedBackup()}
+          icon="chevron-right"
         />
-      </View>
-      <View style={styles.btnWrapper}>
-        <Button
-          title="Recover wallet"
+        <SectionItem
+          title="Recover Wallet"
           onPress={() => wallet.initSeedRestore()}
+          icon="chevron-right"
         />
-      </View>
-      <View style={styles.btnWrapper}>
-        <Button
+      </Section>
+      <Section title="Advanced">
+        <SectionItem
           title="Export logs"
           onPress={() => log.exportLogFile()}
+          icon="download"
+          iconSize={16}
         />
-      </View>
-      <View style={styles.btnWrapper}>
-        <Button
-          title="Logout"
-          color={color.red}
+        <SectionItem
+          title="Wipe Wallet from Device"
           onPress={() => wallet.logout()}
+          style={{color: color.danger}}
+          icon="trash-2"
+          iconSize={18}
         />
-      </View>
+      </Section>
       <View style={styles.versionWrapper}>
-        <LinkButton
-          title="Privacy Policy"
-          style={styles.links}
-          onPress={() => Linking.openURL('https://stashpay.me/privacy/')}
-        />
-        <LinkButton
-          title="Terms of Service"
-          style={styles.links}
-          onPress={() => Linking.openURL('https://stashpay.me/terms/')}
-        />
+        <Text style={[styles.versionText, styles.appName]}>StashPay</Text>
+        <View style={styles.linksWrapper}>
+          <LinkButton
+            title="Terms"
+            style={styles.versionText}
+            onPress={() => Linking.openURL('https://stashpay.me/terms/')}
+          />
+          <Text style={styles.versionText}>  &  </Text>
+          <LinkButton
+            title="Privacy"
+            style={styles.versionText}
+            onPress={() => Linking.openURL('https://stashpay.me/privacy/')}
+          />
+        </View>
         <Text style={styles.versionText}>
-          version {store.config.appVersion}
+          Version {store.config.appVersion}
         </Text>
       </View>
     </MainContent>

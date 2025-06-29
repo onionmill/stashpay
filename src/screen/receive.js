@@ -1,16 +1,23 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
+import {Title} from '../component/text';
+import {
+  SummaryBox,
+  SummaryItem,
+  SummaryLabel,
+  SummaryLine,
+  SummaryTotal,
+} from '../component/summary';
 import {QRCode} from '../component/qrcode';
-import {PillButton} from '../component/button';
+import {BigButton, IconButton, BackButton} from '../component/button';
 import {LargeSpinner} from '../component/spinner';
-import {MainContent} from '../component/layout';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
-import {font} from '../component/style';
 
 import store from '../store';
+import * as nav from '../action/nav';
 import * as receive from '../action/receive';
 
 const styles = StyleSheet.create({
@@ -18,20 +25,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  codeWrapper: {
+  addressWrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
-  typeText: {
-    textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: 'bold',
-  },
-  feeText: {
+  codeWrapper: {
     marginTop: 20,
-    fontSize: font.sizeSub,
-    lineHeight: font.lineHeightSub,
   },
 });
 
@@ -41,27 +40,82 @@ const ReceiveScreen = ({navigation}) => {
     [navigation],
   );
   return (
-    <Background style={styles.wrapper}>
-      {store.receive.invoice ? <Address /> : <LargeSpinner />}
+    <Background>
+      <Header>
+        <BackButton onPress={() => nav.goBack()} />
+        <Title>Receive</Title>
+        <IconButton />
+      </Header>
+      <MainContent style={styles.wrapper}>
+        {store.receive.invoice ? <Address /> : <LargeSpinner />}
+      </MainContent>
     </Background>
   );
 };
 
 const Address = () => (
-  <MainContent>
+  <View style={styles.addressWrapper}>
     <View style={styles.codeWrapper}>
-      <Text style={styles.typeText}>
-        {store.receiveTypeLabel}
-      </Text>
-      <QRCode size={260}>{store.receive.invoice}</QRCode>
-      <Text style={styles.feeText} numberOfLines={1}>
-        {store.receiveFeeLabel}
-      </Text>
+      <QRCode size={Dimensions.get('window').width - 2 * 30}>
+        {store.receive.invoice}
+      </QRCode>
     </View>
-    <PillButton onPress={() => receive.copyInvoice()}>
-      {store.receiveCopyBtnLabel}
-    </PillButton>
-  </MainContent>
+    <Summary />
+    <ShareCopyButton
+      onShare={() => receive.shareInvoice()}
+      onCopy={() => receive.copyInvoice()}
+    />
+  </View>
+);
+
+const Summary = () => (
+  <SummaryBox>
+    <SummaryLine>
+      <SummaryLabel>Amount</SummaryLabel>
+      <SummaryItem
+        top={store.receiveAmountFiatLabel}
+        bottom={store.receiveAmountSatLabel}
+      />
+    </SummaryLine>
+    <SummaryLine>
+      <SummaryLabel>Network Fees</SummaryLabel>
+      <SummaryItem
+        top={store.receiveFeesFiatLabel}
+        bottom={store.receiveFeesSatLabel}
+      />
+    </SummaryLine>
+    <SummaryTotal>
+      <SummaryItem
+        top={store.receiveTotalFiatLabel}
+        bottom={store.receiveTotalSatLabel}
+      />
+    </SummaryTotal>
+  </SummaryBox>
+);
+
+const bigBtnStyles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+  },
+  leftBtn: {
+    flex: 1,
+    marginRight: 8,
+  },
+  rightBtn: {
+    flex: 1,
+    marginLeft: 8,
+  },
+});
+
+const ShareCopyButton = ({ onShare, onCopy }) => (
+  <View style={bigBtnStyles.wrapper}>
+    <BigButton icon="share" onPress={onShare} style={bigBtnStyles.leftBtn}>
+      Share
+    </BigButton>
+    <BigButton icon="copy" onPress={onCopy} style={bigBtnStyles.rightBtn}>
+      Copy
+    </BigButton>
+  </View>
 );
 
 export default observer(ReceiveScreen);

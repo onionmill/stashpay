@@ -1,83 +1,78 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {Text} from '../component/text';
-import {font} from '../component/style';
-import {ArrowUpButton, GlasButton, IconButton} from '../component/button';
+import {font, color} from '../component/style';
+import {Text, Title} from '../component/text';
+import {Background} from '../component/background';
+import {MainContent, Header} from '../component/layout';
+import {BigButton, IconButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
 import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
-  safe: {
-    flex: 1,
+  title: {
+    fontFamily: 'SFProDisplay-Semibold',
   },
-  wrapper: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 25,
-  },
-  settingsBtn: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-  },
-  listBtn: {
-    position: 'absolute',
-    left: 10,
-    right: 10,
-    bottom: 20,
+  content: {
+    paddingBottom: 50,
   },
 });
 
 const WalletScreen = () => (
-  <SafeAreaView style={styles.safe}>
-    <View style={styles.wrapper}>
+  <Background>
+    <Header>
+      <IconButton
+        iconName={'clock'}
+        alert={store.balancePendingReceive}
+        onPress={() => nav.goTo('PaymentList')}
+      />
+      <Title style={styles.title}>StashPay</Title>
       <IconButton
         iconName={'settings'}
         onPress={() => nav.goTo('Settings')}
-        style={styles.settingsBtn}
       />
+    </Header>
+    <MainContent style={styles.content}>
       <Balance />
       <SendReceiveButton
         onSend={() => nav.goTo('SendStack')}
         onReceive={() => initReceive()}
       />
-      <ArrowUpButton
-        style={styles.listBtn}
-        onPress={() => nav.goTo('PaymentList')}
-      />
-    </View>
-  </SafeAreaView>
+    </MainContent>
+  </Background>
 );
 
 const balanceStyles = StyleSheet.create({
   wrapper: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  label: {
-    fontSize: font.sizeXL,
-    lineHeight: font.lineHeightXL,
+  primary: {
+    fontSize: font.sizeXXXXL,
+    lineHeight: font.lineHeightXXXXL,
   },
-  numeral: {
-    fontSize: font.sizeXXXL,
-    lineHeight: font.lineHeightXXXL,
+  secondary: {
+    color: color.textSecondary,
+    fontSize: font.sizeL,
+    lineHeight: font.lineHeightL,
   },
 });
 
 const Balance = observer(() => {
   return (
     <View style={balanceStyles.wrapper}>
-      <Text style={balanceStyles.label}>Total sats</Text>
       <Text
-        style={balanceStyles.numeral}
+        style={balanceStyles.primary}
         adjustsFontSizeToFit={true}
         numberOfLines={1}>
-        {store.balanceLabel}
+        {store.balanceFiatLabel}
+      </Text>
+      <Text style={balanceStyles.secondary}>
+        {store.balanceSatLabel}
       </Text>
     </View>
   );
@@ -90,28 +85,25 @@ const Balance = observer(() => {
 const bigBtnStyles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
-    marginTop: 60,
   },
   leftBtn: {
     flex: 1,
-    borderTopLeftRadius: 21,
-    borderBottomLeftRadius: 21,
+    marginRight: 4,
   },
   rightBtn: {
     flex: 1,
-    borderTopRightRadius: 21,
-    borderBottomRightRadius: 21,
+    marginLeft: 4,
   },
 });
 
 const SendReceiveButton = ({ onSend, onReceive }) => (
   <View style={bigBtnStyles.wrapper}>
-    <GlasButton onPress={onReceive} style={bigBtnStyles.leftBtn}>
+    <BigButton onPress={onReceive} style={bigBtnStyles.leftBtn}>
       Receive
-    </GlasButton>
-    <GlasButton onPress={onSend} style={bigBtnStyles.rightBtn}>
+    </BigButton>
+    <BigButton onPress={onSend} style={bigBtnStyles.rightBtn}>
       Send
-    </GlasButton>
+    </BigButton>
   </View>
 );
 

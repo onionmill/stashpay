@@ -2,9 +2,9 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {observer} from 'mobx-react';
 
-import {H1Text, Text} from '../component/text';
-import {PillButton} from '../component/button';
-import {MainContent, Spacer} from '../component/layout';
+import {Title, H1Text, Text} from '../component/text';
+import {IconButton, BackButton, BigButton} from '../component/button';
+import {Header, MainContent, Spacer} from '../component/layout';
 import {Background} from '../component/background';
 
 import * as nav from '../action/nav';
@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
 
 const SeedBackupInfoScreen = () => (
   <Background>
+    <Header>
+      <BackButton onPress={() => nav.goBack()} />
+      <Title>Backup</Title>
+      <IconButton/>
+    </Header>
     <MainContent>
       <H1Text>Recovery Phrase</H1Text>
       <Text style={styles.info}>
@@ -33,9 +38,9 @@ const SeedBackupInfoScreen = () => (
         The most secure backup option is to write it down on a piece of paper and keep that in a safe place. For smaller amounts you can also copy & paste it into a password manager.
       </Text>
       <Spacer />
-      <PillButton onPress={() => nav.goTo('SeedBackup')}>
+      <BigButton onPress={() => nav.goTo('SeedBackup')}>
         Display Recovery Phrase
-      </PillButton>
+      </BigButton>
     </MainContent>
   </Background>
 );

@@ -4,23 +4,24 @@ import {
   StyleSheet,
   SafeAreaView,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
+
+import {color as clr} from './style';
 
 //
 // Background
 //
 
 const styles = StyleSheet.create({
-  background: {
+  safe: {
     flex: 1,
   },
 });
 
-export const Background = ({color, children, style}) => (
-  <View style={[{backgroundColor: color}, styles.background]}>
+export const Background = ({color = clr.white, children, style}) => (
+  <SafeAreaView style={[{backgroundColor: color}, styles.safe]}>
     <ContentWrapper style={style}>{children}</ContentWrapper>
-  </View>
+  </SafeAreaView>
 );
 
 //
@@ -28,9 +29,6 @@ export const Background = ({color, children, style}) => (
 //
 
 const wrapperStyles = StyleSheet.create({
-  safe: {
-    flex: 1,
-  },
   avoid: {
     flex: 1,
   },
@@ -40,13 +38,11 @@ const wrapperStyles = StyleSheet.create({
 });
 
 export const ContentWrapper = ({children, style}) => (
-  <SafeAreaView style={wrapperStyles.safe}>
-    <KeyboardAvoidingView
-      style={wrapperStyles.avoid}
-      behavior={Platform.OS === 'android' ? null : 'padding'}>
-      <View style={[wrapperStyles.wrapper, style]}>
-        {children}
-      </View>
-    </KeyboardAvoidingView>
-  </SafeAreaView>
+  <KeyboardAvoidingView
+    style={wrapperStyles.avoid}
+    behavior="padding">
+    <View style={[wrapperStyles.wrapper, style]}>
+      {children}
+    </View>
+  </KeyboardAvoidingView>
 );

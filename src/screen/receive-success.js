@@ -1,40 +1,70 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Text} from '../component/text';
-import {PillButton} from '../component/button';
+import {
+  SummaryBox,
+  SummaryItem,
+  SummaryLabel,
+  SummaryLine,
+  SummaryTotal,
+} from '../component/summary';
+import {BigButton} from '../component/button';
 import {MainContent} from '../component/layout';
 import {Background} from '../component/background';
 import {font} from '../component/style';
 
+import store from '../store';
 import * as nav from '../action/nav';
 
 const styles = StyleSheet.create({
-  textWrapper: {
+  paramsWrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  value: {
-    fontSize: font.sizeXXL,
-    lineHeight: font.lineHeightXXL,
+  check: {
+    marginTop: 75,
+    height: 50,
+    width: 50,
   },
   label: {
-    marginTop: 20,
+    marginVertical: 20,
+    fontFamily: 'SFProDisplay-Medium',
     fontSize: font.sizeXXL,
     lineHeight: font.lineHeightXXL,
   },
 });
 
-const ReceiveSuccessScreen = ({route}) => (
+const ReceiveSuccessScreen = () => (
   <Background>
     <MainContent>
-      <View style={styles.textWrapper}>
-        <Text style={styles.value}>{route.params.valueLabel} sats</Text>
+      <View style={styles.paramsWrapper}>
+        <Image style={styles.check} source={require('../asset/img/check.png')} />
         <Text style={styles.label}>Payment received!</Text>
+        <SummaryBox>
+          <SummaryLine>
+            <SummaryLabel>Amount</SummaryLabel>
+            <SummaryItem
+              top={store.receiveEventAmountFiatLabel}
+              bottom={store.receiveEventAmountSatLabel}
+            />
+          </SummaryLine>
+          <SummaryLine>
+            <SummaryLabel>Network Fees</SummaryLabel>
+            <SummaryItem
+              top={store.receiveEventFeesFiatLabel}
+              bottom={store.receiveEventFeesSatLabel}
+            />
+          </SummaryLine>
+          <SummaryTotal>
+            <SummaryItem
+              top={store.receiveEventTotalFiatLabel}
+              bottom={store.receiveEventTotalSatLabel}
+            />
+          </SummaryTotal>
+        </SummaryBox>
       </View>
-      <PillButton onPress={() => nav.reset('Main')}>Done</PillButton>
+      <BigButton onPress={() => nav.reset('Main')}>Done</BigButton>
     </MainContent>
   </Background>
 );
