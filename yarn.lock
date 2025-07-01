@@ -2973,7 +2973,7 @@ __metadata:
     react-native-keychain: "npm:^9.2.3"
     react-native-qrcode-svg: "npm:^6.3.15"
     react-native-reanimated: "npm:^3.17.1"
-    react-native-safe-area-context: "npm:^5.3.0"
+    react-native-safe-area-context: "npm:^5.5.0"
     react-native-screens: "npm:^4.9.2"
     react-native-share: "npm:^12.0.9"
     react-native-svg: "npm:^15.11.2"
@@ -8287,13 +8287,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "react-native-safe-area-context@npm:5.3.0"
+"react-native-safe-area-context@npm:^5.5.0":
+  version: 5.5.0
+  resolution: "react-native-safe-area-context@npm:5.5.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/771abab96577fcdf7ff77835174d58ebb032df06938a99b30d24f192e2c8eb823cec88f289a33b862b7c10f35c6fccc5da02698aadcb2a199741cbf829ee4ea6
+  checksum: 10/6b8ea4199ac9e5136091c8193e78e1d4d0539d2831c4ae6d51b2f0e31766184bfee09a5b57fec83bbb208349aec590f5abfaeae27a08090ab5f67dd37e28c7a9
   languageName: node
   linkType: hard
 
