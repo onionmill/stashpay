@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 });
 
 const SendAddressScreen = () => (
-  <Background>
+  <Background keyboardAvoid>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
       <Title>@Address</Title>

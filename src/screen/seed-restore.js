@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 });
 
 const SeedRestoreScreen = () => (
-  <Background>
+  <Background keyboardAvoid>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
       <Title>Recovery</Title>

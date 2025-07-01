@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 });
 
 const ReceiveAmountScreen = () => (
-  <Background>
+  <Background keyboardAvoid>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
       <Title>Receive</Title>

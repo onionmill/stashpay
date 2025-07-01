@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 const SendAmountScreen = () => (
-  <Background>
+  <Background keyboardAvoid>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
       <Title>Amount</Title>

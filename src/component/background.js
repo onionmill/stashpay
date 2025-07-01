@@ -16,16 +16,25 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
   },
+  wrapper: {
+    flex: 1,
+  },
 });
 
-export const Background = ({color = clr.white, children, style}) => (
+export const Background = ({color = clr.white, keyboardAvoid, children, style}) => (
   <SafeAreaView style={[{backgroundColor: color}, styles.safe]}>
-    <ContentWrapper style={style}>{children}</ContentWrapper>
+    {
+      keyboardAvoid ? (
+        <KeyboardAvoidWrapper style={style}>{children}</KeyboardAvoidWrapper>
+      ) : (
+        <View style={[styles.wrapper, style]}>{children}</View>
+      )
+    }
   </SafeAreaView>
 );
 
 //
-// ContentWrapper
+// KeyboardAvoidWrapper
 //
 
 const wrapperStyles = StyleSheet.create({
@@ -37,7 +46,7 @@ const wrapperStyles = StyleSheet.create({
   },
 });
 
-export const ContentWrapper = ({children, style}) => (
+export const KeyboardAvoidWrapper = ({children, style}) => (
   <KeyboardAvoidingView
     style={wrapperStyles.avoid}
     behavior="padding">
