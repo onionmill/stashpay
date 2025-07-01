@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {observer} from 'mobx-react';
 
 import {color} from '../component/style';
@@ -39,7 +40,7 @@ const SendAddressScreen = ({navigation}) => {
   );
   return (
     <View style={styles.wrapper}>
-      <SafeAreaView style={styles.safeContent}>
+      <SafeAreaView style={styles.safeContent} edges={['left', 'bottom', 'right']}>
         <QRCodeScanner
           style={StyleSheet.absoluteFill}
           onCodeScanned={(data) => send.readQRCode(data)}
@@ -52,7 +53,7 @@ const SendAddressScreen = ({navigation}) => {
           Paste Address
         </BigButton>
       </SafeAreaView>
-      <SafeAreaView style={styles.safeHeader}>
+      <SafeAreaView style={styles.safeHeader} edges={['left', 'top', 'right']}>
         <Header>
           <BackButton onPress={() => nav.goBack()} />
           <Title>Send</Title>

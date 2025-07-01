@@ -2,9 +2,9 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {color as clr} from './style';
 
