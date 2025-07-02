@@ -512,57 +512,40 @@ describe('Util Unit Tests', () => {
     });
   });
 
-  describe('toAmountFlipLabel()', () => {
-    let settings;
-
-    beforeEach(() => {
-      settings = {
-        unit: 'btc',
-        fiat: 'usd',
-        exchangeRate: { usd: 0.00014503 },
-        displayFiat: true,
-      };
+  describe('toSatLabel()', () => {
+    it('should work for undefined', () => {
+      const lbl = util.toSatLabel(undefined);
+      expect(lbl).toBe('0 sats');
     });
 
-    it('should throw error if satoshis is undefined for fiat', () => {
-      expect(util.toAmountFlipLabel.bind(null, undefined, settings)).toThrow(/Invalid/);
+    it('should work for NaN', () => {
+      const lbl = util.toSatLabel(NaN);
+      expect(lbl).toBe('0 sats');
     });
 
-    it('should throw error if satoshis is null for fiat', () => {
-      expect(util.toAmountFlipLabel.bind(null, null, settings)).toThrow(/Invalid/);
+    it('should work for null', () => {
+      const lbl = util.toSatLabel(null);
+      expect(lbl).toBe('0 sats');
     });
 
-    it('should throw error if satoshis is empty for fiat', () => {
-      expect(util.toAmountFlipLabel.bind(null, '', settings)).toThrow(/Invalid/);
+    it('should work for empty string', () => {
+      const lbl = util.toSatLabel('');
+      expect(lbl).toBe('0 sats');
     });
 
-    it('should throw error if satoshis is undefined for amount', () => {
-      settings.displayFiat = false;
-      expect(util.toAmountFlipLabel.bind(null, undefined, settings)).toThrow(/Invalid/);
+    it('should format a 0', () => {
+      const lbl = util.toSatLabel(0);
+      expect(lbl).toBe('0 sats');
     });
 
-    it('should throw error if satoshis is string value', () => {
-      settings.displayFiat = false;
-      expect(util.toAmountFlipLabel.bind(null, '100000', settings)).toThrow(/Invalid/);
+    it('should format a sat string value', () => {
+      const lbl = util.toSatLabel('100000000');
+      expect(lbl).toMatch(/^1{1}0{2}[,.]{1}0{3}[,.]{1}0{3} sats$/);
     });
 
-    it('should throw error if settings is undefined', () => {
-      expect(util.toAmountFlipLabel.bind(null, 100000, undefined)).toThrow(/Cannot read propert/);
-    });
-
-    it('should throw error if settings is invalid', () => {
-      expect(util.toAmountFlipLabel.bind(null, 100000, {})).toThrow(/Invalid/);
-    });
-
-    it('should format a number value', () => {
-      const lbl = util.toAmountFlipLabel(100000, settings);
-      expect(lbl).toMatch(/1{1}0{2}[,.]0{3}/);
-    });
-
-    it('should convert number value to fiat', () => {
-      settings.displayFiat = false;
-      const lbl = util.toAmountFlipLabel(100000, settings);
-      expect(lbl).toMatch(/6{1}[,.]9{1}0{1}/);
+    it('should format a sat number value', () => {
+      const lbl = util.toSatLabel(100000000);
+      expect(lbl).toMatch(/^1{1}0{2}[,.]{1}0{3}[,.]{1}0{3} sats$/);
     });
   });
 

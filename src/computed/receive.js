@@ -1,9 +1,8 @@
 import {extendObservable} from 'mobx';
 import {
   toSatoshis,
-  toAmountFlipLabel,
   toAmountLabel,
-  formatNumber,
+  toSatLabel,
   toFiatLabel,
   FIATS,
   UNITS,
@@ -20,12 +19,11 @@ const ComputedReceive = store => {
       return displayFiat ? '' : ' ' + UNITS[unit].display;
     },
     get receiveFlipLabel() {
-      const {unit, displayFiat} = store.settings;
-      const {value} = store.receive;
-      const amountSat = toSatoshis(value, store.settings);
-      const amount = toAmountFlipLabel(amountSat, store.settings);
-      const suffix = !displayFiat ? '' : ' ' + UNITS[unit].display;
-      return `${amount}${suffix}`;
+      const {settings, receive: {value}} = store;
+      const amountSat = toSatoshis(value, settings);
+      return !settings.displayFiat
+        ? toFiatLabel(amountSat, settings)
+        : toSatLabel(amountSat);
     },
     get receiveMinValueLabel() {
       const {onChain, minSatLn, minSatBtc} = store.receive;
@@ -45,13 +43,13 @@ const ComputedReceive = store => {
     get receiveAmountSatLabel() {
       const {settings, receive: {value}} = store;
       const amountSat = toSatoshis(value, settings);
-      return formatNumber(amountSat) + ' sats';
+      return toSatLabel(amountSat);
     },
     get receiveFeesFiatLabel() {
       return toFiatLabel(store.receive.feesSat, store.settings);
     },
     get receiveFeesSatLabel() {
-      return formatNumber(store.receive.feesSat) + ' sats';
+      return toSatLabel(store.receive.feesSat);
     },
     get receiveTotalFiatLabel() {
       const {settings, receive: {value, feesSat}} = store;
@@ -61,7 +59,7 @@ const ComputedReceive = store => {
     get receiveTotalSatLabel() {
       const {value, feesSat} = store.receive;
       const amountSat = toSatoshis(value, store.settings);
-      return formatNumber(amountSat - feesSat) + ' sats';
+      return toSatLabel(amountSat - feesSat);
     },
     get receiveEventAmountFiatLabel() {
       const {settings, receiveEvent: {amountSat, feesSat}} = store;
@@ -69,19 +67,19 @@ const ComputedReceive = store => {
     },
     get receiveEventAmountSatLabel() {
       const {amountSat, feesSat} = store.receiveEvent;
-      return formatNumber(amountSat + feesSat) + ' sats';
+      return toSatLabel(amountSat + feesSat);
     },
     get receiveEventFeesFiatLabel() {
       return toFiatLabel(store.receiveEvent.feesSat, store.settings);
     },
     get receiveEventFeesSatLabel() {
-      return formatNumber(store.receiveEvent.feesSat) + ' sats';
+      return toSatLabel(store.receiveEvent.feesSat);
     },
     get receiveEventTotalFiatLabel() {
       return toFiatLabel(store.receiveEvent.amountSat, store.settings);
     },
     get receiveEventTotalSatLabel() {
-      return formatNumber(store.receiveEvent.amountSat) + ' sats';
+      return toSatLabel(store.receiveEvent.amountSat);
     },
   });
 };

@@ -1,11 +1,11 @@
 import {extendObservable} from 'mobx';
 
-import {formatNumber, toFiatLabel} from '../util';
+import {toSatLabel, toFiatLabel} from '../util';
 
 const ComputedWallet = store => {
   extendObservable(store, {
     get balanceSatLabel() {
-      return formatNumber(store.balance) + ' sats';
+      return toSatLabel(store.balance);
     },
     get balanceFiatLabel() {
       const {balance, settings} = store;

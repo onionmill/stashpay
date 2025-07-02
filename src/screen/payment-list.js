@@ -11,7 +11,7 @@ import {IconButton, BackButton} from '../component/button';
 import store from '../store';
 import * as nav from '../action/nav';
 import {openExplorer} from '../action/payment';
-import {formatDate, formatNumber, toFiatLabel} from '../util';
+import {formatDate, formatNumber, toSatLabel, toFiatLabel} from '../util';
 
 const styles = StyleSheet.create({
   list: {
@@ -52,7 +52,7 @@ const Item = ({item}) => (
     </View>
     <View style={styles.row}>
       <Text style={[styles.text, styles.secondary]}>
-        {formatNumber(item.amountSat)} sats
+        {toSatLabel(item.amountSat)}
         {item.feesSat ? ` (fee ${formatNumber(item.feesSat)})` : ''}
       </Text>
       <Text style={[styles.text, styles.secondary]}>
