@@ -102,7 +102,7 @@ const App = () => (
       <RootStack.Screen
         name="Main"
         component={WalletScreen}
-        options={{headerShown: false, animation: 'fade'}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="Settings"
