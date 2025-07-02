@@ -48,6 +48,8 @@
 	<string>Location request</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Scan QR Codes for Payment</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library Access for Sharing</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
