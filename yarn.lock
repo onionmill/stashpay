@@ -2964,7 +2964,7 @@ __metadata:
     buffer: "npm:^6.0.3"
     eslint: "npm:^8.19.0"
     jest: "npm:^29.6.3"
-    mobx: "npm:^6.13.6"
+    mobx: "npm:^6.13.7"
     mobx-react: "npm:^9.2.0"
     prettier: "npm:2.8.8"
     react: "npm:19.0.0"
@@ -2977,8 +2977,8 @@ __metadata:
     react-native-reanimated: "npm:^3.18.0"
     react-native-safe-area-context: "npm:^5.5.1"
     react-native-screens: "npm:^4.11.1"
-    react-native-share: "npm:^12.0.9"
-    react-native-svg: "npm:^15.11.2"
+    react-native-share: "npm:^12.1.0"
+    react-native-svg: "npm:^15.12.0"
     react-native-vector-icons: "npm:^10.2.0"
     react-native-vision-camera: "npm:^4.6.4"
     react-test-renderer: "npm:19.0.0"
@@ -7423,10 +7423,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx@npm:^6.13.6":
-  version: 6.13.6
-  resolution: "mobx@npm:6.13.6"
-  checksum: 10/2cebe47d8bdfd5d7246b920f23818d0103d722ee674e83a17ae285f095f78c673b841f301be53942b50e3c6084066881180eb658127381a7a9561c86f38588d8
+"mobx@npm:^6.13.7":
+  version: 6.13.7
+  resolution: "mobx@npm:6.13.7"
+  checksum: 10/5e27d8934e7ce820f436cf189a11ce94dc8c76a7b33b68ce476f46b88258be2c3f37830b13f2817a0f273666aea0fd7d530ff1676467862516ba22343040a192
   languageName: node
   linkType: hard
 
@@ -8330,16 +8330,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-share@npm:^12.0.9":
-  version: 12.0.9
-  resolution: "react-native-share@npm:12.0.9"
-  checksum: 10/ecef9bdaff0303ebefc023f934360a45f14efadba298d97a42dc0c1c8cc7418dc1672103362bd84785f8f646b09ecefcaa8c313d481233116783b81e5b8f93a8
+"react-native-share@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "react-native-share@npm:12.1.0"
+  checksum: 10/a7b9d4d8bd03b24f637f02e5112317e8050fe4f8d82554b6d16ae5177c8fcb3c8d1a88b0bbc7602dec445ad2399ea22a0b016ccdfa922c5fae3721986a5ef9af
   languageName: node
   linkType: hard
 
-"react-native-svg@npm:^15.11.2":
-  version: 15.11.2
-  resolution: "react-native-svg@npm:15.11.2"
+"react-native-svg@npm:^15.12.0":
+  version: 15.12.0
+  resolution: "react-native-svg@npm:15.12.0"
   dependencies:
     css-select: "npm:^5.1.0"
     css-tree: "npm:^1.1.3"
@@ -8347,7 +8347,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/bab86df8fdd4f500ad3f242558726693b0409b5e9b2a97cb3e9b5c1dfdcef01fe73fd36f01926ef20b19f99928b6ab1fb9e942bbeb1308aab27aa0d6c4877a5e
+  checksum: 10/e7df04154fcb76a5a7b0b4e376395f44cc4b90ca6df9d04cff8835546b0a501acf31c2d468742f4accf9ba6fe9e5efd8e5880133d518ad6fc1f3164d79674c8f
   languageName: node
   linkType: hard
 
