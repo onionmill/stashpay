@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 });
 
 const WalletScreen = () => (
-  <Background>
+  <Background keyboardAvoid>
     <Header>
       <IconButton
         iconName={'clock'}
