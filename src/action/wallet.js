@@ -81,13 +81,14 @@ export const initLiquidClient = action(async () => {
 
 const _onEvent = action(async e => {
   log.trace(`Received event: ${e.type}`);
-  log.trace(`Payment event details: ${JSON.stringify(e.details)}`);
+  e.details && log.trace(`Payment event details: ${JSON.stringify(e.details)}`);
   if (
     (e.type === liquid.SdkEventVariant.PAYMENT_PENDING ||
     e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION ||
     e.type === liquid.SdkEventVariant.PAYMENT_SUCCEEDED) &&
     e.details.paymentType === liquid.PaymentType.RECEIVE &&
-    e.details.details && e.details.details.swapId !== store.receiveEvent.swapId
+    e.details.details && e.details.details.swapId &&
+    e.details.details.swapId !== store.receiveEvent.swapId
   ) {
     log.trace(`Payment event swap: ${e.details.details.swapId}`);
     store.receiveEvent.swapId = e.details.details.swapId;
