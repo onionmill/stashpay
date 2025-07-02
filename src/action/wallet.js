@@ -82,20 +82,32 @@ export const initLiquidClient = action(async () => {
 const _onEvent = action(async e => {
   log.trace(`Received event: ${e.type}`);
   e.details && log.trace(`Payment event details: ${JSON.stringify(e.details)}`);
+  // show receive notification on incoming swap
   if (
     (e.type === liquid.SdkEventVariant.PAYMENT_PENDING ||
     e.type === liquid.SdkEventVariant.PAYMENT_WAITING_CONFIRMATION ||
     e.type === liquid.SdkEventVariant.PAYMENT_SUCCEEDED) &&
     e.details.paymentType === liquid.PaymentType.RECEIVE &&
     e.details.details && e.details.details.swapId &&
-    e.details.details.swapId !== store.receiveEvent.swapId
+    !store.receiveEvent.pendingSwaps.includes(e.details.details.swapId)
   ) {
     log.trace(`Payment event swap: ${e.details.details.swapId}`);
-    store.receiveEvent.swapId = e.details.details.swapId;
+    store.receiveEvent.pendingSwaps.push(e.details.details.swapId);
     store.receiveEvent.amountSat = e.details.amountSat;
     store.receiveEvent.feesSat = e.details.feesSat;
     nav.goTo('ReceiveSuccess');
   }
+  // remove swapId from pendingSwaps if payment succeeded
+  if (
+    e.type === liquid.SdkEventVariant.PAYMENT_SUCCEEDED &&
+    e.details.details && e.details.details.swapId
+  ) {
+    const index = store.receiveEvent.pendingSwaps.indexOf(e.details.details.swapId);
+    if (index > -1) {
+      store.receiveEvent.pendingSwaps.splice(index, 1);
+    }
+  }
+  // fetch updated balance and payments
   await update();
 });
 
