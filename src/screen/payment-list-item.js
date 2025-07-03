@@ -46,7 +46,9 @@ const SendSuccessScreen = () => (
           <SummaryLine>
             <SummaryLabel>Description</SummaryLabel>
           </SummaryLine>
-          <Text>{store.paymentDescriptionLabel}</Text>
+          <Text ellipsizeMode="tail" numberOfLines={3}>
+            {store.paymentDescriptionLabel}
+          </Text>
         </SummaryBox>
         <SummaryBox style={styles.midBox}>
           <SummaryLine>

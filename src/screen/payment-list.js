@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
   alert: {
     marginRight: 5,
   },
+  descriptionWrapper: {
+    flex: 1,
+    paddingRight: 20,
+  },
 });
 
 const Item = ({item}) => (
@@ -61,9 +65,15 @@ const Item = ({item}) => (
       </Text>
     </View>
     <View style={styles.row}>
-      <Text style={[styles.text, styles.secondary]}>
-        {item.details.description || 'No description'}
-      </Text>
+      <View style={styles.descriptionWrapper}>
+        <Text
+          style={[styles.text, styles.secondary]}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+        >
+          {item.details.description || 'No description'}
+        </Text>
+      </View>
       <Text style={[styles.text, styles.secondary]}>
         {toSatLabel(item.amountSat)}
       </Text>
