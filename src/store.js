@@ -2,6 +2,7 @@ import {observable} from 'mobx';
 import ComputedSend from './computed/send';
 import ComputedWallet from './computed/wallet';
 import ComputedReceive from './computed/receive';
+import ComputedPayment from './computed/payment';
 
 import {version, dependencies} from '../package.json';
 
@@ -17,6 +18,7 @@ const store = observable({
   balanceRefreshing: false,
   balanceFetched: false,
   payments: [],
+  selectedPayment: null,
   refundables: [],
   refundAddress: null,
 
@@ -73,5 +75,6 @@ const store = observable({
 ComputedSend(store);
 ComputedWallet(store);
 ComputedReceive(store);
+ComputedPayment(store);
 
 export default store;

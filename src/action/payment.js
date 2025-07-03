@@ -2,6 +2,7 @@ import {Linking} from 'react-native';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
 
 import store from '../store';
+import * as nav from './nav';
 import * as log from './log';
 import * as storage from './local-storage';
 
@@ -36,9 +37,15 @@ export async function deletePayments() {
   await storage.removeItem(PAYMENTS_KEY);
 }
 
-export async function openExplorer(payment) {
+export function selectPayment(payment) {
+  store.selectedPayment = payment;
+  nav.goTo('PaymentListItem');
+}
+
+export async function openExplorer() {
   try {
-    const url = `${store.config.explorer}/tx/${payment.txId}`;
+    const {txId} = store.selectedPayment;
+    const url = `${store.config.explorer}/tx/${txId}`;
     await Linking.openURL(url);
   } catch (err) {
     log.error(err);

@@ -27,7 +27,7 @@ const WalletScreen = () => (
       <IconButton
         iconName={'clock'}
         alert={store.balancePendingReceive}
-        onPress={() => nav.goTo('PaymentList')}
+        onPress={() => nav.goTo('PaymentListStack')}
       />
       <Title style={styles.title}>StashPay</Title>
       <IconButton

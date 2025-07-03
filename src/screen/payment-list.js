@@ -6,12 +6,12 @@ import {color, font} from '../component/style';
 import {Text, Title} from '../component/text';
 import {Header} from '../component/layout';
 import {Background} from '../component/background';
-import {IconButton, BackButton} from '../component/button';
+import {IconButton, BackButton, AlertBubble} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
-import {openExplorer} from '../action/payment';
-import {formatDate, formatNumber, toSatLabel, toFiatLabel} from '../util';
+import {selectPayment} from '../action/payment';
+import {toSatLabel, toFiatLabel} from '../util';
 
 const styles = StyleSheet.create({
   list: {
@@ -37,26 +37,35 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 3,
   },
+  title: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  alert: {
+    marginRight: 5,
+  },
 });
 
 const Item = ({item}) => (
-  <TouchableOpacity style={styles.item} onPress={() => openExplorer(item)}>
+  <TouchableOpacity style={styles.item} onPress={() => selectPayment(item)}>
     <View style={styles.row}>
+      <View style={styles.title}>
+        {item.status === 'pending' ? (<AlertBubble style={styles.alert} />) : null}
+        <Text style={styles.text}>
+          {item.paymentType === 'send' ? 'Payment' : 'Received Payment'}
+          {item.status === 'pending' ? ' (pending)' : ''}
+        </Text>
+      </View>
       <Text style={[{color: item.paymentType === 'send' ? color.textBase : color.green}, styles.text]}>
-        {item.paymentType === 'send' ? '-' : ''}
         {toFiatLabel(item.amountSat, store.settings)}
-      </Text>
-      <Text style={styles.text}>
-        {formatDate(item.timestamp)}
       </Text>
     </View>
     <View style={styles.row}>
       <Text style={[styles.text, styles.secondary]}>
-        {toSatLabel(item.amountSat)}
-        {item.feesSat ? ` (fee ${formatNumber(item.feesSat)})` : ''}
+        {item.details.description || 'No description'}
       </Text>
       <Text style={[styles.text, styles.secondary]}>
-        {item.status}
+        {toSatLabel(item.amountSat)}
       </Text>
     </View>
   </TouchableOpacity>

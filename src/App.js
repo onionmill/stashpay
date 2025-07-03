@@ -10,6 +10,7 @@ import ReceiveScreen from './screen/receive';
 import ReceiveAmountScreen from './screen/receive-amount';
 import ReceiveSuccessScreen from './screen/receive-success';
 import PaymentListScreen from './screen/payment-list';
+import PaymentListItemScreen from './screen/payment-list-item';
 import SendScreen from './screen/send';
 import SendAddressScreen from './screen/send-address';
 import SendAmountScreen from './screen/send-amount';
@@ -24,6 +25,7 @@ import WaitScreen from './screen/wait';
 const ReceiveStack = createNativeStackNavigator();
 const SendStack = createNativeStackNavigator();
 const SeedBackupStack = createNativeStackNavigator();
+const PaymentListStack = createNativeStackNavigator();
 const RootStack = createNativeStackNavigator();
 
 const ReceiveStackScreen = () => (
@@ -91,6 +93,21 @@ const SeedBackupStackScreen = () => (
   </SeedBackupStack.Navigator>
 );
 
+const PaymentListStackScreen = () => (
+  <PaymentListStack.Navigator>
+    <PaymentListStack.Screen
+      name="PaymentList"
+      component={PaymentListScreen}
+      options={{headerShown: false}}
+    />
+    <PaymentListStack.Screen
+      name="PaymentListItem"
+      component={PaymentListItemScreen}
+      options={{headerShown: false}}
+    />
+  </PaymentListStack.Navigator>
+);
+
 const App = () => (
   <NavigationContainer ref={navRef => nav.setTopLevelNavigator(navRef)}>
     <RootStack.Navigator screenOptions={{gestureEnabled: false}}>
@@ -136,8 +153,8 @@ const App = () => (
           options={{headerShown: false}}
         />
         <RootStack.Screen
-          name="PaymentList"
-          component={PaymentListScreen}
+          name="PaymentListStack"
+          component={PaymentListStackScreen}
           options={{headerShown: false}}
         />
       </RootStack.Group>
