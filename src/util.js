@@ -223,3 +223,16 @@ export const toLabel = (amount, settings) => {
 export const toSatLabel = satoshis => {
   return formatNumber(satoshis) + ' ' + UNITS.sat.display;
 };
+
+/**
+ * Convert a satoshi value either to fiat or sat formatted label.
+ * The output should be used throughout the UI for value labels.
+ * @param  {number} satoshis The BTC amount in satoshis
+ * @param  {Object} settings Contains the current exchange rate
+ * @return {string}          The corresponding value label
+ */
+export const toFiatOrSatLabel = (satoshis, settings) => {
+  return settings.displayFiat
+    ? toFiatLabel(satoshis, settings)
+    : toSatLabel(satoshis);
+};

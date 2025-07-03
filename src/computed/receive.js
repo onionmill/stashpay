@@ -1,7 +1,7 @@
 import {extendObservable} from 'mobx';
 import {
   toSatoshis,
-  toAmountLabel,
+  toFiatOrSatLabel,
   toSatLabel,
   toFiatLabel,
   FIATS,
@@ -26,13 +26,13 @@ const ComputedReceive = store => {
         : toSatLabel(amountSat);
     },
     get receiveMinValueLabel() {
-      const {onChain, minSatLn, minSatBtc} = store.receive;
-      const amount = toAmountLabel(onChain ? minSatBtc : minSatLn, store.settings);
-      return `${amount}${store.receiveInputSuffixLabel} minimum`;
+      const {settings, receive: {onChain, minSatLn, minSatBtc}} = store;
+      const minSat = onChain ? minSatBtc : minSatLn;
+      return `${toFiatOrSatLabel(minSat, settings)} minimum`;
     },
     get receiveAmountInvalid() {
-      const {value, onChain, minSatLn, minSatBtc} = store.receive;
-      const amountSat = toSatoshis(value, store.settings);
+      const {settings, receive: {value, onChain, minSatLn, minSatBtc}} = store;
+      const amountSat = toSatoshis(value, settings);
       return onChain ? amountSat < minSatBtc : amountSat < minSatLn;
     },
     get receiveAmountFiatLabel() {

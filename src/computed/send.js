@@ -2,7 +2,7 @@ import {extendObservable} from 'mobx';
 import {InputTypeVariant} from '@breeztech/react-native-breez-sdk-liquid';
 import {
   toSatoshis,
-  toAmountLabel,
+  toFiatOrSatLabel,
   toSatLabel,
   toFiatLabel,
 } from '../util';
@@ -19,11 +19,11 @@ const ComputedSend = store => {
     get sendMinValueLabel() {
       const {type} = JSON.parse(store.send.input);
       const {settings, send: {minSatLn, minSatBtc}} = store;
-      const amount = toAmountLabel(
+      const minSat =
         type === InputTypeVariant.BITCOIN_ADDRESS ? minSatBtc :
         type === InputTypeVariant.LIQUID_ADDRESS ? 1 :
-        minSatLn, settings);
-      return `${amount}${store.receiveInputSuffixLabel} minimum`;
+        minSatLn;
+      return `${toFiatOrSatLabel(minSat, settings)} minimum`;
     },
     get sendAmountInvalid() {
       const {type} = JSON.parse(store.send.input);
