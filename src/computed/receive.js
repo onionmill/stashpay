@@ -57,8 +57,8 @@ const ComputedReceive = store => {
       return toFiatLabel(amountSat - feesSat, settings);
     },
     get receiveTotalSatLabel() {
-      const {value, feesSat} = store.receive;
-      const amountSat = toSatoshis(value, store.settings);
+      const {settings, receive: {value, feesSat}} = store;
+      const amountSat = toSatoshis(value, settings);
       return toSatLabel(amountSat - feesSat);
     },
     get receiveEventAmountFiatLabel() {
