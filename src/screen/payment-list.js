@@ -61,6 +61,7 @@ const Item = ({item}) => (
         </Text>
       </View>
       <Text style={[{color: item.paymentType === 'send' ? color.textBase : color.green}, styles.text]}>
+        {item.paymentType === 'send' ? '-' : '+'}
         {toFiatLabel(item.amountSat, store.settings)}
       </Text>
     </View>
