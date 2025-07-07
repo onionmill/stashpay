@@ -46,7 +46,7 @@ const amountStyles = StyleSheet.create({
     justifyContent: 'center',
     height: font.lineHeightXXXXL,
   },
-  label: {
+  prefix: {
     fontSize: font.sizeXXXXL,
     lineHeight: font.lineHeightXXXXL,
   },
@@ -55,11 +55,17 @@ const amountStyles = StyleSheet.create({
     height: 84,
     textAlignVertical: 'center',
   },
+  suffix: {
+    fontSize: font.sizeL,
+    lineHeight: font.lineHeightL,
+    alignSelf: 'flex-begin',
+    paddingTop: 10,
+  },
 });
 
 export const AmountInput = ({prefix, suffix, style, ...props}) => (
   <View style={[amountStyles.wrapper, style]}>
-    <Text style={amountStyles.label}>{prefix}</Text>
+    <Text style={amountStyles.prefix}>{prefix}</Text>
     <TextInput
       autoFocus
       caretHidden
@@ -69,7 +75,7 @@ export const AmountInput = ({prefix, suffix, style, ...props}) => (
       style={amountStyles.input}
       {...props}
     />
-    <Text style={amountStyles.label}>{suffix}</Text>
+    <Text style={amountStyles.suffix}>{suffix}</Text>
   </View>
 );
 
