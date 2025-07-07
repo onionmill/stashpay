@@ -85,9 +85,9 @@ const Item = ({item}) => (
 const PaymentListScreen = () => (
   <Background>
     <Header>
-      <BackButton onPress={() => nav.goBack()} />
+      <IconButton />
       <Title>Payments</Title>
-      <IconButton/>
+      <IconButton iconName="x" onPress={() => nav.goBack()} />
     </Header>
     <FlatList
       style={styles.list}
