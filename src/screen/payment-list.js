@@ -6,7 +6,7 @@ import {color, font} from '../component/style';
 import {Text, Title} from '../component/text';
 import {Header} from '../component/layout';
 import {Background} from '../component/background';
-import {IconButton, BackButton, AlertBubble} from '../component/button';
+import {IconButton, AlertBubble} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
