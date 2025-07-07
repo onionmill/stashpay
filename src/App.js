@@ -155,7 +155,7 @@ const App = () => (
         <RootStack.Screen
           name="PaymentListStack"
           component={PaymentListStackScreen}
-          options={{headerShown: false}}
+          options={{headerShown: false, animation: 'slide_from_bottom'}}
         />
       </RootStack.Group>
     </RootStack.Navigator>
