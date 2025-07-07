@@ -145,6 +145,7 @@ export async function fetchBalance() {
 
 const _updateBalance = action(info => {
     store.balance = info.balanceSat;
+    store.balancePendingSend = info.pendingSendSat;
     store.balancePendingReceive = info.pendingReceiveSat;
     store.balanceFetched = true;
 });

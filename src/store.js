@@ -14,6 +14,7 @@ const store = observable({
   liquidConnected: false,
   liquidListenerId: null,
   balance: null,
+  balancePendingSend: null,
   balancePendingReceive: null,
   balanceRefreshing: false,
   balanceFetched: false,
