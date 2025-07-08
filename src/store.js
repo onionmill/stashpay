@@ -34,7 +34,9 @@ const store = observable({
     description: null,
     onChain: false,
     minSatLn: 100,
+    maxSatLn: 25_000_000,
     minSatBtc: 25_000,
+    maxSatBtc: 25_000_000,
   },
   receiveEvent: {
     pendingSwaps: [],
@@ -49,7 +51,9 @@ const store = observable({
     feesSat: null,
     description: null,
     minSatLn: 21,
+    maxSatLn: 25_000_000,
     minSatBtc: 25_000,
+    maxSatBtc: 25_000_000,
     processing: false,
   },
 

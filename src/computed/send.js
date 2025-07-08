@@ -27,11 +27,12 @@ const ComputedSend = store => {
     },
     get sendAmountInvalid() {
       const {type} = JSON.parse(store.send.input);
-      const {settings, send: {value, minSatLn, minSatBtc}} = store;
+      const {settings, send: {value, minSatLn, maxSatLn, minSatBtc, maxSatBtc}} = store;
       const amountSat = toSatoshis(value, settings);
-      return type === InputTypeVariant.BITCOIN_ADDRESS ? amountSat < minSatBtc :
+      return type === InputTypeVariant.BITCOIN_ADDRESS ?
+        amountSat < minSatBtc || amountSat > maxSatBtc :
         type === InputTypeVariant.LIQUID_ADDRESS ? amountSat < 1 :
-        amountSat < minSatLn;
+        amountSat < minSatLn || amountSat > maxSatLn;
     },
     get sendValueFiatLabel() {
       const {settings, send: {value}} = store;

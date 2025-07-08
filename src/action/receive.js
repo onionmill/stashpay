@@ -27,17 +27,25 @@ export async function fetchLimits() {
 export async function fetchLnLimits() {
   const limitsLn = await liquid.fetchLightningLimits();
   store.receive.minSatLn = limitsLn.receive.minSat;
+  store.receive.maxSatLn = limitsLn.receive.maxSat;
   store.send.minSatLn = limitsLn.send.minSat;
+  store.send.maxSatLn = limitsLn.send.maxSat;
   log.trace(`Min Ln receive: ${store.receive.minSatLn}`);
+  log.trace(`Max Ln receive: ${store.receive.maxSatLn}`);
   log.trace(`Min Ln send: ${store.send.minSatLn}`);
+  log.trace(`Max Ln send: ${store.send.maxSatLn}`);
 }
 
 export async function fetchOnchainLimits() {
   const limitsBtc = await liquid.fetchOnchainLimits();
   store.receive.minSatBtc = limitsBtc.receive.minSat;
+  store.receive.maxSatBtc = limitsBtc.receive.maxSat;
   store.send.minSatBtc = limitsBtc.send.minSat;
+  store.send.maxSatBtc = limitsBtc.send.maxSat;
   log.trace(`Min Btc receive: ${store.receive.minSatBtc}`);
+  log.trace(`Max Btc receive: ${store.receive.maxSatBtc}`);
   log.trace(`Min Btc send: ${store.send.minSatBtc}`);
+  log.trace(`Max Btc send: ${store.send.maxSatBtc}`);
 }
 
 export async function toggleOnchain() {
