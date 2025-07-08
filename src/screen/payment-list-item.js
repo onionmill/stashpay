@@ -21,12 +21,10 @@ import {openExplorer} from '../action/payment';
 const styles = StyleSheet.create({
   paramsWrapper: {
     flex: 1,
-  },
-  topBox: {
-    marginTop: 14,
+    marginTop: 10,
   },
   midBox: {
-    marginVertical: 14,
+    marginVertical: 10,
   },
   lastLine: {
     marginBottom: 0,
@@ -42,7 +40,7 @@ const SendSuccessScreen = () => (
     </Header>
     <MainContent>
       <View style={styles.paramsWrapper}>
-        <SummaryBox style={styles.topBox}>
+        <SummaryBox>
           <SummaryLine>
             <SummaryLabel>Description</SummaryLabel>
           </SummaryLine>

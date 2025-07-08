@@ -15,7 +15,7 @@ import {toSatLabel, toFiatLabel} from '../util';
 
 const styles = StyleSheet.create({
   list: {
-    marginTop: 7,
+    marginTop: 5,
   },
   item: {
     padding: 7,
