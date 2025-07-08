@@ -1,4 +1,5 @@
 import React from 'react';
+import {Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -150,12 +151,18 @@ const App = () => (
         <RootStack.Screen
           name="ReceiveSuccess"
           component={ReceiveSuccessScreen}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            animation: Platform.OS === 'android' ? 'fade_from_bottom' : undefined,
+          }}
         />
         <RootStack.Screen
           name="PaymentListStack"
           component={PaymentListStackScreen}
-          options={{headerShown: false, animation: 'slide_from_bottom'}}
+          options={{
+            headerShown: false,
+            animation: Platform.OS === 'android' ? 'fade_from_bottom' : undefined,
+          }}
         />
       </RootStack.Group>
     </RootStack.Navigator>
