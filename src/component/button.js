@@ -158,6 +158,18 @@ export const BackButton = ({onPress, style}) => (
 );
 
 //
+// Close Button
+//
+
+export const CloseButton = ({onPress, style}) => (
+  <IconButton
+    iconName={'x'}
+    onPress={onPress}
+    style={style}
+  />
+);
+
+//
 // Big Button
 //
 

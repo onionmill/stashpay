@@ -6,7 +6,7 @@ import {color, font} from '../component/style';
 import {Text, Title} from '../component/text';
 import {Header} from '../component/layout';
 import {Background} from '../component/background';
-import {IconButton, AlertBubble} from '../component/button';
+import {IconButton, CloseButton, AlertBubble} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
@@ -87,7 +87,7 @@ const PaymentListScreen = () => (
     <Header>
       <IconButton />
       <Title>Payments</Title>
-      <IconButton iconName="x" onPress={() => nav.goBack()} />
+      <CloseButton onPress={() => nav.goBack()} />
     </Header>
     <FlatList
       style={styles.list}
