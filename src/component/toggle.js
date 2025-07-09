@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: color.bgGrey,
     height: 34,
-    marginTop: 20,
+    marginTop: 10,
     borderRadius: 8,
   },
   button: {

@@ -23,12 +23,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topBox: {
-    marginTop: 50,
+    marginTop: 40,
   },
   bottomBox: {
     marginTop: 15,
-  },
-  addressText: {
   },
   nextBtn: {
     marginTop: 50,
@@ -48,7 +46,7 @@ const SendConfirmScreen = () => (
           <SummaryLine>
             <SummaryLabel>Description</SummaryLabel>
           </SummaryLine>
-          <Text style={styles.addressText}>
+          <Text>
             {store.send.description || 'No description provided'}
           </Text>
         </SummaryBox>

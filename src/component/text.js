@@ -44,7 +44,7 @@ export const Title = ({children, style}) => (
 
 const h1Styles = StyleSheet.create({
   text: {
-    marginTop: 24,
+    marginTop: 14,
     fontFamily: 'SFProDisplay-Bold',
     fontSize: font.sizeXXL,
     lineHeight: font.lineHeightXXL,

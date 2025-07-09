@@ -14,7 +14,7 @@ import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 60,
+    marginTop: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 35,

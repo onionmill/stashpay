@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   check: {
-    marginTop: 75,
+    marginTop: 65,
     height: 50,
     width: 50,
   },

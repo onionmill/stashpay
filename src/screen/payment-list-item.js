@@ -21,7 +21,6 @@ import {openExplorer} from '../action/payment';
 const styles = StyleSheet.create({
   paramsWrapper: {
     flex: 1,
-    marginTop: 10,
   },
   midBox: {
     marginVertical: 10,

@@ -29,9 +29,7 @@ const headerStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    padding: 10,
   },
 });
 
