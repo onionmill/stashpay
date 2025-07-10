@@ -78,7 +78,7 @@ const Summary = () => (
       />
     </SummaryLine>
     <SummaryLine>
-      <SummaryLabel>Network Fees</SummaryLabel>
+      <SummaryLabel>Network Fees (estimate)</SummaryLabel>
       <SummaryItem
         top={store.receiveFeesFiatLabel}
         bottom={store.receiveFeesSatLabel}
