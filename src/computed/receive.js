@@ -25,9 +25,21 @@ const ComputedReceive = store => {
         ? toFiatLabel(amountSat, settings)
         : toSatLabel(amountSat);
     },
-    get receiveMinValueLabel() {
-      const {settings, receive: {onChain, minSatLn, minSatBtc}} = store;
+    get receiveMinMaxValueLabel() {
+      const {settings, receive: {
+        value,
+        onChain,
+        minSatLn,
+        maxSatLn,
+        minSatBtc,
+        maxSatBtc,
+      }} = store;
       const minSat = onChain ? minSatBtc : minSatLn;
+      const maxSat = onChain ? maxSatBtc : maxSatLn;
+      const amountSat = toSatoshis(value, settings);
+      if (amountSat >= maxSat) {
+        return `${toFiatOrSatLabel(maxSat, settings)} maximum`;
+      }
       return `${toFiatOrSatLabel(minSat, settings)} minimum`;
     },
     get receiveAmountInvalid() {

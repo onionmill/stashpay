@@ -16,18 +16,38 @@ const ComputedSend = store => {
         ? toFiatLabel(amountSat, settings)
         : toSatLabel(amountSat);
     },
-    get sendMinValueLabel() {
+    get sendMinMaxValueLabel() {
       const {type} = JSON.parse(store.send.input);
-      const {settings, send: {minSatLn, minSatBtc}} = store;
+      const {settings, send: {
+        value,
+        minSatLn,
+        maxSatLn,
+        minSatBtc,
+        maxSatBtc,
+      }} = store;
       const minSat =
         type === InputTypeVariant.BITCOIN_ADDRESS ? minSatBtc :
         type === InputTypeVariant.LIQUID_ADDRESS ? 1 :
         minSatLn;
+      const maxSat =
+        type === InputTypeVariant.BITCOIN_ADDRESS ? maxSatBtc :
+        type === InputTypeVariant.LIQUID_ADDRESS ? Infinity :
+        maxSatLn;
+      const amountSat = toSatoshis(value, settings);
+      if (amountSat >= maxSat) {
+        return `${toFiatOrSatLabel(maxSat, settings)} maximum`;
+      }
       return `${toFiatOrSatLabel(minSat, settings)} minimum`;
     },
     get sendAmountInvalid() {
       const {type} = JSON.parse(store.send.input);
-      const {settings, send: {value, minSatLn, maxSatLn, minSatBtc, maxSatBtc}} = store;
+      const {settings, send: {
+        value,
+        minSatLn,
+        maxSatLn,
+        minSatBtc,
+        maxSatBtc,
+      }} = store;
       const amountSat = toSatoshis(value, settings);
       return type === InputTypeVariant.BITCOIN_ADDRESS ?
         amountSat < minSatBtc || amountSat > maxSatBtc :

@@ -53,7 +53,7 @@ const ReceiveAmountScreen = () => (
         Create Invoice
       </BigButton>
       <ErrorLabel error={store.receiveAmountInvalid}>
-        {store.receiveMinValueLabel}
+        {store.receiveMinMaxValueLabel}
       </ErrorLabel>
     </MainContent>
   </Background>

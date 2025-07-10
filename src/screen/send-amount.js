@@ -47,7 +47,7 @@ const SendAmountScreen = () => (
         Review
       </BigButton>
       <ErrorLabel error={store.sendAmountInvalid}>
-        {store.sendMinValueLabel}
+        {store.sendMinMaxValueLabel}
       </ErrorLabel>
     </MainContent>
   </Background>
