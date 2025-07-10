@@ -6,22 +6,38 @@ import * as log from './log';
 import * as nav from './nav';
 import * as storage from './local-storage';
 
+const FIAT_KEY = 'fiat';
 const RATES_KEY = 'rates';
 const POLL_DELAY = 15 * 60 * 1000;
 
-export const loadRates = action(async () => {
+export const init = action(async () => {
   try {
-    const {fiat, exchangeRate} = store.settings;
-    const rates = await storage.getItem(RATES_KEY);
-    if (!rates) {
-      return;
-    }
-    exchangeRate[fiat] = Number(rates.BTC);
-    log.trace(`Cached rates: ${JSON.stringify(exchangeRate)}`);
+    await _loadSelected();
+    await _loadRates();
   } catch (err) {
     alert.error({err});
   }
+  _pollRates();
 });
+
+const _loadSelected = async () => {
+  const savedFiat = await storage.getItem(FIAT_KEY);
+  if (!savedFiat) {
+    return;
+  }
+  store.settings.fiat = savedFiat;
+  log.trace(`Loaded selected fiat: ${savedFiat}`);
+};
+
+const _loadRates = async () => {
+  const {fiat, exchangeRate} = store.settings;
+  const rates = await storage.getItem(RATES_KEY);
+  if (!rates) {
+    return;
+  }
+  exchangeRate[fiat] = Number(rates.BTC);
+  log.trace(`Cached rates: ${JSON.stringify(exchangeRate)}`);
+};
 
 const _fetchRates = action(async () => {
   try {
@@ -41,7 +57,7 @@ const _fetchRates = action(async () => {
   }
 });
 
-export async function pollRates() {
+async function _pollRates() {
   await poll(() => _fetchRates(), POLL_DELAY);
 }
 
@@ -50,6 +66,12 @@ export function initFiatSelect() {
 }
 
 export async function setCurrency(fiat) {
-  store.settings.fiat = fiat;
-  await _fetchRates();
+  try {
+    store.settings.fiat = fiat;
+    await storage.setItem(FIAT_KEY, fiat);
+    await _loadRates();
+    await _fetchRates();
+  } catch (err) {
+    alert.error({err});
+  }
 }

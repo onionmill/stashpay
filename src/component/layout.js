@@ -46,7 +46,9 @@ export const Header = ({children, style}) => (
 const scrollStyles = StyleSheet.create({
   content: {
     flexGrow: 1,
-    padding: 24,
+    paddingLeft: 24,
+    paddingRight: 24,
+    paddingBottom: 24,
   },
 });
 

@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 
 import {Title} from '../component/text';
 import {Background} from '../component/background';
-import {Header, MainContent} from '../component/layout';
+import {Header, ScrollContent} from '../component/layout';
 import {Section, SectionItem} from '../component/section';
 import {IconButton, BackButton} from '../component/button';
 
@@ -20,7 +20,7 @@ const FiatSelectScreen = () => (
       <Title>Select Fiat</Title>
       <IconButton/>
     </Header>
-    <MainContent>
+    <ScrollContent>
       <Section title="Fiat Currencies">
         {Object.keys(FIATS).map(code => (
           <SectionItem
@@ -31,7 +31,7 @@ const FiatSelectScreen = () => (
           />
         ))}
       </Section>
-    </MainContent>
+    </ScrollContent>
   </Background>
 );
 
