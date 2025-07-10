@@ -7,9 +7,9 @@ export const UNITS = {
   btc: { display: 'BTC', displayLong: 'Bitcoin', denominator: 100000000 },
 };
 export const FIATS = {
-  usd: { display: '$', displayLong: 'US Dollar' },
-  eur: { display: '€', displayLong: 'Euro' },
-  gbp: { display: '£', displayLong: 'British Pound' },
+  usd: { display: '$', displayLong: 'US Dollar (USD)' },
+  eur: { display: '€', displayLong: 'Euro (EUR)' },
+  gbp: { display: '£', displayLong: 'British Pound (GBP)' },
 };
 
 export function nap(ms = NAP_DELAY) {

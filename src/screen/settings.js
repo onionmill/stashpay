@@ -12,6 +12,7 @@ import {Section, SectionItem} from '../component/section';
 import store from '../store';
 import * as nav from '../action/nav';
 import * as log from '../action/log';
+import * as fiat from '../action/fiat';
 import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
@@ -59,7 +60,12 @@ const SettingsScreen = () => (
           icon="chevron-right"
         />
       </Section>
-      <Section title="Advanced">
+      <Section title="Config">
+        <SectionItem
+          title="Fiat Currency"
+          onPress={() => fiat.initFiatSelect()}
+          icon="chevron-right"
+        />
         <SectionItem
           title="Export logs"
           onPress={() => log.exportLogFile()}

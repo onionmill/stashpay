@@ -21,6 +21,7 @@ import SettingsScreen from './screen/settings';
 import SeedBackupInfoScreen from './screen/seed-backup-info';
 import SeedBackupScreen from './screen/seed-backup';
 import SeedRestoreScreen from './screen/seed-restore';
+import FiatSelectScreen from './screen/fiat-select';
 import WaitScreen from './screen/wait';
 
 const ReceiveStack = createNativeStackNavigator();
@@ -145,6 +146,11 @@ const App = () => (
       <RootStack.Screen
         name="SendStack"
         component={SendStackScreen}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
+        name="FiatSelect"
+        component={FiatSelectScreen}
         options={{headerShown: false}}
       />
       <RootStack.Group screenOptions={{presentation: 'modal'}}>
