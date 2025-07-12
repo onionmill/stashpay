@@ -3,7 +3,6 @@ import {action} from 'mobx';
 import store from '../store';
 import {poll} from '../util';
 import * as log from './log';
-import * as nav from './nav';
 import * as storage from './local-storage';
 
 const FIAT_KEY = 'fiat';
@@ -59,10 +58,6 @@ const _fetchRates = action(async () => {
 
 async function _pollRates() {
   await poll(() => _fetchRates(), POLL_DELAY);
-}
-
-export function initFiatSelect() {
-  nav.goTo('FiatSelect');
 }
 
 export async function setCurrency(fiat) {
