@@ -9,11 +9,12 @@ import * as log from './log';
 import * as alert from './alert';
 import * as nav from '../action/nav';
 
-export function initReceive() {
+export async function initReceive() {
   store.receive.value = '';
   store.receive.onChain = false;
   store.settings.displayFiat = true;
   nav.goTo('ReceiveStack');
+  await fetchLimits(); // after nav for performance
 }
 
 export async function fetchLimits() {
@@ -70,7 +71,6 @@ export async function fetchInvoice() {
     while (!store.liquidConnected) {
       await nap(100);
     }
-    await fetchOnchainLimits();
     const amountSat = toSatoshis(value, settings);
     let response;
     if (unified && amountSat >= store.receive.minSatBtc) {
