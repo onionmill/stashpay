@@ -29,12 +29,14 @@ const ReceiveAmountScreen = () => (
       <IconButton/>
     </Header>
     <MainContent>
-      <Toggle
-        label1="Lightning"
-        label2="OnChain"
-        value={store.receive.onChain ? '2' : '1'}
-        onPress={() => receive.toggleOnchain()}
-      />
+      {!store.receive.unified ? (
+        <Toggle
+          label1="Lightning"
+          label2="OnChain"
+          value={store.receive.onChain ? '2' : '1'}
+          onPress={() => receive.toggleOnchain()}
+        />
+      ) : null}
       <View style={styles.amountWrapper}>
         <AmountInput
           prefix={store.receiveInputPrefixLabel}

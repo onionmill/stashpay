@@ -66,6 +66,11 @@ const SettingsScreen = () => (
           icon="chevron-right"
         />
         <SectionItem
+          title="Receive QR Code"
+          onPress={() => nav.goTo('QrSelect')}
+          icon="chevron-right"
+        />
+        <SectionItem
           title="Export logs"
           onPress={() => log.exportLogFile()}
           icon="download"

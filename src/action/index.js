@@ -5,6 +5,7 @@ import * as link from './link';
 import * as fiat from './fiat';
 import * as wallet from './wallet';
 import * as receive from './receive';
+import * as settings from './settings';
 
 configure({enforceActions: 'never'}); // disable strict mode
 
@@ -13,6 +14,7 @@ when(
   async () => {
     await fiat.init();
     await wallet.init();
+    await settings.init();
   },
 );
 
