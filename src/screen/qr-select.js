@@ -15,7 +15,7 @@ const QRSelectScreen = () => (
   <Background>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
-      <Title>QR Code</Title>
+      <Title>Receive QR</Title>
       <IconButton/>
     </Header>
     <ScrollContent>
