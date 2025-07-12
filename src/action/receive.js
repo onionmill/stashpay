@@ -99,12 +99,9 @@ async function _fetchUnifiedInvoice() {
 }
 
 async function _fetchBtcInvoice() {
-  const {settings, receive: {value, description}} = store;
+  const {receive: {description}} = store;
   const prepareResponse = await liquid.prepareReceivePayment({
-    amount: {
-      type: liquid.ReceiveAmountVariant.BITCOIN,
-      payerAmountSat: toSatoshis(value, settings),
-    },
+    amount: undefined,
     paymentMethod: liquid.PaymentMethod.BITCOIN_ADDRESS,
   });
   log.trace(`Onchain receive fees: ${prepareResponse.feesSat}`);
