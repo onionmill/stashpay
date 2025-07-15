@@ -5,7 +5,7 @@ import {observer} from 'mobx-react';
 import {Title, H1Text} from '../component/text';
 import {TextInput} from '../component/input';
 import {BigButton, IconButton, BackButton} from '../component/button';
-import {Header, MainContent, Spacer} from '../component/layout';
+import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
@@ -14,8 +14,9 @@ import * as send from '../action/send';
 
 const styles = StyleSheet.create({
   input: {
+    flex: 1,
     marginTop: 20,
-    height: 150,
+    marginBottom: 24,
   },
 });
 
@@ -37,7 +38,6 @@ const SendAddressScreen = () => (
         value={store.send.rawUri}
         onChangeText={rawUri => send.setUri(rawUri)}
       />
-      <Spacer />
       <BigButton
         processing={store.send.processing}
         onPress={() => send.parseUri()}>
