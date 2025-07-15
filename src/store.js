@@ -31,7 +31,7 @@ const store = observable({
     value: '',
     invoice: null,
     feesSat: null,
-    description: null,
+    description: '',
     unified: true,
     onChain: false,
     minSatLn: 100,
