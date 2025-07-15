@@ -15,11 +15,11 @@ const QRSelectScreen = () => (
   <Background>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
-      <Title>Receive QR</Title>
+      <Title>Receive QR Code</Title>
       <IconButton/>
     </Header>
     <ScrollContent>
-      <Section title="Receive QR Code">
+      <Section title="Receive Protocols">
         <SectionItem
           title="Unified QR Code (Recommended)"
           onPress={() => settings.setUnifiedQR(true)}
