@@ -19,9 +19,9 @@ const stylesSection = StyleSheet.create({
   },
 });
 
-export const Section = ({title, children}) => (
-  <View style={stylesSection.wrapper}>
-    <Text style={stylesSection.title}>{title}</Text>
+export const Section = ({title, style, children}) => (
+  <View style={[stylesSection.wrapper, style]}>
+    {title ? (<Text style={stylesSection.title}>{title}</Text>) : null}
     {children}
   </View>
 );
