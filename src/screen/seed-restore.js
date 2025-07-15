@@ -14,7 +14,7 @@ import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
   input: {
-    flex: 1,
+    flexGrow: 1,
     marginTop: 20,
     marginBottom: 24,
   },
