@@ -11,7 +11,7 @@ import {
   SummaryTotal,
 } from '../component/summary';
 import {QRCode} from '../component/qrcode';
-import {BigButton, IconButton, BackButton} from '../component/button';
+import {BigButton, CloseButton, BackButton} from '../component/button';
 import {LargeSpinner} from '../component/spinner';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
@@ -43,7 +43,7 @@ const ReceiveScreen = ({navigation}) => {
       <Header>
         <BackButton onPress={() => nav.goBack()} />
         <Title>Receive</Title>
-        <IconButton />
+        <CloseButton onPress={() => nav.goBackTo('Main')} />
       </Header>
       <MainContent style={styles.wrapper}>
         {store.receive.invoice ? <Address /> : <LargeSpinner />}
