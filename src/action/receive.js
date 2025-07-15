@@ -128,9 +128,9 @@ async function _fetchLnInvoice() {
 
 function _wrapBip21Btc(btcInvoice) {
   const {settings, receive: {value}} = store;
-  const {address, options: {label}} = bip21.decode(btcInvoice);
+  const {address} = bip21.decode(btcInvoice);
   const amount = toSatoshis(value, settings) / UNITS.btc.denominator;
-  return bip21.encode(address, {amount, label});
+  return bip21.encode(address, {amount});
 }
 
 function _wrapBip21Unified(btcInvoice, lnInvoice) {
