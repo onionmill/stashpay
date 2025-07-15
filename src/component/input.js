@@ -36,6 +36,31 @@ export class TextInput extends Component {
 }
 
 //
+// Search Bar
+//
+
+const searchStyles = StyleSheet.create({
+  input: {
+    height: 40,
+    marginTop: 10,
+    marginBottom: 15,
+    paddingLeft: 20,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: color.borderGrey,
+    fontSize: font.sizeBase,
+    textAlignVertical: 'center',
+  },
+});
+
+export const SearchBar = ({style, ...props}) => (
+  <TextInput
+    style={[searchStyles.input, style]}
+    {...props}
+  />
+);
+
+//
 // Amount Input
 //
 
@@ -78,4 +103,3 @@ export const AmountInput = ({prefix, suffix, style, ...props}) => (
     <Text style={amountStyles.suffix}>{suffix}</Text>
   </View>
 );
-
