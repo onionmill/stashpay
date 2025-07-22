@@ -10,7 +10,7 @@ import {
   SummaryLine,
   SummaryTotal,
 } from '../component/summary';
-import {BigButton, IconButton, BackButton} from '../component/button';
+import {BigButton, CloseButton, BackButton} from '../component/button';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
@@ -38,7 +38,7 @@ const SendConfirmScreen = () => (
     <Header>
       <BackButton onPress={() => nav.goBack()} />
       <Title>Confirm</Title>
-      <IconButton/>
+      <CloseButton onPress={() => nav.goBackTo('Main')} />
     </Header>
     <MainContent>
       <View style={styles.paramsWrapper}>
