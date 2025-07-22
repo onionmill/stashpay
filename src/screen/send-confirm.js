@@ -44,10 +44,10 @@ const SendConfirmScreen = () => (
       <View style={styles.paramsWrapper}>
         <SummaryBox style={styles.topBox}>
           <SummaryLine>
-            <SummaryLabel>Description</SummaryLabel>
+            <SummaryLabel>{store.sendDescriptionTitle}</SummaryLabel>
           </SummaryLine>
           <Text>
-            {store.send.description || 'No description provided'}
+            {store.sendDescriptionLabel}
           </Text>
         </SummaryBox>
         <SummaryBox style={styles.bottomBox}>

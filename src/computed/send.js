@@ -54,6 +54,20 @@ const ComputedSend = store => {
         type === InputTypeVariant.LIQUID_ADDRESS ? amountSat < 1 :
         amountSat < minSatLn || amountSat > maxSatLn;
     },
+    get sendDescriptionTitle() {
+      const {type} = JSON.parse(store.send.input);
+      return (type === InputTypeVariant.BITCOIN_ADDRESS ||
+        type === InputTypeVariant.LIQUID_ADDRESS) ?
+        'Address' :
+        'Description';
+    },
+    get sendDescriptionLabel() {
+      const {type, address} = JSON.parse(store.send.input);
+      return (type === InputTypeVariant.BITCOIN_ADDRESS ||
+        type === InputTypeVariant.LIQUID_ADDRESS) ?
+        address.address :
+        (store.send.description || 'No description provided');
+    },
     get sendValueFiatLabel() {
       const {settings, send: {value}} = store;
       const amountSat = toSatoshis(value, settings);
