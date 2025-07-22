@@ -4,7 +4,7 @@ import {observer} from 'mobx-react';
 
 import {Title, H1Text} from '../component/text';
 import {TextInput} from '../component/input';
-import {BigButton, IconButton, BackButton} from '../component/button';
+import {BigButton, CloseButton, BackButton} from '../component/button';
 import {Header, MainContent} from '../component/layout';
 import {Background} from '../component/background';
 
@@ -25,7 +25,7 @@ const SendAddressScreen = () => (
     <Header>
       <BackButton onPress={() => nav.goBack()} />
       <Title>@Address</Title>
-      <IconButton/>
+      <CloseButton onPress={() => nav.goBackTo('Main')} />
     </Header>
     <MainContent>
       <H1Text>Lightning Address</H1Text>
