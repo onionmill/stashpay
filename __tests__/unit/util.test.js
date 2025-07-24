@@ -1,6 +1,37 @@
 import * as util from '../../src/util';
 
 describe('Util Unit Tests', () => {
+  describe('normalizeAmount()', () => {
+    it('should filter out non-numeric characters', () => {
+      expect(util.normalizeAmount('abc1_23.45xyz')).toBe('123.45');
+      expect(util.normalizeAmount('$100,000')).toBe('100,000');
+      expect(util.normalizeAmount('-1a2b3c.4d5')).toBe('123.45');
+    });
+
+    it('should handle decimal separators', () => {
+      expect(util.normalizeAmount('1,000.00')).toBe('1,000.00');
+      expect(util.normalizeAmount('1.000,00')).toBe('1.000,00');
+      expect(util.normalizeAmount('1.000.000')).toBe('1.000.000');
+    });
+
+    it('should add leading zero to lone decimal separator', () => {
+      expect(util.normalizeAmount('.')).toBe('0.');
+      expect(util.normalizeAmount(',')).toBe('0,');
+    });
+
+    it('should remove second trailing decimal separator', () => {
+      expect(util.normalizeAmount('123.456.')).toBe('123.456');
+      expect(util.normalizeAmount('123,456,')).toBe('123,456');
+      expect(util.normalizeAmount('123.456,')).toBe('123.456');
+    });
+
+    it('should handle empty or invalid input', () => {
+      expect(util.normalizeAmount('')).toBe('');
+      expect(util.normalizeAmount('abc')).toBe('');
+      expect(util.normalizeAmount('!@#-')).toBe('');
+    });
+  });
+
   describe('formatNumber()', () => {
     it('should work for undefined', () => {
       const num = util.formatNumber(undefined);
