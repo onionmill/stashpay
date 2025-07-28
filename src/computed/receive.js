@@ -19,15 +19,15 @@ const ComputedReceive = store => {
       return displayFiat ? '' : ' ' + UNITS[unit].display;
     },
     get receiveFlipLabel() {
-      const {settings, receive: {value}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, receive: {amount}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return !settings.displayFiat
         ? toFiatLabel(amountSat, settings)
         : toSatLabel(amountSat);
     },
-    get receiveMinMaxValueLabel() {
+    get receiveMinMaxAmountLabel() {
       const {settings, receive: {
-        value,
+        amount,
         onChain,
         minSatLn,
         maxSatLn,
@@ -36,7 +36,7 @@ const ComputedReceive = store => {
       }} = store;
       const minSat = onChain ? minSatBtc : minSatLn;
       const maxSat = onChain ? maxSatBtc : maxSatLn;
-      const amountSat = toSatoshis(value, settings);
+      const amountSat = toSatoshis(amount, settings);
       if (amountSat >= maxSat) {
         return `${toFiatOrSatLabel(maxSat, settings)} maximum`;
       }
@@ -44,26 +44,26 @@ const ComputedReceive = store => {
     },
     get receiveAmountInvalid() {
       const {settings, receive: {
-        value,
+        amount,
         onChain,
         minSatLn,
         maxSatLn,
         minSatBtc,
         maxSatBtc,
       }} = store;
-      const amountSat = toSatoshis(value, settings);
+      const amountSat = toSatoshis(amount, settings);
       return onChain ?
         amountSat < minSatBtc || amountSat > maxSatBtc :
         amountSat < minSatLn || amountSat > maxSatLn;
     },
     get receiveAmountFiatLabel() {
-      const {settings, receive: {value}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, receive: {amount}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return toFiatLabel(amountSat, settings);
     },
     get receiveAmountSatLabel() {
-      const {settings, receive: {value}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, receive: {amount}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return toSatLabel(amountSat);
     },
     get receiveFeesFiatLabel() {
@@ -73,13 +73,13 @@ const ComputedReceive = store => {
       return toSatLabel(store.receive.feesSat);
     },
     get receiveTotalFiatLabel() {
-      const {settings, receive: {value, feesSat}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, receive: {amount, feesSat}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return toFiatLabel(amountSat - feesSat, settings);
     },
     get receiveTotalSatLabel() {
-      const {settings, receive: {value, feesSat}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, receive: {amount, feesSat}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return toSatLabel(amountSat - feesSat);
     },
     get receiveEventAmountFiatLabel() {

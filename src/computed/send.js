@@ -10,16 +10,16 @@ import {
 const ComputedSend = store => {
   extendObservable(store, {
     get sendFlipLabel() {
-      const {settings, send: {value}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, send: {amount}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return !settings.displayFiat
         ? toFiatLabel(amountSat, settings)
         : toSatLabel(amountSat);
     },
-    get sendMinMaxValueLabel() {
+    get sendMinMaxAmountLabel() {
       const {type} = JSON.parse(store.send.input);
       const {settings, send: {
-        value,
+        amount,
         minSatLn,
         maxSatLn,
         minSatBtc,
@@ -33,7 +33,7 @@ const ComputedSend = store => {
         type === InputTypeVariant.BITCOIN_ADDRESS ? maxSatBtc :
         type === InputTypeVariant.LIQUID_ADDRESS ? Infinity :
         maxSatLn;
-      const amountSat = toSatoshis(value, settings);
+      const amountSat = toSatoshis(amount, settings);
       if (amountSat >= maxSat) {
         return `${toFiatOrSatLabel(maxSat, settings)} maximum`;
       }
@@ -42,13 +42,13 @@ const ComputedSend = store => {
     get sendAmountInvalid() {
       const {type} = JSON.parse(store.send.input);
       const {settings, send: {
-        value,
+        amount,
         minSatLn,
         maxSatLn,
         minSatBtc,
         maxSatBtc,
       }} = store;
-      const amountSat = toSatoshis(value, settings);
+      const amountSat = toSatoshis(amount, settings);
       return type === InputTypeVariant.BITCOIN_ADDRESS ?
         amountSat < minSatBtc || amountSat > maxSatBtc :
         type === InputTypeVariant.LIQUID_ADDRESS ? amountSat < 1 :
@@ -68,14 +68,14 @@ const ComputedSend = store => {
         address.address :
         (store.send.description || 'No description provided');
     },
-    get sendValueFiatLabel() {
-      const {settings, send: {value}} = store;
-      const amountSat = toSatoshis(value, settings);
+    get sendAmountFiatLabel() {
+      const {settings, send: {amount}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return toFiatLabel(amountSat, settings);
     },
-    get sendValueSatLabel() {
-      const {settings, send: {value}} = store;
-      const amountSat = toSatoshis(value, settings);
+    get sendAmountSatLabel() {
+      const {settings, send: {amount}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return toSatLabel(amountSat);
     },
     get sendFeeFiatLabel() {
@@ -86,14 +86,14 @@ const ComputedSend = store => {
       return toSatLabel(store.send.feesSat);
     },
     get sendTotalFiatLabel() {
-      const {settings, send: {value, feesSat}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, send: {amount, feesSat}} = store;
+      const amountSat = toSatoshis(amount, settings);
       const totalSat = amountSat + feesSat;
       return toFiatLabel(totalSat, settings);
     },
     get sendTotalSatLabel() {
-      const {settings, send: {value, feesSat}} = store;
-      const amountSat = toSatoshis(value, settings);
+      const {settings, send: {amount, feesSat}} = store;
+      const amountSat = toSatoshis(amount, settings);
       return toSatLabel(amountSat + feesSat);
     },
   });

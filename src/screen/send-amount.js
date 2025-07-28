@@ -32,8 +32,8 @@ const SendAmountScreen = () => (
         <AmountInput
           prefix={store.receiveInputPrefixLabel}
           suffix={store.receiveInputSuffixLabel}
-          value={store.send.value}
-          onChangeText={value => send.setAmount(value)}
+          value={store.send.amount}
+          onChangeText={amount => send.setAmount(amount)}
         />
         <FlipButton
           onPress={() => send.toggleFiat()}
@@ -47,7 +47,7 @@ const SendAmountScreen = () => (
         Review
       </BigButton>
       <ErrorLabel error={store.sendAmountInvalid}>
-        {store.sendMinMaxValueLabel}
+        {store.sendMinMaxAmountLabel}
       </ErrorLabel>
     </MainContent>
   </Background>

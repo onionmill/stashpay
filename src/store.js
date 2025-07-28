@@ -28,7 +28,7 @@ const store = observable({
     mnemonic: '',
   },
   receive: {
-    value: '',
+    amount: '',
     invoice: null,
     feesSat: null,
     description: '',
@@ -47,7 +47,7 @@ const store = observable({
   send: {
     rawUri: '',
     input: null,
-    value: '',
+    amount: '',
     prepareResponse: null,
     feesSat: null,
     description: null,

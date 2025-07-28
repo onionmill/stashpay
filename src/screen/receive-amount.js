@@ -41,8 +41,8 @@ const ReceiveAmountScreen = () => (
         <AmountInput
           prefix={store.receiveInputPrefixLabel}
           suffix={store.receiveInputSuffixLabel}
-          value={store.receive.value}
-          onChangeText={value => receive.setAmount(value)}
+          value={store.receive.amount}
+          onChangeText={amount => receive.setAmount(amount)}
         />
         <FlipButton
           onPress={() => receive.toggleFiat()}
@@ -55,7 +55,7 @@ const ReceiveAmountScreen = () => (
         Create Invoice
       </BigButton>
       <ErrorLabel error={store.receiveAmountInvalid}>
-        {store.receiveMinMaxValueLabel}
+        {store.receiveMinMaxAmountLabel}
       </ErrorLabel>
     </MainContent>
   </Background>

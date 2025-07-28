@@ -45,8 +45,8 @@ const SendSuccessScreen = () => (
           <SummaryLine>
             <SummaryLabel>Amount</SummaryLabel>
             <SummaryItem
-              top={store.sendValueFiatLabel}
-              bottom={store.sendValueSatLabel}
+              top={store.sendAmountFiatLabel}
+              bottom={store.sendAmountSatLabel}
             />
           </SummaryLine>
           <SummaryLine>

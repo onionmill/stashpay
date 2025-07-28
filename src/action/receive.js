@@ -10,7 +10,7 @@ import * as alert from './alert';
 import * as nav from '../action/nav';
 
 export async function initReceive() {
-  store.receive.value = '';
+  store.receive.amount = '';
   store.receive.onChain = false;
   store.settings.displayFiat = true;
   nav.goTo('ReceiveStack');
@@ -54,24 +54,24 @@ export function toggleOnchain() {
 }
 
 export function toggleFiat() {
-  const {value} = store.receive;
-  const amountSat = toSatoshis(value, store.settings);
+  const {amount} = store.receive;
+  const amountSat = toSatoshis(amount, store.settings);
   store.settings.displayFiat = !store.settings.displayFiat;
-  store.receive.value = toAmount(amountSat, store.settings, 2);
+  store.receive.amount = toAmount(amountSat, store.settings, 2);
 }
 
-export function setAmount(value) {
-  store.receive.value = normalizeAmount(value);
+export function setAmount(amount) {
+  store.receive.amount = normalizeAmount(amount);
 }
 
 export async function fetchInvoice() {
-  const {settings, receive: {value, unified, onChain}} = store;
+  const {settings, receive: {amount, unified, onChain}} = store;
   try {
     store.receive.invoice = null;
     while (!store.liquidConnected) {
       await nap(100);
     }
-    const amountSat = toSatoshis(value, settings);
+    const amountSat = toSatoshis(amount, settings);
     let response;
     if (unified && amountSat >= store.receive.minSatBtc) {
       response = await _fetchUnifiedInvoice();
@@ -112,11 +112,11 @@ async function _fetchBtcInvoice() {
 }
 
 async function _fetchLnInvoice() {
-  const {settings, receive: {value, description}} = store;
+  const {settings, receive: {amount, description}} = store;
   const prepareResponse = await liquid.prepareReceivePayment({
     amount: {
       type: liquid.ReceiveAmountVariant.BITCOIN,
-      payerAmountSat: toSatoshis(value, settings),
+      payerAmountSat: toSatoshis(amount, settings),
     },
     paymentMethod: liquid.PaymentMethod.BOLT11_INVOICE,
   });
@@ -127,17 +127,17 @@ async function _fetchLnInvoice() {
 }
 
 function _wrapBip21Btc(btcInvoice) {
-  const {settings, receive: {value}} = store;
+  const {settings, receive: {amount}} = store;
   const {address} = bip21.decode(btcInvoice);
-  const amount = toSatoshis(value, settings) / UNITS.btc.denominator;
-  return bip21.encode(address, {amount});
+  const amountBtc = toSatoshis(amount, settings) / UNITS.btc.denominator;
+  return bip21.encode(address, {amount: amountBtc});
 }
 
 function _wrapBip21Unified(btcInvoice, lnInvoice) {
-  const {settings, receive: {value}} = store;
+  const {settings, receive: {amount}} = store;
   const {address} = bip21.decode(btcInvoice);
-  const amount = toSatoshis(value, settings) / UNITS.btc.denominator;
-  return bip21.encode(address, {amount, lightning: lnInvoice});
+  const amountBtc = toSatoshis(amount, settings) / UNITS.btc.denominator;
+  return bip21.encode(address, {amount: amountBtc, lightning: lnInvoice});
 }
 
 export function copyInvoice() {

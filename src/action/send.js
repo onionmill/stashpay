@@ -11,7 +11,7 @@ import {fetchLnLimits, fetchOnchainLimits} from './receive';
 export function initSendAddress() {
   store.send.rawUri = '';
   store.send.input = null;
-  store.send.value = '';
+  store.send.amount = '';
   store.send.prepareResponse = null;
   store.send.feesSat = null;
   store.send.description = null;
@@ -19,10 +19,10 @@ export function initSendAddress() {
 }
 
 export function toggleFiat() {
-  const {value} = store.send;
-  const amountSat = toSatoshis(value, store.settings);
+  const {amount} = store.send;
+  const amountSat = toSatoshis(amount, store.settings);
   store.settings.displayFiat = !store.settings.displayFiat;
-  store.send.value = toAmount(amountSat, store.settings, 2);
+  store.send.amount = toAmount(amountSat, store.settings, 2);
 }
 
 //
@@ -123,7 +123,7 @@ async function _parseOnchainData() {
   }
   store.send.description = label;
   nav.goTo('SendStack', {screen: 'SendAmount'});
-  if (!store.send.value) {
+  if (!store.send.amount) {
     await fetchOnchainLimits(); // after nav for performance
   }
 }
@@ -132,13 +132,13 @@ async function _parseOnchainData() {
 // Payment Amount
 //
 
-export function setAmount(value) {
-  store.send.value = normalizeAmount(value);
+export function setAmount(amount) {
+  store.send.amount = normalizeAmount(amount);
 }
 
 function _setAmountSat(amountSat) {
   store.settings.displayFiat = false;
-  store.send.value = toAmount(amountSat, store.settings);
+  store.send.amount = toAmount(amountSat, store.settings);
 }
 
 export async function validateAmount() {
@@ -164,7 +164,7 @@ export async function validateAmount() {
 
 async function _prepareLnurlPayment() {
   const {data} = JSON.parse(store.send.input);
-  const amountSat = toSatoshis(store.send.value, store.settings);
+  const amountSat = toSatoshis(store.send.amount, store.settings);
   const prepareResponse = await liquid.prepareLnurlPay({
     data,
     amount: {
@@ -181,7 +181,7 @@ async function _prepareLnurlPayment() {
 
 async function _prepareBolt12Payment() {
   const {offer} = JSON.parse(store.send.input);
-  const amountSat = toSatoshis(store.send.value, store.settings);
+  const amountSat = toSatoshis(store.send.amount, store.settings);
   const prepareResponse = await liquid.prepareSendPayment({
     destination: offer.offer,
     amount: {
@@ -197,7 +197,7 @@ async function _prepareBolt12Payment() {
 }
 
 async function _prepareOnchainPayment() {
-  const amountSat = toSatoshis(store.send.value, store.settings);
+  const amountSat = toSatoshis(store.send.amount, store.settings);
   const prepareResponse = await liquid.preparePayOnchain({
     amount: {
       type: liquid.PayAmountVariant.BITCOIN,
@@ -211,7 +211,7 @@ async function _prepareOnchainPayment() {
 }
 
 async function _prepareLiquidPayment() {
-  const amountSat = toSatoshis(store.send.value, store.settings);
+  const amountSat = toSatoshis(store.send.amount, store.settings);
   const {address} = JSON.parse(store.send.input);
   const prepareResponse = await liquid.prepareSendPayment({
     destination: address.address,

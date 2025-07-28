@@ -23,17 +23,17 @@ const ComputedPayment = store => {
       const {selectedPayment: {details: {type}}} = store;
       return type.charAt(0).toUpperCase() + type.slice(1);
     },
-    get paymentValueFiatLabel() {
+    get paymentAmountFiatLabel() {
       const {settings, selectedPayment: {amountSat, feesSat, paymentType}} = store;
-      const value = paymentType === PaymentType.RECEIVE ?
+      const amount = paymentType === PaymentType.RECEIVE ?
         amountSat + feesSat : amountSat;
-      return toFiatLabel(value, settings);
+      return toFiatLabel(amount, settings);
     },
-    get paymentValueSatLabel() {
+    get paymentAmountSatLabel() {
       const {amountSat, feesSat, paymentType} = store.selectedPayment;
-      const value = paymentType === PaymentType.RECEIVE ?
+      const amount = paymentType === PaymentType.RECEIVE ?
         amountSat + feesSat : amountSat;
-      return toSatLabel(value);
+      return toSatLabel(amount);
     },
     get paymentFeeFiatLabel() {
       const {settings, selectedPayment: {feesSat}} = store;
@@ -44,15 +44,15 @@ const ComputedPayment = store => {
     },
     get paymentTotalFiatLabel() {
       const {settings, selectedPayment: {amountSat, feesSat, paymentType}} = store;
-      const value = paymentType === PaymentType.RECEIVE ?
+      const total = paymentType === PaymentType.RECEIVE ?
         amountSat : amountSat + feesSat;
-      return toFiatLabel(value, settings);
+      return toFiatLabel(total, settings);
     },
     get paymentTotalSatLabel() {
       const {amountSat, feesSat, paymentType} = store.selectedPayment;
-      const value = paymentType === PaymentType.RECEIVE ?
+      const total = paymentType === PaymentType.RECEIVE ?
         amountSat : amountSat + feesSat;
-      return toSatLabel(value);
+      return toSatLabel(total);
     },
   });
 };
