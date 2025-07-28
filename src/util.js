@@ -173,15 +173,15 @@ export const formatDate = timestamp => {
 /**
  * Format a string from text input to a valid amount. Filters
  * out non-numeric characters, adds a leading 0 if the string
- * starts with a . or , and removes any second trailing . or ,
+ * starts with a . or , and keeps only the first decimal separator
  * @param   {string} amount The amount as a string e.g. '0.01'
  * @returns {string}        The normalized amount
  */
 export const normalizeAmount = (amount) => {
   return amount
     .replace(/[^\d,.]/g, '') // Remove non-numeric chars except decimal separators
-    .replace(/^[,.]$/, '0$&') // Add leading 0 before lone decimal separator
-    .replace(/([,.].*)[,.]$/, '$1'); // Remove second trailing decimal separator
+    .replace(/^[,.]/, '0$&') // Add leading 0 before lone decimal separator
+    .replace(/([,.])[^]*/, match => match[0] + match.slice(1).replace(/[,.]/g, '')); // Keep first separator, remove others
 };
 
 /**

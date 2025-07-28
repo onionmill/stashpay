@@ -8,21 +8,21 @@ describe('Util Unit Tests', () => {
       expect(util.normalizeAmount('-1a2b3c.4d5')).toBe('123.45');
     });
 
-    it('should handle decimal separators', () => {
-      expect(util.normalizeAmount('1,000.00')).toBe('1,000.00');
-      expect(util.normalizeAmount('1.000,00')).toBe('1.000,00');
-      expect(util.normalizeAmount('1.000.000')).toBe('1.000.000');
-    });
-
     it('should add leading zero to lone decimal separator', () => {
       expect(util.normalizeAmount('.')).toBe('0.');
       expect(util.normalizeAmount(',')).toBe('0,');
+      expect(util.normalizeAmount('.1')).toBe('0.1');
+      expect(util.normalizeAmount(',1')).toBe('0,1');
+      expect(util.normalizeAmount(',1.2')).toBe('0,12');
+      expect(util.normalizeAmount('.1,2')).toBe('0.12');
     });
 
-    it('should remove second trailing decimal separator', () => {
-      expect(util.normalizeAmount('123.456.')).toBe('123.456');
-      expect(util.normalizeAmount('123,456,')).toBe('123,456');
-      expect(util.normalizeAmount('123.456,')).toBe('123.456');
+    it('should keep only the first decimal separator', () => {
+      expect(util.normalizeAmount('123.456.7,8.9')).toBe('123.456789');
+      expect(util.normalizeAmount('123,4.56,78.9')).toBe('123,456789');
+      expect(util.normalizeAmount('123.456,789')).toBe('123.456789');
+      expect(util.normalizeAmount('1.234.567.890')).toBe('1.234567890');
+      expect(util.normalizeAmount('.234,567.8-90')).toBe('0.234567890');
     });
 
     it('should handle empty or invalid input', () => {
