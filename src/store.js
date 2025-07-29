@@ -20,8 +20,6 @@ const store = observable({
   balanceFetched: false,
   payments: [],
   selectedPayment: null,
-  refundables: [],
-  refundAddress: null,
 
   // screens
   restore: {
@@ -55,6 +53,11 @@ const store = observable({
     maxSatLn: 25_000_000,
     minSatBtc: 25_000,
     maxSatBtc: 25_000_000,
+    processing: false,
+  },
+  refund: {
+    swapAddress: null,
+    refundAddress: '',
     processing: false,
   },
 

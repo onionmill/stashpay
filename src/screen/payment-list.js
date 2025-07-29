@@ -53,10 +53,15 @@ const Item = ({item}) => (
   <TouchableOpacity style={styles.item} onPress={() => selectPayment(item)}>
     <View style={styles.row}>
       <View style={styles.title}>
-        {item.status === 'pending' ? (<AlertBubble style={styles.alert} />) : null}
+        {item.status === 'pending' || item.status === 'refundable'
+          || item.status === 'refundPending' ?
+          (<AlertBubble style={styles.alert} />) : null}
         <Text style={styles.text}>
           {item.paymentType === 'send' ? 'Payment' : 'Received Payment'}
-          {item.status === 'pending' ? ' (pending)' : ''}
+          {item.status === 'pending' ? ' (pending)' :
+            item.status === 'refundable' ? ' (refundable)' :
+            item.status === 'refundPending' ? ' (refunding)' :
+            item.status === 'failed' ? ' (failed)' : ''}
         </Text>
       </View>
       <Text style={[{color: item.paymentType === 'send' ? color.textBase : color.green}, styles.text]}>
@@ -92,7 +97,7 @@ const PaymentListScreen = () => (
       style={styles.list}
       data={store.payments}
       renderItem={({item}) => <Item item={item} />}
-      keyExtractor={item => item.txId}
+      keyExtractor={item => item.txId || item.timestamp}
     />
   </Background>
 );

@@ -11,12 +11,13 @@ import {
   SummaryTotal,
 } from '../component/summary';
 import {BigButton, CloseButton, BackButton} from '../component/button';
-import {Header, MainContent} from '../component/layout';
+import {Header, ScrollContent} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
 import * as nav from '../action/nav';
 import {openExplorer} from '../action/payment';
+import {selectRefundable} from '../action/refund';
 
 const styles = StyleSheet.create({
   paramsWrapper: {
@@ -28,6 +29,9 @@ const styles = StyleSheet.create({
   lastLine: {
     marginBottom: 0,
   },
+  refundBtn: {
+    marginVertical: 10,
+  },
 });
 
 const SendSuccessScreen = () => (
@@ -37,7 +41,7 @@ const SendSuccessScreen = () => (
       <Title style={styles.title}>Payment</Title>
       <CloseButton onPress={() => nav.goBackTo('Main')} />
     </Header>
-    <MainContent>
+    <ScrollContent>
       <View style={styles.paramsWrapper}>
         <SummaryBox>
           <SummaryLine>
@@ -88,10 +92,18 @@ const SendSuccessScreen = () => (
           </SummaryTotal>
         </SummaryBox>
       </View>
+      {store.selectedPayment.status === 'refundable' ? (
+        <BigButton
+          icon="rewind"
+          style={styles.refundBtn}
+          onPress={() => selectRefundable()}>
+          Refund Payment
+        </BigButton>
+      ) : null}
       <BigButton onPress={() => openExplorer()}>
         View on Block Explorer
       </BigButton>
-    </MainContent>
+    </ScrollContent>
   </Background>
 );
 

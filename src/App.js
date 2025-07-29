@@ -12,6 +12,7 @@ import ReceiveAmountScreen from './screen/receive-amount';
 import ReceiveSuccessScreen from './screen/receive-success';
 import PaymentListScreen from './screen/payment-list';
 import PaymentListItemScreen from './screen/payment-list-item';
+import RefundPaymentScreen from './screen/refund-payment';
 import SendScreen from './screen/send';
 import SendAddressScreen from './screen/send-address';
 import SendAmountScreen from './screen/send-amount';
@@ -106,6 +107,11 @@ const PaymentListStackScreen = () => (
     <PaymentListStack.Screen
       name="PaymentListItem"
       component={PaymentListItemScreen}
+      options={{headerShown: false}}
+    />
+    <PaymentListStack.Screen
+      name="RefundPayment"
+      component={RefundPaymentScreen}
       options={{headerShown: false}}
     />
   </PaymentListStack.Navigator>
