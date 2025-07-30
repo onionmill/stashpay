@@ -118,14 +118,12 @@ async function _parseBolt12Payment() {
 
 async function _parseOnchainData() {
   const {address: {amountSat, label}} = JSON.parse(store.send.input);
+  store.send.description = label;
   if (amountSat) {
     _setAmountSat(amountSat);
   }
-  store.send.description = label;
   nav.goTo('SendStack', {screen: 'SendAmount'});
-  if (!store.send.amount) {
-    await fetchOnchainLimits(); // after nav for performance
-  }
+  await fetchOnchainLimits(); // after nav for performance
 }
 
 //
