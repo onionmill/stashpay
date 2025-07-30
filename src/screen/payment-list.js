@@ -53,9 +53,12 @@ const Item = ({item}) => (
   <TouchableOpacity style={styles.item} onPress={() => selectPayment(item)}>
     <View style={styles.row}>
       <View style={styles.title}>
-        {item.status === 'pending' || item.status === 'refundable'
-          || item.status === 'refundPending' ?
-          (<AlertBubble style={styles.alert} />) : null}
+        {
+          (item.status === 'pending' ||
+          item.status === 'refundable' ||
+          item.status === 'refundPending') ?
+          (<AlertBubble style={styles.alert} />) : null
+        }
         <Text style={styles.text}>
           {item.paymentType === 'send' ? 'Payment' : 'Received Payment'}
           {item.status === 'pending' ? ' (pending)' :
