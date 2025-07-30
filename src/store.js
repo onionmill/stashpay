@@ -11,6 +11,7 @@ const store = observable({
   navReady: false,
   mnemonic: null,
   walletReady: false,
+  walletBackedUp: false,
   liquidConnected: false,
   liquidListenerId: null,
   balance: null,

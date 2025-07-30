@@ -105,12 +105,12 @@ const iconStyles = StyleSheet.create({
   },
 });
 
-export const IconButton = ({onPress, disabled, alert, iconName, style}) => (
+export const IconButton = ({onPress, disabled, alert, iconName, iconColor, iconSize, style}) => (
   <TouchableOpacity
     style={[{opacity: disabled ? 0.5 : 1}, iconStyles.touchable, style]}
     disabled={disabled}
     onPress={onPress}>
-    <Feather name={iconName} size={22} color={color.textBase} />
+    <Feather name={iconName} size={iconSize || 22} color={iconColor || color.textBase} />
     {alert ? <AlertBubble style={iconStyles.alert} /> : null}
   </TouchableOpacity>
 );

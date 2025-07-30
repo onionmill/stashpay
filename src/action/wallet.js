@@ -13,6 +13,7 @@ import {loadPayments, fetchPayments, deletePayments} from './payment';
 import {nap} from '../util';
 
 const MNEMONIC_KEY = 'photon.mnemonic';
+const BACKED_UP_KEY = 'backed_up';
 const INFO_KEY = 'info';
 
 //
@@ -24,6 +25,7 @@ export const init = action(async () => {
     log.info(`Running version ${store.config.appVersion} (SDK ${store.config.sdkVersion})`);
     const hasWallet = await _getSeedFromKeychain();
     if (hasWallet) {
+      await _loadBackedUp();
       await _loadBalance();
       await loadPayments();
     } else {
@@ -47,6 +49,7 @@ async function _generateSeedAndSaveToKeychain() {
     throw Error('Generated invalid seed!');
   }
   await keychain.setItem(MNEMONIC_KEY, mnemonic);
+  log.info('Generated new seed and stored in keychain');
   await _resetStorage();
   await _getSeedFromKeychain();
 }
@@ -181,6 +184,30 @@ export function initSeedBackup() {
   nav.goTo('SeedBackupStack');
 }
 
+export async function initSeedDisplay() {
+  nav.goTo('SeedBackup');
+  await _setBackedUp();
+}
+
+async function _setBackedUp() {
+  try {
+    store.walletBackedUp = true;
+    await storage.setItem(BACKED_UP_KEY, store.walletBackedUp);
+    log.trace(`Stored wallet backed up: ${store.walletBackedUp}`);
+  } catch (err) {
+    log.error(err);
+  }
+}
+
+async function _loadBackedUp() {
+  const backedUp = await storage.getItem(BACKED_UP_KEY);
+  log.trace(`Loaded wallet backed up: ${backedUp}`);
+  if (backedUp === null) {
+    return;
+  }
+  store.walletBackedUp = backedUp;
+}
+
 export function initSeedRestore() {
   store.restore.mnemonic = '';
   nav.goTo('SeedRestoreStack');
@@ -209,6 +236,7 @@ const _importMnemonicAndRestart = action(async () => {
     await _stopLiquidClient();
     await keychain.setItem(MNEMONIC_KEY, mnemonic);
     await _resetStorage();
+    await _setBackedUp();
     Clipboard.setString('');
     await _reloadWallet();
   } catch (err) {
@@ -259,15 +287,21 @@ async function _stopLiquidClient() {
 
 async function _wipeCache() {
   store.walletReady = false;
+  store.walletBackedUp = false;
   await _generateSeedAndSaveToKeychain();
 }
 
 async function _resetStorage() {
   store.mnemonic = null;
   store.balance = null;
+  store.balancePendingSend = null;
+  store.balancePendingReceive = null;
   store.balanceFetched = false;
   store.payments = [];
   await storage.removeItem(INFO_KEY);
+  await storage.removeItem(BACKED_UP_KEY);
   await deletePayments();
+  log.trace('Deleted wallet storage');
   await log.deleteLogFile();
+  log.trace('Deleted log file');
 }

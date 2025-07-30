@@ -8,6 +8,7 @@ import {Header, MainContent, Spacer} from '../component/layout';
 import {Background} from '../component/background';
 
 import * as nav from '../action/nav';
+import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
   info: {
@@ -38,7 +39,7 @@ const SeedBackupInfoScreen = () => (
         The most secure backup option is to write it down on a piece of paper and keep that in a safe place. For smaller amounts you can also copy & paste it into a password manager.
       </Text>
       <Spacer />
-      <BigButton onPress={() => nav.goTo('SeedBackup')}>
+      <BigButton onPress={() => wallet.initSeedDisplay()}>
         Display Recovery Phrase
       </BigButton>
     </MainContent>

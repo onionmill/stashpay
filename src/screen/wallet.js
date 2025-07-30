@@ -10,6 +10,7 @@ import {BigButton, IconButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
+import * as wallet from '../action/wallet';
 import {initReceive} from '../action/receive';
 
 const styles = StyleSheet.create({
@@ -65,6 +66,14 @@ const balanceStyles = StyleSheet.create({
 const Balance = observer(() => {
   return (
     <View style={balanceStyles.wrapper}>
+      {store.balance && !store.walletBackedUp ? (
+        <IconButton
+          iconName={'alert-triangle'}
+          iconColor={color.warning}
+          iconSize={32}
+          onPress={() => wallet.initSeedBackup()}
+        />
+      ) : null}
       <Text
         style={balanceStyles.primary}
         adjustsFontSizeToFit={true}

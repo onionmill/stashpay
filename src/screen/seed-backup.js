@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {Title, Text} from '../component/text';
-import {IconButton, BackButton, BigButton} from '../component/button';
+import {CloseButton, BackButton, BigButton} from '../component/button';
 import {Header, MainContent, Spacer} from '../component/layout';
 import {Background} from '../component/background';
 import {font, color} from '../component/style';
@@ -24,9 +24,9 @@ const styles = StyleSheet.create({
 const SeedBackupScreen = () => (
   <Background>
     <Header>
-      <BackButton onPress={() => nav.goBackTo('Settings')} />
+      <BackButton onPress={() => nav.goBack()} />
       <Title>Backup Wallet</Title>
-      <IconButton/>
+      <CloseButton onPress={() => nav.goBackTo('Main')} />
     </Header>
     <MainContent>
       <View style={styles.wrapper}>
