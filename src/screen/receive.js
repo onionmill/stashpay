@@ -13,7 +13,7 @@ import {
 import {QRCode} from '../component/qrcode';
 import {BigButton, CloseButton, BackButton} from '../component/button';
 import {LargeSpinner} from '../component/spinner';
-import {Header, MainContent} from '../component/layout';
+import {Header, ScrollContent} from '../component/layout';
 import {Background} from '../component/background';
 
 import store from '../store';
@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
   },
   codeWrapper: {
   },
+  summaryWrapper: {
+    marginVertical: 10,
+  },
 });
 
 const ReceiveScreen = ({navigation}) => {
@@ -45,9 +48,9 @@ const ReceiveScreen = ({navigation}) => {
         <Title>Receive</Title>
         <CloseButton onPress={() => nav.goBackTo('Main')} />
       </Header>
-      <MainContent style={styles.wrapper}>
+      <ScrollContent style={styles.wrapper}>
         {store.receive.invoice ? <Address /> : <LargeSpinner />}
-      </MainContent>
+      </ScrollContent>
     </Background>
   );
 };
@@ -68,7 +71,7 @@ const Address = () => (
 );
 
 const Summary = () => (
-  <SummaryBox>
+  <SummaryBox style={styles.summaryWrapper}>
     <SummaryLine>
       <SummaryLabel>Amount</SummaryLabel>
       <SummaryItem
