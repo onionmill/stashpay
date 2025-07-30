@@ -1,6 +1,6 @@
 {
   "name": "StashPay",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "private": true,
   "scripts": {
     "android": "react-native run-android --list-devices",
