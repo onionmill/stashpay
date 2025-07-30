@@ -5,7 +5,7 @@ import {observer} from 'mobx-react';
 import {Title, Text} from '../component/text';
 import {LinkButton, IconButton, BackButton} from '../component/button';
 import {color, font} from '../component/style';
-import {Header, MainContent} from '../component/layout';
+import {Header, ScrollContent, Spacer} from '../component/layout';
 import {Background} from '../component/background';
 import {Section, SectionItem} from '../component/section';
 
@@ -16,11 +16,7 @@ import * as wallet from '../action/wallet';
 
 const styles = StyleSheet.create({
   versionWrapper: {
-    position: 'absolute',
-    bottom: 30,
-    left: 10,
-    right: 10,
-    alignSelf: 'stretch',
+    marginTop: 20,
     alignItems: 'center',
   },
   versionText: {
@@ -46,7 +42,7 @@ const SettingsScreen = () => (
       <Title>Settings</Title>
       <IconButton/>
     </Header>
-    <MainContent>
+    <ScrollContent>
       <Section title="Recovery">
         <SectionItem
           title="Backup Wallet"
@@ -84,6 +80,7 @@ const SettingsScreen = () => (
           iconSize={18}
         />
       </Section>
+      <Spacer />
       <View style={styles.versionWrapper}>
         <Text style={[styles.versionText, styles.appName]}>StashPay</Text>
         <View style={styles.linksWrapper}>
@@ -103,7 +100,7 @@ const SettingsScreen = () => (
           Version {store.config.appVersion}
         </Text>
       </View>
-    </MainContent>
+    </ScrollContent>
   </Background>
 );
 
