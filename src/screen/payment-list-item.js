@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   lastLine: {
     marginBottom: 0,
   },
-  refundBtn: {
-    marginVertical: 10,
+  btn: {
+    marginTop: 10,
   },
 });
 
@@ -95,12 +95,12 @@ const SendSuccessScreen = () => (
       {store.selectedPayment.status === 'refundable' ? (
         <BigButton
           icon="rewind"
-          style={styles.refundBtn}
+          style={styles.btn}
           onPress={() => selectRefundable()}>
           Refund Payment
         </BigButton>
       ) : null}
-      <BigButton onPress={() => openExplorer()}>
+      <BigButton style={styles.btn} onPress={() => openExplorer()}>
         View on Block Explorer
       </BigButton>
     </ScrollContent>
