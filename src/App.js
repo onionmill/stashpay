@@ -131,6 +131,11 @@ const App = () => (
         options={{headerShown: false}}
       />
       <RootStack.Screen
+        name="PaymentListStack"
+        component={PaymentListStackScreen}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{headerShown: false}}
@@ -169,14 +174,6 @@ const App = () => (
         <RootStack.Screen
           name="ReceiveSuccess"
           component={ReceiveSuccessScreen}
-          options={{
-            headerShown: false,
-            animation: Platform.OS === 'android' ? 'fade_from_bottom' : undefined,
-          }}
-        />
-        <RootStack.Screen
-          name="PaymentListStack"
-          component={PaymentListStackScreen}
           options={{
             headerShown: false,
             animation: Platform.OS === 'android' ? 'fade_from_bottom' : undefined,
