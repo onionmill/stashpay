@@ -131,6 +131,16 @@ const App = () => (
         options={{headerShown: false}}
       />
       <RootStack.Screen
+        name="ReceiveStack"
+        component={ReceiveStackScreen}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
+        name="SendStack"
+        component={SendStackScreen}
+        options={{headerShown: false}}
+      />
+      <RootStack.Screen
         name="PaymentListStack"
         component={PaymentListStackScreen}
         options={{headerShown: false}}
@@ -148,16 +158,6 @@ const App = () => (
       <RootStack.Screen
         name="SeedRestoreStack"
         component={SeedRestoreScreen}
-        options={{headerShown: false}}
-      />
-      <RootStack.Screen
-        name="ReceiveStack"
-        component={ReceiveStackScreen}
-        options={{headerShown: false}}
-      />
-      <RootStack.Screen
-        name="SendStack"
-        component={SendStackScreen}
         options={{headerShown: false}}
       />
       <RootStack.Screen
