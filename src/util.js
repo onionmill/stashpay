@@ -2,7 +2,7 @@ const NAP_DELAY = 5000;
 const RETRY_DELAY = 1000;
 
 export const UNITS = {
-  sat: { display: 'sats', displayLong: 'Satoshi', denominator: 1 },
+  sat: { display: '₿', displayLong: 'Satoshi', denominator: 1 },
   bit: { display: 'bits', displayLong: 'Bits', denominator: 100 },
   btc: { display: 'BTC', displayLong: 'Bitcoin', denominator: 100000000 },
 };
@@ -304,7 +304,7 @@ export const toFiatLabel = (satoshis, settings) => {
  * @return {string}          The corresponding value label
  */
 export const toSatLabel = satoshis => {
-  return formatNumber(satoshis) + ' ' + UNITS.sat.display;
+  return UNITS.sat.display + formatNumber(satoshis);
 };
 
 /**

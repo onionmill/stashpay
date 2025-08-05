@@ -11,12 +11,11 @@ import {
 const ComputedReceive = store => {
   extendObservable(store, {
     get receiveInputPrefixLabel() {
-      const {fiat, displayFiat} = store.settings;
-      return displayFiat ? FIATS[fiat].display : '';
+      const {unit, fiat, displayFiat} = store.settings;
+      return displayFiat ? FIATS[fiat].display : UNITS[unit].display;
     },
     get receiveInputSuffixLabel() {
-      const {unit, displayFiat} = store.settings;
-      return displayFiat ? '' : ' ' + UNITS[unit].display;
+      return '';
     },
     get receiveFlipLabel() {
       const {settings, receive: {amount}} = store;

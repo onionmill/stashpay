@@ -487,37 +487,37 @@ describe('Util Unit Tests', () => {
   describe('toSatLabel()', () => {
     it('should work for undefined', () => {
       const lbl = util.toSatLabel(undefined);
-      expect(lbl).toBe('0 sats');
+      expect(lbl).toBe('₿0');
     });
 
     it('should work for NaN', () => {
       const lbl = util.toSatLabel(NaN);
-      expect(lbl).toBe('0 sats');
+      expect(lbl).toBe('₿0');
     });
 
     it('should work for null', () => {
       const lbl = util.toSatLabel(null);
-      expect(lbl).toBe('0 sats');
+      expect(lbl).toBe('₿0');
     });
 
     it('should work for empty string', () => {
       const lbl = util.toSatLabel('');
-      expect(lbl).toBe('0 sats');
+      expect(lbl).toBe('₿0');
     });
 
     it('should format a 0', () => {
       const lbl = util.toSatLabel(0);
-      expect(lbl).toBe('0 sats');
+      expect(lbl).toBe('₿0');
     });
 
     it('should format a sat string value', () => {
       const lbl = util.toSatLabel('100000000');
-      expect(lbl).toMatch(/^1{1}0{2}[,.]{1}0{3}[,.]{1}0{3} sats$/);
+      expect(lbl).toMatch(/^₿1{1}0{2}[,.]{1}0{3}[,.]{1}0{3}$/);
     });
 
     it('should format a sat number value', () => {
       const lbl = util.toSatLabel(100000000);
-      expect(lbl).toMatch(/^1{1}0{2}[,.]{1}0{3}[,.]{1}0{3} sats$/);
+      expect(lbl).toMatch(/^₿1{1}0{2}[,.]{1}0{3}[,.]{1}0{3}$/);
     });
   });
 
