@@ -56,9 +56,6 @@ export async function openExplorer() {
       },
     } = store.selectedPayment;
     const url =
-      (claimTxId &&
-        paymentType === liquid.PaymentType.RECEIVE) ?
-        `${store.config.explorerLiquid}/tx/${claimTxId}#blinded=${unblindingData}` :
       (lockupTxId &&
         paymentType === liquid.PaymentType.RECEIVE &&
         type === liquid.ListPaymentDetailsVariant.BITCOIN) ?
