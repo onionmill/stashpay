@@ -39,13 +39,35 @@ export async function deletePayments() {
 
 export function selectPayment(payment) {
   store.selectedPayment = payment;
+  log.trace(`Selected payment: ${JSON.stringify(payment)}`);
   nav.goTo('PaymentListItem');
 }
 
 export async function openExplorer() {
   try {
-    const {txId} = store.selectedPayment;
-    const url = `${store.config.explorer}/tx/${txId}`;
+    const {
+      txId,
+      unblindingData,
+      paymentType,
+      details: {
+        type,
+        lockupTxId,
+        claimTxId,
+      },
+    } = store.selectedPayment;
+    const url =
+      (claimTxId &&
+        paymentType === liquid.PaymentType.RECEIVE) ?
+        `${store.config.explorerLiquid}/tx/${claimTxId}#blinded=${unblindingData}` :
+      (lockupTxId &&
+        paymentType === liquid.PaymentType.RECEIVE &&
+        type === liquid.ListPaymentDetailsVariant.BITCOIN) ?
+        `${store.config.explorerBitcoin}/tx/${lockupTxId}` :
+      (claimTxId &&
+        paymentType === liquid.PaymentType.SEND &&
+        type === liquid.ListPaymentDetailsVariant.BITCOIN) ?
+        `${store.config.explorerBitcoin}/tx/${claimTxId}` :
+      `${store.config.explorerLiquid}/tx/${txId}#blinded=${unblindingData}`;
     await Linking.openURL(url);
   } catch (err) {
     log.error(err);
