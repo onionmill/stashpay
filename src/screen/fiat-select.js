@@ -35,7 +35,7 @@ const FiatSelectScreen = () => {
     <Background>
       <Header>
         <BackButton onPress={() => nav.goBack()} />
-        <Title>Fiat Currency</Title>
+        <Title>Display Currency</Title>
         <IconButton/>
       </Header>
       <SearchBar

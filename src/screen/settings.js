@@ -57,7 +57,7 @@ const SettingsScreen = () => (
       </Section>
       <Section title="Config">
         <SectionItem
-          title="Fiat Currency"
+          title="Display Currency"
           onPress={() => nav.goTo('FiatSelect')}
           icon="chevron-right"
         />
