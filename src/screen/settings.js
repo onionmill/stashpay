@@ -45,7 +45,7 @@ const SettingsScreen = () => (
     <ScrollContent>
       <Section title="Recovery">
         <SectionItem
-          title="Backup Wallet"
+          title="Create Backup"
           onPress={() => wallet.initSeedBackup()}
           icon="chevron-right"
         />

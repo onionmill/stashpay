@@ -25,7 +25,7 @@ const SeedBackupScreen = () => (
   <Background>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
-      <Title>Backup Wallet</Title>
+      <Title>Backup</Title>
       <CloseButton onPress={() => nav.goBackTo('Main')} />
     </Header>
     <MainContent>

@@ -28,9 +28,9 @@ const SeedBackupInfoScreen = () => (
       <IconButton/>
     </Header>
     <MainContent>
-      <H1Text>Recovery Phrase</H1Text>
+      <H1Text>Create Backup</H1Text>
       <Text style={styles.info}>
-        The recovery phrase (or seed phrase) is a list of 12 words. It gives you access to your funds and allows you to recover your wallet on another device.
+        The recovery phrase (or seed phrase) is a list of 12 words. It gives you access to your funds and allows you to recover your wallet on another device. Without a backup, you lose your funds if you lose your phone.
       </Text>
       <Text style={styles.warning}>
         Do not show this to anyone and don't take a screenshot.
