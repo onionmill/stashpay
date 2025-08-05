@@ -69,7 +69,12 @@ const Item = ({item}) => (
       </View>
       <Text style={[{color: item.paymentType === 'send' ? color.textBase : color.green}, styles.text]}>
         {item.paymentType === 'send' ? '-' : '+'}
-        {toFiatLabel(item.amountSat, store.settings)}
+        {toFiatLabel(
+          item.paymentType === 'send' ?
+          item.amountSat + item.feesSat :
+          item.amountSat,
+          store.settings
+        )}
       </Text>
     </View>
     <View style={styles.row}>
@@ -83,7 +88,11 @@ const Item = ({item}) => (
         </Text>
       </View>
       <Text style={[styles.text, styles.secondary]}>
-        {toSatLabel(item.amountSat)}
+        {toSatLabel(
+          item.paymentType === 'send' ?
+          item.amountSat + item.feesSat :
+          item.amountSat
+        )}
       </Text>
     </View>
   </TouchableOpacity>
