@@ -67,7 +67,10 @@ const Item = ({item}) => (
             item.status === 'failed' ? ' (failed)' : ''}
         </Text>
       </View>
-      <Text style={[{color: item.paymentType === 'send' ? color.textBase : color.green}, styles.text]}>
+      <Text style={[
+          {color: item.paymentType === 'send' ? color.textBase : color.green},
+          styles.text,
+        ]}>
         {item.paymentType === 'send' ? '-' : '+'}
         {toFiatLabel(
           item.paymentType === 'send' ?
