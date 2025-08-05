@@ -62,11 +62,11 @@ export async function openExplorer() {
       (lockupTxId &&
         paymentType === liquid.PaymentType.RECEIVE &&
         type === liquid.ListPaymentDetailsVariant.BITCOIN) ?
-        `${store.config.explorerBitcoin}/tx/${lockupTxId}` :
+        `${store.config.explorerBitcoin}/tx/${lockupTxId}?mode=details` :
       (claimTxId &&
         paymentType === liquid.PaymentType.SEND &&
         type === liquid.ListPaymentDetailsVariant.BITCOIN) ?
-        `${store.config.explorerBitcoin}/tx/${claimTxId}` :
+        `${store.config.explorerBitcoin}/tx/${claimTxId}?mode=details` :
       `${store.config.explorerLiquid}/tx/${txId}#blinded=${unblindingData}`;
     await Linking.openURL(url);
   } catch (err) {
