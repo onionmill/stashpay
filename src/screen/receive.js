@@ -75,21 +75,21 @@ const Summary = () => (
     <SummaryLine>
       <SummaryLabel>Amount</SummaryLabel>
       <SummaryItem
-        top={store.receiveAmountFiatLabel}
-        bottom={store.receiveAmountSatLabel}
+        top={store.receiveAmountSatLabel}
+        bottom={store.receiveAmountFiatLabel}
       />
     </SummaryLine>
     <SummaryLine>
       <SummaryLabel>Network Fees (estimate)</SummaryLabel>
       <SummaryItem
-        top={store.receiveFeesFiatLabel}
-        bottom={store.receiveFeesSatLabel}
+        top={store.receiveFeesSatLabel}
+        bottom={store.receiveFeesFiatLabel}
       />
     </SummaryLine>
     <SummaryTotal>
       <SummaryItem
-        top={store.receiveTotalFiatLabel}
-        bottom={store.receiveTotalSatLabel}
+        top={store.receiveTotalSatLabel}
+        bottom={store.receiveTotalFiatLabel}
       />
     </SummaryTotal>
   </SummaryBox>

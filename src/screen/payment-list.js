@@ -72,11 +72,10 @@ const Item = ({item}) => (
           styles.text,
         ]}>
         {item.paymentType === 'send' ? '-' : '+'}
-        {toFiatLabel(
+        {toSatLabel(
           item.paymentType === 'send' ?
           item.amountSat + item.feesSat :
-          item.amountSat,
-          store.settings
+          item.amountSat
         )}
       </Text>
     </View>
@@ -91,10 +90,11 @@ const Item = ({item}) => (
         </Text>
       </View>
       <Text style={[styles.text, styles.secondary]}>
-        {toSatLabel(
+        {toFiatLabel(
           item.paymentType === 'send' ?
           item.amountSat + item.feesSat :
-          item.amountSat
+          item.amountSat,
+          store.settings
         )}
       </Text>
     </View>

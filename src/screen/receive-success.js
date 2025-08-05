@@ -45,21 +45,21 @@ const ReceiveSuccessScreen = () => (
           <SummaryLine>
             <SummaryLabel>Amount</SummaryLabel>
             <SummaryItem
-              top={store.receiveEventAmountFiatLabel}
-              bottom={store.receiveEventAmountSatLabel}
+              top={store.receiveEventAmountSatLabel}
+              bottom={store.receiveEventAmountFiatLabel}
             />
           </SummaryLine>
           <SummaryLine>
             <SummaryLabel>Network Fees</SummaryLabel>
             <SummaryItem
-              top={store.receiveEventFeesFiatLabel}
-              bottom={store.receiveEventFeesSatLabel}
+              top={store.receiveEventFeesSatLabel}
+              bottom={store.receiveEventFeesFiatLabel}
             />
           </SummaryLine>
           <SummaryTotal>
             <SummaryItem
-              top={store.receiveEventTotalFiatLabel}
-              bottom={store.receiveEventTotalSatLabel}
+              top={store.receiveEventTotalSatLabel}
+              bottom={store.receiveEventTotalFiatLabel}
             />
           </SummaryTotal>
         </SummaryBox>

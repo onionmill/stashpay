@@ -45,21 +45,21 @@ const SendSuccessScreen = () => (
           <SummaryLine>
             <SummaryLabel>Amount</SummaryLabel>
             <SummaryItem
-              top={store.sendAmountFiatLabel}
-              bottom={store.sendAmountSatLabel}
+              top={store.sendAmountSatLabel}
+              bottom={store.sendAmountFiatLabel}
             />
           </SummaryLine>
           <SummaryLine>
             <SummaryLabel>Network Fees</SummaryLabel>
             <SummaryItem
-              top={store.sendFeeFiatLabel}
-              bottom={store.sendFeeSatLabel}
+              top={store.sendFeeSatLabel}
+              bottom={store.sendFeeFiatLabel}
             />
           </SummaryLine>
           <SummaryTotal>
             <SummaryItem
-              top={store.sendTotalFiatLabel}
-              bottom={store.sendTotalSatLabel}
+              top={store.sendTotalSatLabel}
+              bottom={store.sendTotalFiatLabel}
             />
           </SummaryTotal>
         </SummaryBox>

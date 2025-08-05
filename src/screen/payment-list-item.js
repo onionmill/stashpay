@@ -73,21 +73,21 @@ const SendSuccessScreen = () => (
           <SummaryLine>
             <SummaryLabel>Amount</SummaryLabel>
             <SummaryItem
-              top={store.paymentAmountFiatLabel}
-              bottom={store.paymentAmountSatLabel}
+              top={store.paymentAmountSatLabel}
+              bottom={store.paymentAmountFiatLabel}
             />
           </SummaryLine>
           <SummaryLine>
             <SummaryLabel>Network Fees</SummaryLabel>
             <SummaryItem
-              top={store.paymentFeeFiatLabel}
-              bottom={store.paymentFeeSatLabel}
+              top={store.paymentFeeSatLabel}
+              bottom={store.paymentFeeFiatLabel}
             />
           </SummaryLine>
           <SummaryTotal>
             <SummaryItem
-              top={store.paymentTotalFiatLabel}
-              bottom={store.paymentTotalSatLabel}
+              top={store.paymentTotalSatLabel}
+              bottom={store.paymentTotalFiatLabel}
             />
           </SummaryTotal>
         </SummaryBox>
