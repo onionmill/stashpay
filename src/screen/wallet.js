@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Platform} from 'react-native';
 import {observer} from 'mobx-react';
 
 import {font, color} from '../component/style';
@@ -22,8 +22,10 @@ const styles = StyleSheet.create({
   },
 });
 
+const keyboardAvoid = Platform.OS === 'ios' ? true : false; // quirk on iOS when nav to receive-amount
+
 const WalletScreen = () => (
-  <Background keyboardAvoid>
+  <Background keyboardAvoid={keyboardAvoid}>
     <Header>
       <IconButton
         iconName={'clock'}
