@@ -1,4 +1,4 @@
-import bip21 from 'bip21';
+import * as bip21 from 'bip21';
 import RNShare from 'react-native-share';
 import Clipboard from '@react-native-clipboard/clipboard';
 import * as liquid from '@breeztech/react-native-breez-sdk-liquid';
