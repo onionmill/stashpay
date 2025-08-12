@@ -6,6 +6,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {Text} from './text';
 import {color, font} from './style';
 import {SmallSpinner} from './spinner';
+import FlipIcon from '../asset/img/flip-icon';
 
 //
 // Link Button
@@ -50,7 +51,7 @@ const flipStyles = StyleSheet.create({
   },
   icon: {
     marginLeft: 5,
-    transform: [{ rotate: '90deg' }],
+    fontSize: 21,
     color: color.textFine,
   },
 });
@@ -61,7 +62,7 @@ export const FlipButton = ({onPress, disabled, label, style}) => (
     disabled={disabled}
     onPress={onPress}>
     <Text style={flipStyles.label}>{label}</Text>
-    <Feather name={'repeat'} size={20} style={flipStyles.icon} />
+    <FlipIcon style={flipStyles.icon} />
   </TouchableOpacity>
 );
 
