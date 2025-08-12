@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Animated} from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
+import {Feather} from '@react-native-vector-icons/feather';
 
 import {Text} from './text';
 import {color, font} from './style';
