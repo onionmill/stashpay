@@ -32,6 +32,7 @@ const SeedRestoreScreen = () => (
       <TextInput
         placeholder="recovery phrase separated by spaces"
         textContentType="password"
+        secureTextEntry
         autoFocus
         multiline
         style={styles.input}
