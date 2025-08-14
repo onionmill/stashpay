@@ -67,7 +67,7 @@ const SettingsScreen = () => (
           icon="chevron-right"
         />
         <SectionItem
-          title="Export logs"
+          title="Export Logs"
           onPress={() => log.exportLogFile()}
           icon="download"
           iconSize={16}
