@@ -15,18 +15,18 @@ const QRSelectScreen = () => (
   <Background>
     <Header>
       <BackButton onPress={() => nav.goBack()} />
-      <Title>Receive QR Code</Title>
+      <Title>Receive Options</Title>
       <IconButton/>
     </Header>
     <ScrollContent>
-      <Section title="Receive Protocols">
+      <Section title="Receive QR Code">
         <SectionItem
           title="Unified QR Code (Recommended)"
           onPress={() => settings.setUnifiedQR(true)}
           icon={store.receive.unified ? 'check' : undefined}
         />
         <SectionItem
-          title="Chose Lightning or OnChain"
+          title="Chose Lightning or OnChain Address"
           onPress={() => settings.setUnifiedQR(false)}
           icon={!store.receive.unified ? 'check' : undefined}
         />

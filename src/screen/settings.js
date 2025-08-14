@@ -62,7 +62,7 @@ const SettingsScreen = () => (
           icon="chevron-right"
         />
         <SectionItem
-          title="Receive QR Code"
+          title="Receive Options"
           onPress={() => nav.goTo('QrSelect')}
           icon="chevron-right"
         />
