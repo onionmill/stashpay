@@ -40,7 +40,8 @@ const SendAddressScreen = () => (
       />
       <BigButton
         processing={store.send.processing}
-        onPress={() => send.parseUri()}>
+        onPress={() => send.parseUri()}
+        disabled={!store.send.rawUri}>
         Check Address
       </BigButton>
     </MainContent>
