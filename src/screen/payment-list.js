@@ -86,7 +86,7 @@ const Item = ({item}) => (
           ellipsizeMode="tail"
           numberOfLines={1}
         >
-          {item.details.description || 'No description'}
+          {item.details.description.trim() || 'No description'}
         </Text>
       </View>
       <Text style={[styles.text, styles.secondary]}>

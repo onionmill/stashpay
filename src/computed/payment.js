@@ -6,7 +6,7 @@ const ComputedPayment = store => {
   extendObservable(store, {
     get paymentDescriptionLabel() {
       const {selectedPayment: {details: {description}}} = store;
-      return description || 'No description';
+      return description.trim() || 'No description';
     },
     get paymentTimeLabel() {
       return formatDate(store.selectedPayment.timestamp);
