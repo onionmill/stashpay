@@ -26,7 +26,7 @@ const QRSelectScreen = () => (
           icon={store.receive.unified ? 'check' : undefined}
         />
         <SectionItem
-          title="Chose Lightning or OnChain Address"
+          title="Chose Lightning or OnChain"
           onPress={() => settings.setUnifiedQR(false)}
           icon={!store.receive.unified ? 'check' : undefined}
         />
