@@ -1,5 +1,7 @@
 import React from 'react';
-import {Text as RNText, StyleSheet} from 'react-native';
+import {Text as RNText, StyleSheet, View} from 'react-native';
+import {Feather} from '@react-native-vector-icons/feather';
+
 import {font, color} from './style';
 
 //
@@ -75,4 +77,32 @@ export const ErrorLabel = ({children, error, style}) => (
   ]}>
     {children}
   </Text>
+);
+
+//
+// Info Label
+//
+
+const infoStyles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    marginLeft: 10,
+    marginRight: 40,
+    fontFamily: 'SFProDisplay-Light',
+    fontSize: font.sizeS,
+    lineHeight: font.lineHeightS,
+    color: color.textFine,
+  },
+});
+
+export const InfoLabel = ({children, style}) => (
+  <View style={infoStyles.wrapper}>
+    <Feather name={'info'} size={font.sizeBase} color={color.textFine} />
+    <Text style={[infoStyles.text, style]}>
+      {children}
+    </Text>
+  </View>
 );

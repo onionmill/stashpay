@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 
-import {Title} from '../component/text';
+import {Title, InfoLabel} from '../component/text';
 import {Background} from '../component/background';
 import {Header, ScrollContent} from '../component/layout';
 import {Section, SectionItem} from '../component/section';
@@ -31,6 +31,10 @@ const QRSelectScreen = () => (
           onPress={() => settings.setUnifiedQR(false)}
           icon={!store.receive.unified ? 'check' : undefined}
         />
+        <InfoLabel>
+          Unified QR codes are supported by most wallets.
+          But you can chose a format in case of compatability issues.
+        </InfoLabel>
       </Section>
       <Section title="Advanced">
         <SectionItem
@@ -38,6 +42,10 @@ const QRSelectScreen = () => (
           onPress={() => receive.rescanOnchainSwaps()}
           icon={'radio'}
         />
+        <InfoLabel>
+          The wallet only detects the first payment to an address.
+          You can rescan if you've sent multiple payments to it.
+        </InfoLabel>
       </Section>
     </ScrollContent>
   </Background>
