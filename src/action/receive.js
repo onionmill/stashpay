@@ -140,6 +140,17 @@ function _wrapBip21Unified(btcInvoice, lnInvoice) {
   return bip21.encode(address, {amount: amountBtc, lightning: lnInvoice});
 }
 
+export async function rescanOnchainSwaps() {
+  try {
+    log.info('Rescanning onchain swaps...');
+    await liquid.rescanOnchainSwaps();
+    log.info('Finished rescanning onchain swaps!');
+    alert.info('Rescan finished!');
+  } catch (err) {
+    alert.error({err});
+  }
+}
+
 export function copyInvoice() {
   Clipboard.setString(store.receive.invoice);
 }

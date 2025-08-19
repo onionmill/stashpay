@@ -9,6 +9,7 @@ import {IconButton, BackButton} from '../component/button';
 
 import store from '../store';
 import * as nav from '../action/nav';
+import * as receive from '../action/receive';
 import * as settings from '../action/settings';
 
 const QRSelectScreen = () => (
@@ -29,6 +30,13 @@ const QRSelectScreen = () => (
           title="Chose Lightning or OnChain"
           onPress={() => settings.setUnifiedQR(false)}
           icon={!store.receive.unified ? 'check' : undefined}
+        />
+      </Section>
+      <Section title="Advanced">
+        <SectionItem
+          title="Rescan OnChain Addresses"
+          onPress={() => receive.rescanOnchainSwaps()}
+          icon={'radio'}
         />
       </Section>
     </ScrollContent>
