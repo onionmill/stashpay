@@ -101,6 +101,26 @@ const Item = ({item}) => (
   </TouchableOpacity>
 );
 
+const emptyStyles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: '50%',
+  },
+  text: {
+    color: color.textFine,
+  },
+});
+
+const EmptyList = () => (
+  <View style={emptyStyles.wrapper}>
+    <Text style={emptyStyles.text}>
+      No payments here yet.
+    </Text>
+  </View>
+);
+
 const PaymentListScreen = () => (
   <Background>
     <Header>
@@ -108,12 +128,16 @@ const PaymentListScreen = () => (
       <Title>Payments</Title>
       <IconButton />
     </Header>
-    <FlatList
-      style={styles.list}
-      data={store.payments}
-      renderItem={({item}) => <Item item={item} />}
-      keyExtractor={item => item.txId || item.timestamp}
-    />
+    {store.payments.length ? (
+      <FlatList
+        style={styles.list}
+        data={store.payments}
+        renderItem={({item}) => <Item item={item} />}
+        keyExtractor={item => item.txId || item.timestamp}
+      />
+    ) : (
+      <EmptyList />
+    )}
   </Background>
 );
 
