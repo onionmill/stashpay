@@ -56,12 +56,14 @@ const Item = ({item}) => (
         {
           (item.status === 'pending' ||
           item.status === 'refundable' ||
-          item.status === 'refundPending') ?
+          item.status === 'refundPending' ||
+          item.status === 'waitingFeeAcceptance') ?
           (<AlertBubble style={styles.alert} />) : null
         }
         <Text style={styles.text}>
           {item.paymentType === 'send' ? 'Payment' : 'Received Payment'}
           {item.status === 'pending' ? ' (pending)' :
+            item.status === 'waitingFeeAcceptance' ? ' (waiting)' :
             item.status === 'refundable' ? ' (refundable)' :
             item.status === 'refundPending' ? ' (refunding)' :
             item.status === 'failed' ? ' (failed)' : ''}
