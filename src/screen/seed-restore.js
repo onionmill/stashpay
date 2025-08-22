@@ -39,7 +39,9 @@ const SeedRestoreScreen = () => (
         value={store.restore.mnemonic}
         onChangeText={mnemonic => wallet.setMnemonic(mnemonic)}
       />
-      <BigButton onPress={() => wallet.importMnemonic()}>
+      <BigButton
+        onPress={() => wallet.importMnemonic()}
+        disabled={!store.restore.mnemonic}>
         Import Wallet
       </BigButton>
     </MainContent>
