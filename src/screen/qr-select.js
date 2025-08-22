@@ -31,10 +31,6 @@ const QRSelectScreen = () => (
           onPress={() => settings.setUnifiedQR(false)}
           icon={!store.receive.unified ? 'check' : undefined}
         />
-        <InfoLabel>
-          Unified QR codes are supported by most wallets.
-          But you can chose a format in case of compatability issues.
-        </InfoLabel>
       </Section>
       <Section title="Advanced">
         <SectionItem
