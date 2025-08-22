@@ -143,8 +143,10 @@ function _wrapBip21Unified(btcInvoice, lnInvoice) {
 export async function rescanOnchainSwaps() {
   try {
     log.info('Rescanning onchain swaps...');
+    nav.reset('Splash');
     await liquid.rescanOnchainSwaps();
     log.info('Finished rescanning onchain swaps!');
+    nav.reset('Main');
     alert.info('Rescan finished!');
   } catch (err) {
     alert.error({err});
