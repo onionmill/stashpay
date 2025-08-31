@@ -73,6 +73,7 @@ export const initLiquidClient = action(async () => {
     };
     config.syncServiceUrl = store.config.syncServiceUrl;
     config.onchainFeeRateLeewaySat = store.config.feeFlex;
+    log.trace(`Liquid config: ${JSON.stringify(config)}`);
     await liquid.connect({mnemonic, config});
     log.info('Liquid wallet connected!');
     store.liquidListenerId = await liquid.addEventListener(_onEvent);
